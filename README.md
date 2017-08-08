@@ -2,7 +2,7 @@
 
 ### Scope
 
-This test suite verifies that a WMTS implementation conforms to the NSG Wem Map Tile Service 
+This test suite verifies that a WMTS implementation conforms to the NSG Web Map Tile Service 
 1.0 Implementation Interoperability Profile, v1.0.0 ([NGA.STND.0063_1.0_WMTS](https://nsgreg.nga.mil/doc/view?i=4258), 
 2016-09-15). The aim is to cover the MANDATORY and RECOMMENDED capabilities stipulated in 
 all relevant specifications.
