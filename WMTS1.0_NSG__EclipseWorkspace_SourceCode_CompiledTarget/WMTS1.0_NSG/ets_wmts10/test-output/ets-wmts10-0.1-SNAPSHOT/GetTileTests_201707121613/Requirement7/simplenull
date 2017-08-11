@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExceptionReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.opengis.net/ows/1.1"
+  xsi:schemaLocation="http://www.opengis.net/ows/1.1 http://schemas.cubewerx.com/schemas/ows/1.1.0/owsExceptionReport.xsd"
+  version="1.0.0" xml:lang="en">
+  <Exception exceptionCode="NotFound">
+    <ExceptionText>CubeSERV: The requested document could not be found, raised in Wmts_CollectRestGetTileParams() in file "getTile.c" line 525 (process 29798)</ExceptionText>
+    <ExceptionText>CubeSERV: Invalid tile URL: cannot parse out tile-request parameters, raised in ConvTilePath_Parse() in file "tile.c" line 2592 (process 29798)</ExceptionText>
+    <ExceptionText>CubeSERV: No driver found for image identifier ".depthl_1m/cubewerx/smerc/11/797/1701", raised in RasterStream_SniffForType() in file "raster/stream.c" line 564 (process 29798)</ExceptionText>
+  </Exception>
+</ExceptionReport>

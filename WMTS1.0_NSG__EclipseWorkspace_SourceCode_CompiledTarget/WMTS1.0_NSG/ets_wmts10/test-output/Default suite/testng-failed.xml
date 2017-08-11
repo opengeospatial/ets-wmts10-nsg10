@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsCapabilitiesSoapReponseTest"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsCapabilitiesSOAPCapable"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

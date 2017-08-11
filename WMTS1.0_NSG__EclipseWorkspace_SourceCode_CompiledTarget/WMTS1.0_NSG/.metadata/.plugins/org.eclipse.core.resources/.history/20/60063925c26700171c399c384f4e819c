@@ -1,0 +1,45 @@
+package ets.wmts10.testsuite.getcapabilities;
+
+
+import static org.testng.Assert.assertNotNull;
+
+import javax.xml.xpath.XPathExpressionException;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.w3c.dom.Node;
+
+import ets.wmts10.core.util.ServiceMetadataUtils;
+import ets.wmts10.core.util.request.WmtsKvpRequestBuilder;
+import ets.wmts10.testsuite.AbstractBaseGetFixture;
+
+/**
+ * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
+ */
+public abstract class AbstractBaseGetCapabilitiesFixture extends AbstractBaseGetFixture {
+
+    /**
+     * Builds a {@link WmsKvpRequest} representing a GetCapabilities request for a complete service metadata document.
+     */
+    @BeforeClass
+    public void buildGetCapabilitiesRequest()
+    {
+    	this.reqEntity = WmtsKvpRequestBuilder.buildGetCapabilitiesRequest(wmtsCapabilities, layerInfo);
+    }
+
+    @Test
+    public void verifyGetFeatureInfoSupported() 
+    {
+    	Node getCapabilitiesEntry = null;
+    	try
+    	{
+    		getCapabilitiesEntry = (Node)ServiceMetadataUtils.getNode(wmtsCapabilities, "//ows:OperationsMetadata/ows:Operation[@name = 'GetCapabilitiesX']");
+		} 
+    	catch (XPathExpressionException e) 
+    	{
+		}
+    	assertNotNull( getCapabilitiesEntry, "GetFeatureInfo is not supported by this WMTS" );
+    }
+    
+  
+}

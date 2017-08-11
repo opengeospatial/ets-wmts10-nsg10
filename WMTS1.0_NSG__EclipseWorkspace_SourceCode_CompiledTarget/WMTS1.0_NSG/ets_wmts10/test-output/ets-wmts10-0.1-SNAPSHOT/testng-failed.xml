@@ -1,0 +1,2039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" verbose="0" name="Failed suite [ets-wmts10-0.1-SNAPSHOT]">
+  <parameter name="wmts" value="http://ips.terrapixel.com/terrapixel/cubeserv.cgi?SERVICE=WMTS&amp;REQUEST=GetCapabilities"/>
+  <parameter name="tes" value=""/>
+  <listeners>
+    <listener class-name="ets.wmts10.core.SuiteFixtureListener"/>
+  </listeners>
+  <test name="NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="wmtsCapabilitiesDataURL"/>
+          <include name="wmtsCapabilitiesAbstract"/>
+          <include name="wmtsCapabilitiesLayerStyleLegends"/>
+          <include name="wmtsCapabilitiesFeatureListURL"/>
+          <include name="wmtsCapabilitiesNASkeywords_LayerDimension"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsCapabilitiesLayerInfoFormat"/>
+          <include name="wmtsCapabilitiesNASkeywords"/>
+          <include name="wmtsCapabilitiesAccessConstraints"/>
+          <include name="initParser"/>
+          <include name="wmtsCapabilitiesNASkeywords_TileMatrixSet"/>
+          <include name="verifyGetCapabilitiesSupported"/>
+          <include name="wmtsCapabilitiesExists"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="wmtsCapabilitiesNASkeywords_LayerStyle"/>
+          <include name="wmtsCapabilitiesNASkeywords_Theme"/>
+          <include name="wmtsCapabilitiesNASkeywords_TileMatrix"/>
+          <include name="wmtsCapabilitiesNASkeywords_Layer"/>
+          <include name="wmtsCapabilitiesLayerDimension"/>
+          <include name="wmtsCapabilitiesServiceIdentificationExists"/>
+          <include name="wmtsCapabilitiesContentsExists"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 5(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsGetTileRequestFormatParameters" invocation-numbers="0"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="verifyGetTileSupported"/>
+          <include name="wmtsGetTileKVPRequestsExists"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 5(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 6(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsGetTileSOAPRequestsExists"/>
+          <include name="wmtsGetTileRequestFormatParameters" invocation-numbers="0"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="verifyGetTileSupported"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 6(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 9(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="wmtsGetFeatureInfoSOAPRequestsExists"/>
+          <include name="verifyGetFeatureInfoSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsGetTileRequestFormatParameters" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 9(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 10(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="wmtsGetFeatureInfoRESTCapable"/>
+          <include name="verifyGetFeatureInfoSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsGetFeatureInfoRequestParametersSupported"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 10(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 12(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="wmtsCapabilitiesEPSG3395Test"/>
+          <include name="initParser"/>
+          <include name="verifyGetCapabilitiesSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsCapabilitiesUPSTest"/>
+          <include name="wmtsCapabilitiesExists"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 12(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 13(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="wmtsCapabilitiesExists"/>
+          <include name="initParser"/>
+          <include name="verifyGetCapabilitiesSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsCapabilitiesUPSTest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 13(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 14(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsGetTileKVPRequestsExists"/>
+          <include name="wmtsGetTileOfferingsTestGIF"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="verifyGetTileSupported"/>
+          <include name="wmtsGetCapabilitiiesWithHTML" invocation-numbers="0"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 14(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 17(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsCapabilitiesKeywordTest"/>
+          <include name="verifyGetCapabilitiesSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="wmtsGetCapabilitiesURLExists"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 17(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 19(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="wmtsGetTileExpirationExists"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="verifyGetTileSupported"/>
+          <include name="buildGetTileRequest"/>
+          <include name="wmtsGetTileKVPRequestsExists"/>
+          <include name="wmtsGetTileCachingInformationExists"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 19(failed) -->
+  <test name="NSG Test A.3 - Server Test Module;  Requirement 20(failed)">
+    <classes>
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersKvp -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileOfferings">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileOfferings -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap -->
+      <class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse">
+        <methods>
+          <include name="initParser"/>
+          <include name="buildGetFeatureInfoRequest"/>
+          <include name="verifyGetFeatureInfoSupported"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="wmtsGetFeatureInfoRespondWith"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersSoap -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileParametersRest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest -->
+      <class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="buildGetCapabilitiesRequest"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest -->
+      <class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo">
+        <methods>
+          <include name="initParser"/>
+          <include name="addAttributesOnTestSuccess"/>
+          <include name="setResultDirectory"/>
+          <include name="initBaseFixture"/>
+          <include name="addAttributesOnTestFailure"/>
+          <include name="buildGetTileRequest"/>
+        </methods>
+      </class> <!-- nsg.wmts10.testsuite.gettile.GetTileCachingInfo -->
+    </classes>
+  </test> <!-- NSG Test A.3 - Server Test Module;  Requirement 20(failed) -->
+</suite> <!-- Failed suite [ets-wmts10-0.1-SNAPSHOT] -->

@@ -1,0 +1,69 @@
+package ets.wmts10.testsuite.getcapabilities;
+
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathException;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import de.latlon.ets.core.util.TestSuiteLogger;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+import ets.wmts10.core.util.request.WmtsKvpRequestBuilder;
+import ets.wmts10.testsuite.AbstractBaseGetFixture;
+
+/**
+ * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a> (original)
+ * @author Jim Beatty (modified/fixed May/Jun/Jul-2017 for WMS and/or WMTS)
+ */
+public abstract class AbstractBaseGetCapabilitiesFixture extends AbstractBaseGetFixture 
+{
+    /**
+     * Builds a {@link WmtsKvpRequest} representing a GetCapabilities request for a complete service metadata document.
+     */
+    @BeforeClass
+    public void buildGetCapabilitiesRequest()
+    {
+    	this.reqEntity = WmtsKvpRequestBuilder.buildGetCapabilitiesRequest(wmtsCapabilities, layerInfo);
+    }
+
+    @Test
+    public void verifyGetCapabilitiesSupported() 
+    {
+    	Node getCapabilitiesEntry = null;
+    	try
+    	{
+    		getCapabilitiesEntry = (Node)ServiceMetadataUtils.getNode(wmtsCapabilities, "//ows:OperationsMetadata/ows:Operation[@name = 'GetCapabilities']");
+		} 
+    	catch (XPathExpressionException e) 
+    	{
+		}
+    	assertNotNull( getCapabilitiesEntry, "GetCapabilities is not supported by this WMTS" );
+    }
+    
+    // ---
+    
+    // ---
+    
+  
+    // --- -------
+  
+}

@@ -1,0 +1,634 @@
+<html>
+<head>
+<title>TestNG:  NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>7/4/10</td>
+</tr><tr>
+<td>Started on:</td><td>Fri Jul 14 09:13:54 EDT 2017</td>
+</tr>
+<tr><td>Total time:</td><td>11 seconds (11994 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAbstract()'><b>wmtsCapabilitiesAbstract</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>java.lang.AssertionError: The &lt;Abstract&gt; statement (OGC-compliant web map tiling server (WMTS) by Harris Inc.) should be:  This service implements the NSG WMTS 1.0.0 profile version 1.0. expected [true] but found [false]
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAbstract(ServiceMetadataContent.java:123)
+... Removed 27 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace220165304", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace220165304'><pre>java.lang.AssertionError: The &lt;Abstract&gt; statement (OGC-compliant web map tiling server (WMTS) by Harris Inc.) should be:  This service implements the NSG WMTS 1.0.0 profile version 1.0. expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertTrue(Assert.java:42)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAbstract(ServiceMetadataContent.java:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAccessConstraints()'><b>wmtsCapabilitiesAccessConstraints</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>java.lang.AssertionError: Unexpected result evaluating XPath expression with context node #document: //ows:ServiceIdentification//ows:AccessConstraints expected [true] but found [false]
+	at de.latlon.ets.core.assertion.ETSAssert.assertXPath(ETSAssert.java:86)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAccessConstraints(ServiceMetadataContent.java:104)
+... Removed 27 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1551303995", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1551303995'><pre>java.lang.AssertionError: Unexpected result evaluating XPath expression with context node #document: //ows:ServiceIdentification//ows:AccessConstraints expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertTrue(Assert.java:42)
+	at de.latlon.ets.core.assertion.ETSAssert.assertXPath(ETSAssert.java:86)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesAccessConstraints(ServiceMetadataContent.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerInfoFormat()'><b>wmtsCapabilitiesLayerInfoFormat</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>java.lang.AssertionError: The following asserts failed:
+There are no &lt;InfoFormat&gt; elements for &lt;Layer&gt;:  CubeWerx.USGSTopo.USGSTopo
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerInfoFormat(ServiceMetadataContent.java:423)
+... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace352083716", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace352083716'><pre>java.lang.AssertionError: The following asserts failed:
+There are no &lt;InfoFormat&gt; elements for &lt;Layer&gt;:  CubeWerx.USGSTopo.USGSTopo
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:38)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerInfoFormat(ServiceMetadataContent.java:423)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerStyleLegends()'><b>wmtsCapabilitiesLayerStyleLegends</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>java.lang.AssertionError: The following asserts failed:
+&lt;Layer&gt;: Airports.Airports does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: Airports.Airports does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_Airfield_OpsVue.CLT_Airfield_OpsVue does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_Airfield_OpsVue.CLT_Airfield_OpsVue does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_OpsVue_Inverted.CLT_OpsVue_Inverted does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_OpsVue_Inverted.CLT_OpsVue_Inverted does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CVG.CVG does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CVG.CVG does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_HI.IFR_HI does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_HI.IFR_HI does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_LOW.IFR_LOW does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_LOW.IFR_LOW does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: VFR.VFR does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: VFR.VFR does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: DSM.DSM does not have a minScaleDenominator for &lt;Style&gt;: Elevation for a Legend, &lt;Layer&gt;: DSM.DSM does not have a maxScaleDenominator for &lt;Style&gt;: Elevation for a Legend, &lt;Layer&gt;: DTED.DTED does not have a minScaleDenominator for &lt;Style&gt;: gtopo30 for a Legend, &lt;Layer&gt;: DTED.DTED does not have a maxScaleDenominator for &lt;Style&gt;: gtopo30 for a Legend, &lt;Layer&gt;: KCVG.KCVG does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KCVG.KCVG does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KY.KY does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KY.KY does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SAN_Airport.SAN_Airport does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SAN_Airport.SAN_Airport does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SFO_Airport.SFO_Airport does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SFO_Airport.SFO_Airport does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.aerofacp_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.aerofacp_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.builtupa_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.builtupa_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a minScaleDenominator for &lt;Style&gt;: red for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a maxScaleDenominator for &lt;Style&gt;: red for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.combo does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.combo does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.depthl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.depthl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.etopo2 does not have a minScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.etopo2 does not have a maxScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.GTOPO30 does not have a minScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.GTOPO30 does not have a maxScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.inwatera_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.inwatera_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.oceansea_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.oceansea_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.polbndl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.polbndl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.railrdl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.railrdl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.roadl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.roadl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.treesa_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.treesa_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.watrcrsl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.watrcrsl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, There is no Legend for &lt;Style&gt;: default under &lt;Layer&gt;: CubeWerx.USGSTopo.USGSTopo, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a minScaleDenominator for &lt;Style&gt;: CIR_4_1_2 for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a maxScaleDenominator for &lt;Style&gt;: CIR_4_1_2 for a Legend
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerStyleLegends(ServiceMetadataContent.java:317)
+... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1366722422", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1366722422'><pre>java.lang.AssertionError: The following asserts failed:
+&lt;Layer&gt;: Airports.Airports does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: Airports.Airports does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_Airfield_OpsVue.CLT_Airfield_OpsVue does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_Airfield_OpsVue.CLT_Airfield_OpsVue does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_OpsVue_Inverted.CLT_OpsVue_Inverted does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CLT_OpsVue_Inverted.CLT_OpsVue_Inverted does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CVG.CVG does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CVG.CVG does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_HI.IFR_HI does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_HI.IFR_HI does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_LOW.IFR_LOW does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: IFR_LOW.IFR_LOW does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: VFR.VFR does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: VFR.VFR does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: DSM.DSM does not have a minScaleDenominator for &lt;Style&gt;: Elevation for a Legend, &lt;Layer&gt;: DSM.DSM does not have a maxScaleDenominator for &lt;Style&gt;: Elevation for a Legend, &lt;Layer&gt;: DTED.DTED does not have a minScaleDenominator for &lt;Style&gt;: gtopo30 for a Legend, &lt;Layer&gt;: DTED.DTED does not have a maxScaleDenominator for &lt;Style&gt;: gtopo30 for a Legend, &lt;Layer&gt;: KCVG.KCVG does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KCVG.KCVG does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KY.KY does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: KY.KY does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SAN_Airport.SAN_Airport does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SAN_Airport.SAN_Airport does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SFO_Airport.SFO_Airport does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: SFO_Airport.SFO_Airport does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.aerofacp_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.aerofacp_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.builtupa_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.builtupa_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a minScaleDenominator for &lt;Style&gt;: red for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.coastl_1m does not have a maxScaleDenominator for &lt;Style&gt;: red for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.combo does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.combo does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.depthl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.depthl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.etopo2 does not have a minScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.etopo2 does not have a maxScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.GTOPO30 does not have a minScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.GTOPO30 does not have a maxScaleDenominator for &lt;Style&gt;: classicShaded for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.inwatera_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.inwatera_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.oceansea_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.oceansea_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.polbndl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.polbndl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.railrdl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.railrdl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.roadl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.roadl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.treesa_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.treesa_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.watrcrsl_1m does not have a minScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, &lt;Layer&gt;: CubeWerx.Foundation.watrcrsl_1m does not have a maxScaleDenominator for &lt;Style&gt;: cubewerx for a Legend, There is no Legend for &lt;Style&gt;: default under &lt;Layer&gt;: CubeWerx.USGSTopo.USGSTopo, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a minScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a maxScaleDenominator for &lt;Style&gt;: default for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a minScaleDenominator for &lt;Style&gt;: CIR_4_1_2 for a Legend, &lt;Layer&gt;: CubeWerx.ASI.ASI does not have a maxScaleDenominator for &lt;Style&gt;: CIR_4_1_2 for a Legend
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:38)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerStyleLegends(ServiceMetadataContent.java:317)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>10</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.verifyGetCapabilitiesSupported()'><b>verifyGetCapabilitiesSupported</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesContentsExists()'><b>wmtsCapabilitiesContentsExists</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesExists()'><b>wmtsCapabilitiesExists</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerStyles()'><b>wmtsCapabilitiesLayerStyles</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesOperationsMetadataExists()'><b>wmtsCapabilitiesOperationsMetadataExists</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesServiceIdentificationExists()'><b>wmtsCapabilitiesServiceIdentificationExists</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesServiceProviderExists()'><b>wmtsCapabilitiesServiceProviderExists</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesDataURL()'><b>wmtsCapabilitiesDataURL</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: WMTS ServiceMetadata Capabilities does not currently include DataURLs
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesDataURL(ServiceMetadataContent.java:447)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace398457879", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace398457879'><pre>org.testng.SkipException: WMTS ServiceMetadata Capabilities does not currently include DataURLs
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesDataURL(ServiceMetadataContent.java:447)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesFeatureListURL()'><b>wmtsCapabilitiesFeatureListURL</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: WMTS ServiceMetadata Capabilities does not currently include FeatureListURLs
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesFeatureListURL(ServiceMetadataContent.java:435)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1193471756", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1193471756'><pre>org.testng.SkipException: WMTS ServiceMetadata Capabilities does not currently include FeatureListURLs
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesFeatureListURL(ServiceMetadataContent.java:435)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerDimension()'><b>wmtsCapabilitiesLayerDimension</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There are no &lt;Dimension&gt; elements within any of the defined &lt;Layer&gt; elements.
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerDimension(ServiceMetadataContent.java:379)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace944140566", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace944140566'><pre>org.testng.SkipException: There are no &lt;Dimension&gt; elements within any of the defined &lt;Layer&gt; elements.
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesLayerDimension(ServiceMetadataContent.java:379)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords()'><b>wmtsCapabilitiesNASkeywords</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under WMTS ServiceMetadata Capabilities docuemnt
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords(ServiceMetadataContent.java:133)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace817054343", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace817054343'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under WMTS ServiceMetadata Capabilities docuemnt
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords(ServiceMetadataContent.java:133)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Layer()'><b>wmtsCapabilitiesNASkeywords_Layer</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Layer Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Layer(ServiceMetadataContent.java:142)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1660451908", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1660451908'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Layer Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Layer(ServiceMetadataContent.java:142)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerDimension()'><b>wmtsCapabilitiesNASkeywords_LayerDimension</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Dimension Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerDimension(ServiceMetadataContent.java:160)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1363800072", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1363800072'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Dimension Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerDimension(ServiceMetadataContent.java:160)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerStyle()'><b>wmtsCapabilitiesNASkeywords_LayerStyle</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Style Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerStyle(ServiceMetadataContent.java:151)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace749100260", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace749100260'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Style Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_LayerStyle(ServiceMetadataContent.java:151)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Theme()'><b>wmtsCapabilitiesNASkeywords_Theme</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Theme Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Theme(ServiceMetadataContent.java:187)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace727497138", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace727497138'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under Theme Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_Theme(ServiceMetadataContent.java:187)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrix()'><b>wmtsCapabilitiesNASkeywords_TileMatrix</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under TileMatrix Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrix(ServiceMetadataContent.java:178)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1731137986", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1731137986'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under TileMatrix Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrix(ServiceMetadataContent.java:178)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+<tr>
+<td title='nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrixSet()'><b>wmtsCapabilitiesNASkeywords_TileMatrixSet</b><br>Test class: nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent<br>Test method: NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7</td>
+<td><div><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under TileMatrixSet Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrixSet(ServiceMetadataContent.java:169)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1928312257", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1928312257'><pre>org.testng.SkipException: There is no &lt;Keywords&gt; Element to compare under TileMatrixSet Data Structure
+	at nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest.verifyNASkeywords(GetCapabilitiesKeywordTest.java:79)
+	at nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent.wmtsCapabilitiesNASkeywords_TileMatrixSet(ServiceMetadataContent.java:169)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+</pre></div></td>
+<td>0</td>
+<td>nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent@1e88b3c</td></tr>
+</table><p>
+</body>
+</html>

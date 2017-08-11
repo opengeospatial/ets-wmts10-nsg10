@@ -1,0 +1,86 @@
+package nsg.wmts10.testsuite.getcapabilities;
+
+import ets.wmts10.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
+
+import org.testng.annotations.Test;
+
+import static ets.wmts10.core.assertion.WmtsAssertion.assertContentType;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
+import java.net.URI;
+
+import com.sun.jersey.api.client.ClientResponse;
+
+import de.latlon.ets.core.error.ErrorMessage;
+import de.latlon.ets.core.error.ErrorMessageKey;
+
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+
+
+public class GetCapabilitiesKvpFormatTest extends AbstractBaseGetCapabilitiesFixture 
+{
+/*---
+	NSG Requirement 15: 
+			An NSG WMTS server shall support negotiation of the standard version used for client-server 
+			interactions (KVP encoding).  
+---*/
+	private URI getCapabilitiesURI;
+	
+	
+	GetCapabilitiesKvpFormatTest() 
+	{
+		getCapabilitiesURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES, ProtocolBinding.GET );
+		assertTrue(getCapabilitiesURI != null, "GetCapabilities (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document.");
+	}
+	   
+	// ---
+
+	public void TestXML()
+	{
+		verifyFormatResponse(WMTS_Constants.TEXT_XML);
+	}
+	// ---
+
+	public void TestHTML()
+	{
+		verifyFormatResponse(WMTS_Constants.TEXT_HTML);
+	}
+
+	// ---
+	   
+	private boolean verifyFormatResponse(String requestFormat)
+	{
+		boolean result = false;
+			
+		if ( getCapabilitiesURI == null )
+		{
+			getCapabilitiesURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES, ProtocolBinding.GET );
+		}
+		
+		this.reqEntity.removeKvp(WMTS_Constants.FORMAT_PARAM);
+		this.reqEntity.addKvp(WMTS_Constants.FORMAT_PARAM, requestFormat);
+			
+		ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getCapabilitiesURI );
+		assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+		assertContentType( rsp.getHeaders(), requestFormat );
+		
+		result = (rsp.getStatus() == 200);
+		
+		return result;
+	}	 
+
+	   // --- -------
+/*--	   
+	private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	{
+		XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext( NS_BINDINGS );
+		return xpath;
+	}
+	--*/
+}

@@ -1,0 +1,12 @@
+The contents of this ZIP file is as follows:
+
+- Contents.txt - this file
+
+- Prescribed Install ZIP file includes only the stripped down NSG JAR (TEAMEngine processing) file, and the 
+  (new) NSG CTL (TEAMEngine UI) pages.  Can be copied directly into TEAMEngine (into the TEAM_BASE home and 
+  CATALINA_BASE home, respectively) w/o (re)compiling source code (and rebuilding) in Eclipse.  
+
+- Eclipse Workspace / Source Code / Compiled Targets ZIP file contains only the modified NSG TestSuite workspace 
+  based on the original OGC TestSuite Eclipse Workspace and source code built upon the Maven Archetype.  Additionally, 
+  the ZIP file includes the modified NSG JAVA extension classes, TXT & XML data files, and associated TXT files.
+

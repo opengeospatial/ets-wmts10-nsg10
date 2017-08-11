@@ -1,0 +1,30 @@
+package ets.wmts10.testsuite.getcapabilities;
+
+import static ets.wmts10.core.domain.WMTS_Constants.GET_CAPABILITIES;
+import static ets.wmts10.core.domain.WMTS_Constants.REQUEST_PARAM;
+import static ets.wmts10.core.domain.WMTS_Constants.SERVICE_PARAM;
+import static ets.wmts10.core.domain.WMTS_Constants.SERVICE_TYPE_CODE;
+import static ets.wmts10.core.domain.WMTS_Constants.VERSION;
+import static ets.wmts10.core.domain.WMTS_Constants.VERSION_PARAM;
+
+import org.testng.annotations.BeforeClass;
+
+import ets.wmts10.core.client.WmtsKvpRequest;
+import ets.wmts10.core.util.request.WmtsKvpRequestBuilder;
+import ets.wmts10.testsuite.AbstractBaseGetFixture;
+
+/**
+ * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
+ */
+public abstract class AbstractBaseGetCapabilitiesFixture extends AbstractBaseGetFixture {
+
+    /**
+     * Builds a {@link WmsKvpRequest} representing a GetCapabilities request for a complete service metadata document.
+     */
+    @BeforeClass
+    public void buildGetCapabilitiesRequest()
+    {
+    	this.reqEntity = WmtsKvpRequestBuilder.buildGetCapabilitiesRequest(wmtsCapabilities, layerInfo);
+    }
+
+}

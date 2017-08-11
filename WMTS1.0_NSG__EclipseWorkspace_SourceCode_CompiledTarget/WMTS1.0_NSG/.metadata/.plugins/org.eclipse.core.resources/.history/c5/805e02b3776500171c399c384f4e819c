@@ -1,0 +1,100 @@
+package nsg.wmts10.testsuite.gettile;
+
+import ets.wmts10.testsuite.gettile.AbstractBaseGetTileFixture;
+
+import java.net.URI;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import org.testng.ITestContext;
+import org.testng.annotations.Test;
+import org.w3c.dom.NodeList;
+
+import static org.testng.Assert.assertTrue;
+
+import static de.latlon.ets.core.assertion.ETSAssert.assertXPath;
+
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+
+
+public class GetTileParameters extends AbstractBaseGetTileFixture
+{
+	private URI getTileURI = null;
+	
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 5")//, dependsOnMethods = "wmtsGetTileOperationExists")
+	public void wmtsGetTileKVPRequestsExists() 
+	{
+		getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE, ProtocolBinding.GET );
+		assertTrue(getTileURI != null, "GetTile (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document.");
+	}
+	   
+	// ---
+	   
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 5", dependsOnMethods = "wmtsGetTileKVPRequestsExists")
+	public void wmsGetMapRequestParametersSupported( ITestContext testContext ) 
+			throws XPathFactoryConfigurationException, XPathExpressionException
+	                //    throws SOAPException
+	{
+
+		if ( getTileURI == null )
+		{
+			getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE, ProtocolBinding.GET );
+		}
+		String requestFormat = null;
+	        
+		NodeList imageFormats = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer/wmts:Format");
+		
+		for(int i=0; i<imageFormats.getLength(); i++)
+		{
+			String formatStr = imageFormats.item(i).getTextContent();
+			formatStr = null;
+		}
+		
+		
+		this.reqEntity.removeKvp( WMTS_Constants.FORMAT_PARAM );
+
+		/*--
+		if ( ServiceMetadataUtils.parseSupportedFormats(wmsCapabilities, GET_MAP).contains(IMAGE_PNG))
+		{
+	        	requestFormat = IMAGE_PNG;
+		}
+	        else
+	        	requestFormat = getSupportedFormat( wmsCapabilities, GET_MAP );
+
+	        this.reqEntity.addKvp( FORMAT_PARAM, requestFormat );
+	        ClientResponse rsp = wmsClient.submitRequest( this.reqEntity, endpoint );
+	        
+	      	storeResponseImage( rsp, "Requirement23", "simple", requestFormat );
+
+	        assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+	        assertStatusCode( rsp.getStatus(), 200 );
+	        assertContentType( rsp.getHeaders(), requestFormat );
+	    }
+	    
+	    --*/
+	}
+	   // ---
+
+	   // ---
+	   
+
+	
+	
+	   // --- -------
+	   
+	   private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	   {
+		   XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		   XPath xpath = factory.newXPath();
+		   xpath.setNamespaceContext( NS_BINDINGS );
+		   return xpath;
+	   }
+
+}

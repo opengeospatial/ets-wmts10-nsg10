@@ -1,0 +1,239 @@
+package nsg.wmts10.testsuite.getfeatureinfo;
+
+import ets.wmts10.testsuite.gettile.AbstractBaseGetFeatureInfoFixture;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.testng.Assert;
+import org.testng.ITestContext;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import static org.testng.Assert.assertTrue;
+
+import java.net.URI;
+import java.util.Iterator;
+import java.util.logging.Level;
+
+import javax.xml.namespace.QName;
+import javax.xml.soap.AttachmentPart;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPConstants;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPFault;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.SOAPPart;
+
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.stream.StreamResult;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import static de.latlon.ets.core.assertion.ETSAssert.assertUrl;
+
+import de.latlon.ets.core.util.TestSuiteLogger;
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.domain.WmtsNamespaces;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+import ets.wmts10.core.util.WMTS_SOAPcontainer;
+
+// -------
+
+public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture
+{
+/*---
+	NSG Requirement 9: 
+		An NSG WMTS server shall implement SOAP encoding using HTTP POST transfer of the GetFeatureInfo operation 
+		request, using SOAP version 1.2 encoding. 	
+---*/
+	
+	private URI getFeatureInfoURI = null;
+	
+	private boolean _debug = false;
+	
+	//--	private String _debugSOAPurl = "http://www.opengis.uab.es/cgi-bin/world/MiraMon5_0.cgi?";
+	//--	private String _debugSOAPurl = "https://basemap.nationalmap.gov:443/arcgis/services/USGSTopo/MapServer";
+
+	// ---
+	
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9")
+	public void wmtsGetFeatureInfoSOAPRequestsExists()
+	{
+		getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP(wmtsCapabilities, WMTS_Constants.GET_FEATURE_INFO, ProtocolBinding.POST);
+/*--
+if ( soapURI==null)
+{
+soapURI = URI.create(this._debugSOAPurl);
+}
+--*/			
+		assertTrue(this.getFeatureInfoURI != null, "GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP.");
+	}
+	
+	// ---
+	   
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "wmtsGetFeatureInfoSOAPRequestsExists")
+	public void wmtsGetTileRequestFormatParameters( ITestContext testContext ) 
+	{
+		if ( getFeatureInfoURI == null )
+		{
+			getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( this.wmtsCapabilities, WMTS_Constants.GET_FEATURE_INFO, ProtocolBinding.POST );
+		}
+		String soapURIstr = getFeatureInfoURI.toString(); 
+		assertUrl(soapURIstr);
+		
+		try
+		{
+			XPath xPath = createXPath();
+			
+			String layerName = this.reqEntity.getKvpValue(WMTS_Constants.LAYER_PARAM);
+			if ( layerName == null)
+			{
+				NodeList layers = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier");
+				if ( layers.getLength() > 0)
+				{
+					layerName = ((Node)layers.item(0)).getTextContent();
+				}			
+			}
+		
+		// --- get the prepopulated KVP parameters, for the SOAP parameters
+		
+			String style = this.reqEntity.getKvpValue(WMTS_Constants.STYLE_PARAM);
+			String tileMatrixSet = this.reqEntity.getKvpValue(WMTS_Constants.TILE_MATRIX_SET_PARAM);
+			String tileMatrix = this.reqEntity.getKvpValue(WMTS_Constants.TILE_MATRIX_PARAM);
+			String tileRow = this.reqEntity.getKvpValue(WMTS_Constants.TILE_ROW_PARAM);
+			String tileCol = this.reqEntity.getKvpValue(WMTS_Constants.TILE_COL_PARAM);
+			
+			String pixelI = this.reqEntity.getKvpValue(WMTS_Constants.I_PARAM);
+			String pixelJ = this.reqEntity.getKvpValue(WMTS_Constants.J_PARAM);
+			
+			String infoFormat = this.reqEntity.getKvpValue(WMTS_Constants.INFO_FORMAT_PARAM);
+			
+			String requestFormat = this.reqEntity.getKvpValue(WMTS_Constants.FORMAT_PARAM);  	
+			
+			WMTS_SOAPcontainer soap = new WMTS_SOAPcontainer(WMTS_Constants.GET_FEATURE_INFO, soapURIstr);
+			
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.I_PARAM, pixelI);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.J_PARAM, pixelJ);
+			soap.AddParameter(WmtsNamespaces.serviceOWS, WMTS_Constants.INFO_FORMAT_PARAM, infoFormat);
+		
+			SOAPMessage soapResponse = soap.getSOAPresponse();
+			assertTrue(soapResponse != null, "SOAP reposnse came back null");
+		
+			Source responseContent = soapResponse.getSOAPPart().getContent();
+			try
+			{
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+		
+				DOMResult result = new DOMResult();  
+				transformer.transform(responseContent, result);  
+				Document soapDocument = (Document)result.getNode();
+		
+				//String imageString = (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:BinaryContent", soapDocument,XPathConstants.STRING);
+				
+				String formatStr = ServiceMetadataUtils.getNodeText(xPath, soapDocument, "//wmts:BinaryPayload/wmts:Format");
+						
+				//storeSoapResponseImage( soapResponse, "Requirement6", "simple", formatStr );
+				/*-- */
+				this.parseNodes(soapDocument,0);
+				/* --*/
+				Assert.assertEquals(formatStr, requestFormat, "SOAP response received format: " + formatStr + " but expected: " + requestFormat);
+//			 assertXPath( "//wmts:Capabilities/@version = '1.0.0'", soapDocument, NS_BINDINGS );
+//				WmtsAssertion.assertXPath( sa, "//wmts:BinaryPayload/wmts:Format = '" + requestFormat + "'", soapDocument, NS_BINDINGS );
+			}
+			catch (TransformerException te)
+			{					
+				System.out.println("SOAP Response Error Message = " +  te.getMessage());
+				if ( this._debug )
+				{
+					te.printStackTrace();
+				}
+				assertTrue(false, "SOAP Response Error Message = " +  te.getMessage());
+			}		
+	
+		}
+		catch ( XPathExpressionException | XPathFactoryConfigurationException xpe)
+		{
+			System.out.println(xpe);
+			TestSuiteLogger.log(Level.WARNING, "Invalid or corrupt SOAP content or XML format", xpe);
+			if ( this._debug )
+			{
+				xpe.printStackTrace();
+			}
+		} 
+		catch (SOAPException se)
+		{
+			System.out.println(se);
+			TestSuiteLogger.log(Level.WARNING, "Invalid or corrupt SOAP content", se);
+			if ( this._debug )
+			{
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	// ---
+
+	// ---
+	   
+
+	
+	// --- --------
+	
+/*--- */   
+    private void parseNodes(Node n, int level)
+    {       	
+    	if ( n != null)
+    	{
+    		String nam = n.getNodeName();
+    		String val = n.getNodeValue();
+    		String lnm = n.getLocalName();
+    		String txt = n.getTextContent();
+    		
+    		for (int i=0; i<level; i++)
+    			System.out.print("\t");
+    		System.out.println("Node: " + nam + " = " + val );//+ "( or:  " + txt + " )");
+    		parseNodes(n.getFirstChild(), level+1);
+    		
+    		parseNodes(n.getNextSibling(), level);
+    	}
+    }
+/*  ---*/
+		
+
+    
+	// --- 
+/*---	  */
+	private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	{
+		XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext( NS_BINDINGS );
+		return xpath;
+	}
+/* ---*/
+}

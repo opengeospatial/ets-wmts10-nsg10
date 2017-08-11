@@ -1,0 +1,88 @@
+package nsg.wmts10.testsuite.getcapabilities;
+
+import ets.wmts10.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
+
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import org.w3c.dom.NodeList;
+
+import static de.latlon.ets.core.assertion.ETSAssert.assertXPath;
+import static ets.wmts10.core.assertion.WmtsAssertion.assertContentType;
+import static ets.wmts10.core.assertion.WmtsAssertion.assertStatusCode;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
+import java.net.URI;
+
+import javax.xml.xpath.XPathExpressionException;
+
+import com.sun.jersey.api.client.ClientResponse;
+
+import de.latlon.ets.core.error.ErrorMessage;
+import de.latlon.ets.core.error.ErrorMessageKey;
+
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+
+
+public class GetCapabilitiesCrsTest extends AbstractBaseGetCapabilitiesFixture 
+{
+/*---
+	NSG Requirement 11: 
+			An NSG WMTS server shall support the following coordinate reference systems:
+			•	CRS:84 WGS84 geographic longitude, then latitude, expressed in decimal degrees
+			•	EPSG:4326 WGS84 geographic latitude, then longitude, expressed in decimal degrees 
+---*/
+	private URI getCapabilitiesURI;
+	
+	
+	
+	
+	
+	// ---
+	   
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 11", dependsOnMethods="verifyGetCapabilitiesSupported")
+	public void wmtsCapabilitiesExists() 
+	{
+		assertTrue(this.wmtsCapabilities != null, "No ServerMetadata Capabilities document");
+	}
+	
+	// ---
+	   
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 11", dependsOnMethods="wmtsCapabilitiesExists")
+	public void wmtsCapabilitiesCrsTest() 
+	{
+		try 
+		{
+			boolean CRS84 = false;
+			boolean EPSG4326 = false;
+			
+			NodeList crsList = (NodeList)ServiceMetadataUtils.getNodeElements(wmtsCapabilities, "//ows:SupportedCRS");
+			
+			assertTrue(CRS84, "WMTS does not support CRS:84 (WGS84) in none of its <Layer>s or <TileMatrixSet>s.");
+			assertTrue(EPSG4326, "WMTS does not support EPSG:4326 (WGS84) in none of its <Layer>s or <TileMatrixSet>s.");
+		}
+		catch (XPathExpressionException xpe) 
+		{
+			//xpe.printStackTrace();
+		}
+	}
+	
+	// ---
+	
+
+	   // --- -------
+/*--	   
+	private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	{
+		XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext( NS_BINDINGS );
+		return xpath;
+	}
+	--*/
+}

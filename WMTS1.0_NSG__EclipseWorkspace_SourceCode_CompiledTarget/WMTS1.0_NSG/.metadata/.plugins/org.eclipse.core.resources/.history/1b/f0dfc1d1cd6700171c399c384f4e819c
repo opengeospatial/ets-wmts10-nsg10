@@ -1,0 +1,102 @@
+package nsg.wmts10.testsuite.getcapabilities;
+
+import ets.wmts10.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
+
+import org.testng.annotations.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.sun.jersey.api.client.ClientResponse;
+
+import static de.latlon.ets.core.assertion.ETSAssert.assertXPath;
+
+import static org.testng.Assert.assertTrue;
+
+import java.net.URI;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+
+
+public class GetCapabilitiesKvpVersionTest extends AbstractBaseGetCapabilitiesFixture 
+{
+/*---
+	NSG Requirement 15: 
+			An NSG WMTS server shall support negotiation of the standard version used for client-server 
+			interactions (KVP encoding).  
+---*/
+	private URI getCapabilitiesURI;
+	
+	private boolean _debug = false;
+
+	
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 15", dependsOnMethods = "verifyGetCapabilitiesSupported")
+	public void wmtsGetCapabilitiesURLExists() 
+	{
+		getCapabilitiesURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES, ProtocolBinding.GET );
+		assertTrue(getCapabilitiesURI != null, "GetCapabilities (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document.");
+	}
+	   
+	// ---
+	
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 15", dependsOnMethods="wmtsGetCapabilitiesURLExists")
+	public void wmtsCapabilitiesVersionTest() 
+	{		   
+		if ( getCapabilitiesURI == null )
+		{
+			getCapabilitiesURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES, ProtocolBinding.GET );
+		}
+		String requestFormat = null;
+		try
+		{
+			XPath xPath = createXPath();
+			
+			String layerName = this.reqEntity.getKvpValue(WMTS_Constants.LAYER_PARAM);
+			if ( layerName == null)
+			{
+				NodeList layers = ServiceMetadataUtils.getNodeElements( xPath, wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier");
+				if ( layers.getLength() > 0)
+				{
+					layerName = ((Node)layers.item(0)).getTextContent().trim();
+				}			
+			}	        
+			//NodeList imageFormats = ServiceMetadataUtils.getNodeElements( xPath, wmtsCapabilities, "//wmts:Contents/wmts:Layer[ows:Identifier = '" + layerName + "']/wmts:Format");
+		
+			/*--
+			String pixelI = this.reqEntity.getKvpValue(WMTS_Constants.I_PARAM);
+			String pixelJ = this.reqEntity.getKvpValue(WMTS_Constants.J_PARAM);
+			--*/
+			String infoFormat = this.reqEntity.getKvpValue(WMTS_Constants.INFO_FORMAT_PARAM);
+	
+		   
+		   
+		   
+		   
+		   ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getCapabilitiesURI );
+		   
+		   
+		   assertTrue(this.wmtsCapabilities != null, "No ServerMetadata Capabilities document");
+	   }
+	
+	   // ---
+	   
+	 
+
+	   // --- -------
+	   
+	   private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	   {
+		   XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		   XPath xpath = factory.newXPath();
+		   xpath.setNamespaceContext( NS_BINDINGS );
+		   return xpath;
+	   }
+}

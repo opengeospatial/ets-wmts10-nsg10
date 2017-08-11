@@ -1,0 +1,115 @@
+package nsg.wmts10.testsuite.gettile;
+
+import ets.wmts10.testsuite.gettile.AbstractBaseGetTileFixture;
+
+import java.net.URI;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import org.testng.ITestContext;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertTrue;
+
+import com.sun.jersey.api.client.ClientResponse;
+
+//import static de.latlon.ets.core.assertion.ETSAssert.assertXPath;
+//import static de.latlon.ets.core.assertion.ETSAssert.assertStatusCode;
+//import static de.latlon.ets.core.assertion.ETSAssert.assertContentType;
+import de.latlon.ets.core.error.ErrorMessage;
+import de.latlon.ets.core.error.ErrorMessageKey;
+import ets.wmts10.core.assertion.WmtsAssertion;
+import ets.wmts10.core.domain.ProtocolBinding;
+import ets.wmts10.core.domain.WMTS_Constants;
+import ets.wmts10.core.util.ServiceMetadataUtils;
+
+
+public class GetTileParametersKvp extends AbstractBaseGetTileFixture
+{
+/*---
+	NSG Requirement 5: 
+		An NSG WMTS server shall respond to a GetTile operation request with a tile map that complies with the 
+		requested parameters. 	
+---*/
+		
+	private URI getTileURI = null;
+	
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 5")//, dependsOnMethods = "wmtsGetTileOperationExists")
+	public void wmtsGetTileKVPRequestsExists() 
+	{
+		getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE, ProtocolBinding.GET );
+		assertTrue(getTileURI != null, "GetTile (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document.");
+	}
+	   
+	// ---
+	   
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 5", dependsOnMethods = "wmtsGetTileKVPRequestsExists")
+	public void wmsGetTileRequestFormatParameters( ITestContext testContext ) 
+			throws XPathFactoryConfigurationException, XPathExpressionException
+	                //    throws SOAPException
+	{
+		if ( getTileURI == null )
+		{
+			getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE, ProtocolBinding.GET );
+		}
+		String requestFormat = null;
+		
+		String layerName = this.reqEntity.getKvpValue(WMTS_Constants.LAYER_PARAM);
+		if ( layerName == null)
+		{
+			NodeList layers = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier");
+			if ( layers.getLength() > 0)
+			{
+				layerName = ((Node)layers.item(0)).getTextContent();
+			}			
+		}
+	        
+		NodeList imageFormats = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer[ows:Identifier = '" + layerName + "']/wmts:Format");
+		
+		SoftAssert sa = new SoftAssert();		
+
+		for(int i=0; i<imageFormats.getLength(); i++)
+		{
+			this.reqEntity.removeKvp( WMTS_Constants.FORMAT_PARAM );
+			
+			requestFormat = imageFormats.item(i).getTextContent();
+			this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
+			
+	        ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getTileURI );
+	        
+	      	storeResponseImage( rsp, "Requirement5", "simple", requestFormat );
+
+	        sa.assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+	        WmtsAssertion.assertStatusCode(  sa, rsp.getStatus(),  200 );
+	        WmtsAssertion.assertContentType( sa, rsp.getHeaders(), requestFormat );
+		}
+		
+		sa.assertAll();
+	}
+	
+	// ---
+
+	// ---
+	   
+
+	
+	
+	// --- -------
+	   
+	private XPath createXPath()
+               throws XPathFactoryConfigurationException
+	{
+		XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext( NS_BINDINGS );
+		return xpath;
+	}
+
+}
