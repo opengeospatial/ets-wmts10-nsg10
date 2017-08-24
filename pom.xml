@@ -69,8 +69,8 @@
  <dependencies>
     <dependency>
       <groupId>de.latlon</groupId>
-      <artifactId>ets-core</artifactId>
-      <version>0.2</version>
+      <artifactId>ets-dgiwg-core</artifactId>
+      <version>0.3</version>
     </dependency>
     <dependency>
       <groupId>org.opengis.cite.teamengine</groupId>
