@@ -145,31 +145,7 @@ public class ServiceMetadataUtilsTest {
         assertThat( layerInfo.isQueryable(), is( false ) );
     }
 --*/
-    /*
-    @Test
-    public void testParseUpdateSequence()
-                    throws Exception {
-        String updateSequence = ServiceMetadataUtils.parseUpdateSequence( wmtsCapabilities() );
 
-        assertThat( updateSequence, is( "0" ) );
-    }
-
-    @Test
-    public void testParseUpdateSequence_missingUpdateSequence()
-                    throws Exception {
-        String updateSequence = ServiceMetadataUtils.parseUpdateSequence( wmtsCapabilitiesMissingUpdateSequence() );
-
-        assertThat( updateSequence, is( nullValue() ) );
-    }
-
-    @Test
-    public void testParseUpdateSequence_emptyUpdateSequence()
-                    throws Exception {
-        String updateSequence = ServiceMetadataUtils.parseUpdateSequence( wmtsCapabilitiesEmptyUpdateSequence() );
-
-        assertThat( updateSequence, is( nullValue() ) );
-    }
---*/
     @Test
     public void testParseGeographicBoundingBox()
                     throws Exception
@@ -345,16 +321,6 @@ public class ServiceMetadataUtilsTest {
     private Document wmtsCapabilities()
                     throws SAXException, IOException, ParserConfigurationException {
         return capabilities( "../capabilities_wmts10.xml" );
-    }
-
-    private Document wmtsCapabilitiesEmptyUpdateSequence()
-                    throws ParserConfigurationException, SAXException, IOException {
-        return capabilities( "../capabilities_wmts10_emptyUpdateSequence.xml" );
-    }
-
-    private Document wmtsCapabilitiesMissingUpdateSequence()
-                    throws ParserConfigurationException, SAXException, IOException {
-        return capabilities( "../capabilities_wmts10_missingUpdateSequence.xml" );
     }
 
     private Node layerNode( String layerName )
