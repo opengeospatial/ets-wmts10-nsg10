@@ -13,8 +13,6 @@ public class LayerInfo {
 
     private final List<BoundingBox> bboxes;
 
-    private final List<Dimension> dimensions;
-
     private final BoundingBox geographicBbox;
 
     /**
@@ -24,26 +22,20 @@ public class LayerInfo {
      *            is not queryable (ows:Layer/@queryable=1)
      * @param bboxes
      *            bounding boxes of the layer (ows:Layer/ows:ows:BoundingBox), never <code>null</code>
-     * @param dimensions
-     *            dimensions of the layer,never <code>null</code>
      * @param geographicBbox
      *            geographic bounding box of the layer, never <code>null</code>
      * @throws IllegalArgumentException
      *             if layerName or bboxes is <code>null</code>
      */
-    public LayerInfo( String layerName, /*--boolean isQueryable,--*/List<BoundingBox> bboxes,
-                      List<Dimension> dimensions, BoundingBox geographicBbox ) {
+    public LayerInfo( String layerName, List<BoundingBox> bboxes, BoundingBox geographicBbox ) {
         if ( layerName == null || layerName.isEmpty() )
             throw new IllegalArgumentException( "layerName must not be null!" );
         if ( bboxes == null )
             throw new IllegalArgumentException( "bboxes must not be null!" );
-        if ( dimensions == null )
-            throw new IllegalArgumentException( "dimensions must not be null!" );
         if ( geographicBbox == null )
             throw new IllegalArgumentException( "geographicBbox must not be null!" );
         this.layerName = layerName;
         this.bboxes = bboxes;
-        this.dimensions = dimensions;
         this.geographicBbox = geographicBbox;
     }
 
@@ -59,13 +51,6 @@ public class LayerInfo {
      */
     public List<BoundingBox> getBboxes() {
         return bboxes;
-    }
-
-    /**
-     * @return the dimensions of the layer (ows:Layer/ows:ows:Dimension), never <code>null</code>
-     */
-    public List<Dimension> getDimensions() {
-        return dimensions;
     }
 
     /**

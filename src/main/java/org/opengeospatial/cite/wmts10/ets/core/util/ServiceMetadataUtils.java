@@ -27,11 +27,9 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.ISOPeriodFormat;
 import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
-import org.opengeospatial.cite.wmts10.ets.core.domain.Dimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.DimensionUnitValue;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimensionList;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeDimensionInterval;
@@ -405,11 +403,9 @@ public final class ServiceMetadataUtils {
     private static LayerInfo parseLayerInfo( XPath xPath, Node layerNode )
                             throws XPathExpressionException, ParseException {
         String layerName = parseNodeElementName( xPath, layerNode );
-        // boolean isQueryable = parseQueryable( xPath, layerNode );
         List<BoundingBox> bboxes = parseBoundingBoxes( xPath, layerNode );
         BoundingBox wgs84BBox = parseWGS84BoundingBox( xPath, layerNode );
-        List<Dimension> dimensions = parseDimensions( xPath, layerNode );
-        return new LayerInfo( layerName, /*--isQueryable, --*/bboxes, dimensions, wgs84BBox );
+        return new LayerInfo( layerName, bboxes, wgs84BBox );
     }
 
     private static List<BoundingBox> parseBoundingBoxes( XPath xPath, Node layerNode )
@@ -430,42 +426,7 @@ public final class ServiceMetadataUtils {
         String bboxExpr = "ancestor-or-self::wmts:Layer/ows:WGS84BoundingBox";
         Node bboxNode = (Node) xPath.evaluate( bboxExpr, layerNode, XPathConstants.NODE );
 
-        BoundingBox bbox = parseBoundingBox( bboxNode, true );
-
-        return bbox;
-    }
-
-    private static List<Dimension> parseDimensions( XPath xPath, Node layerNode )
-                            throws XPathExpressionException, ParseException {
-        ArrayList<Dimension> dimensions = new ArrayList<>();
-        String dimensionExpr = "ows:Dimension";
-        NodeList dimensionNodes = getNodeElements( xPath, layerNode, dimensionExpr );
-        for ( int dimensionNodeIndex = 0; dimensionNodeIndex < dimensionNodes.getLength(); dimensionNodeIndex++ ) {
-            Node dimensionNode = dimensionNodes.item( dimensionNodeIndex );
-            Dimension dimension = parseDimension( xPath, dimensionNode );
-            if ( dimension != null )
-                dimensions.add( dimension );
-        }
-        return dimensions;
-    }
-
-    private static Dimension parseDimension( XPath xPath, Node dimensionNode )
-                            throws XPathExpressionException, ParseException {
-        String name = (String) xPath.evaluate( "@name", dimensionNode, XPathConstants.STRING );
-        if ( name != null ) {
-            String units = (String) xPath.evaluate( "@units", dimensionNode, XPathConstants.STRING );
-            String value = (String) xPath.evaluate( "text()", dimensionNode, XPathConstants.STRING );
-            RequestableDimension requestableDimension = parseRequestableDimension( units, value );
-            DimensionUnitValue unitValue = new DimensionUnitValue( units, requestableDimension );
-            return new Dimension( name, unitValue );
-        }
-        return null;
-    }
-
-    private static double asDouble( Node node, String xPathExpr, XPath xPath )
-                            throws XPathExpressionException {
-        String content = (String) xPath.evaluate( xPathExpr, node, XPathConstants.STRING );
-        return Double.parseDouble( content );
+        return parseBoundingBox( bboxNode, true );
     }
 
     private static double[] asDoublePair( Node node, String xPathExpr, XPath xPath )
