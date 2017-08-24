@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
- <parent>
-    <groupId>org.opengis.cite</groupId>
-    <artifactId>ets-common</artifactId>
-    <version>5</version>
-  </parent>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wmts10-nsg</artifactId>
   <groupId>org.opengis.cite</groupId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  
-  <name>Conformance test suite for the DGIWG WMTS profile 1.0 for NSG.</name>
+  <name>Conformance test suite for the WMTS profile 1.0 for NSG.</name>
   <description></description>
-  <url>https://github.com/opengeospatial/ets-wmts10</url>
+  <url>https://github.com/opengeospatial/ets-wmts10-nsg</url>
+
+  <parent>
+    <groupId>org.opengis.cite</groupId>
+    <artifactId>ets-common</artifactId>
+    <version>5</version>
+  </parent>
+
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -27,16 +27,19 @@
     <name>National System for Geospatial-Intelligence (NSG)</name>
     <url>http://www.nga.mil/</url>
   </organization>
+
   <scm>
-    <url>https://github.com/opengeospatial/ets-wmts10</url>    
-    <connection>scm:git:https://github.com/opengeospatial/ets-wmts10.git</connection>    
-    <developerConnection>scm:git:git@github.com:opengeospatial/ets-wmts10.git</developerConnection>
+    <url>https://github.com/opengeospatial/ets-wmts10-nsg</url>
+    <connection>scm:git:https://github.com/opengeospatial/ets-wmts10-nsg.git</connection>
+    <developerConnection>scm:git:git@github.com:opengeospatial/ets-wmts10-nsg.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
+
   <issueManagement>
     <system>GitHub Issue Tracker</system>
-    <url>https://github.com/opengeospatial/ets-wmts10/issues</url>
+    <url>https://github.com/opengeospatial/ets-wmts10-nsg/issues</url>
   </issueManagement>
+
   <developers>
     <developer>
       <name>D. Stenger</name>
@@ -60,13 +63,13 @@
   </developers>
 
   <properties>
-    <ets-code>ets-wmts10</ets-code>
-    <spec-version>1.0_NSG</spec-version>
+    <ets-code>ets-wmts10-nsg</ets-code>
+    <spec-version>1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
   </properties>
 
- <dependencies>
+  <dependencies>
     <dependency>
       <groupId>de.latlon</groupId>
       <artifactId>ets-dgiwg-core</artifactId>
@@ -107,9 +110,8 @@
       <artifactId>guice</artifactId>
       <version>4.0</version>
       <scope>test</scope>
-    </dependency>    
+    </dependency>
   </dependencies>
-
 
   <build>
     <plugins>
@@ -171,10 +173,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
       </plugin>
-     <plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
-      </plugin>      
+      </plugin>
     </plugins>
 
     <resources>
@@ -189,8 +191,6 @@
       </resource>
     </resources>
   </build>
-
- 
 
   <reporting>
     <plugins>
