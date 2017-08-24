@@ -1,22 +1,31 @@
-
-# DGIWG – Web Map Service 1.3 Profile Conformance Test Suite
+# NSG – Web Map Tile Service 1.0 Profile Conformance Test Suite
 
 ## Scope
 
-This executable test suite (ETS) verifies the conformance of the implementation under 
-test (IUT) with respect to DGIWG – Web Map Service 1.3 Profile, [DGIWG-112](https://portal.dgiwg.org/files/?artifact_id=11514).
+This test suite verifies that a WMTS implementation conforms to the NSG Wem Map Tile Service 
+1.0 Implementation Interoperability Profile, v1.0.0 ([NGA.STND.0063_1.0_WMTS](https://nsgreg.nga.mil/doc/view?i=4258), 
+2016-09-15). The aim is to cover the MANDATORY and RECOMMENDED capabilities stipulated in 
+all relevant specifications.
+
+Note that this profile extends and restricts the specifications upon which it is based. The 
+main dependencies are:
+
+* OGC WMTS 1.0.0 (REST, KVP bindings) [OGC 07-057r7]
+
+Visit the [project documentation website](http://opengeospatial.github.io/ets-wmts10-nsg/) 
+for more information, including the API documentation.
+
 Conformance testing is a kind of "black box" testing that examines the externally 
 visible characteristics or behaviors of the IUT while disregarding any implementation details.
 
-
 ## What is tested
 
-  - All requirements described in "DGIWG – Web Map Service 1.3 Profile".
+  - ...
 
 
 ## What is not tested
 
-  - All recommendations described in "DGIWG – Web Map Service 1.3 Profile".
+  - ...
 
 
 ## Test requirements
@@ -24,8 +33,8 @@ visible characteristics or behaviors of the IUT while disregarding any implement
 The documents listed below stipulate requirements that must be satisfied by a 
 conforming implementation.
 
-1. [DGIWG – Web Map Service 1.3 Profile (09-102r3)](https://portal.opengeospatial.org/files/?artifact_id=66915)
-2. [Web Map Server Implementation Specification, Version 1.3.0 (06-042)](http://portal.opengeospatial.org/files/?artifact_id=14416)
+1. [NGA.STND.0063_1.0_WMTS](https://nsgreg.nga.mil/doc/view?i=4258)
+2. [Web Map Tile Service Implementation Specification, Version 1.0.0 ( 07-057r7)](http://portal.opengeospatial.org/files/?artifact_id=35326)
 
 If any of the following preconditions are not satisfied then all tests in the 
 suite will be marked as skipped.
@@ -36,7 +45,7 @@ suite will be marked as skipped.
 ## Test suite structure
 
 The test suite definition file (testng.xml) is located in the root package, 
-`ets.wms13.dgiwg`. A group corresponds to a &lt;test&gt; element, each 
+`org.opengeospatial.cite.wmts10.nsg`. A group corresponds to a &lt;test&gt; element, each 
 of which includes a set of test classes that contain the actual test methods. 
 The general structure of the test suite is shown in Table 1.
 
@@ -51,39 +60,91 @@ The general structure of the test suite is shown in Table 1.
   <tbody>
     <tr>
       <td>Preconditions</td>
-      <td>ets.wms13.core.dgiwg.testsuite.Prerequisites</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.ets.testsuite.Prerequisites</td>
     </tr>
     <tr>
-      <td>Queryable WMS</td>
-      <td>ets.wms13.core.dgiwg.testsuite.QueryableWMS</td>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 1</td>
+      <td>Not yet tested (Reqirement is passed when Requirements 2, 4, 5, 7, 8, and 10 pass)</td>
     </tr>
     <tr>
-      <td>Basic service elements - 6.5</td>
-      <td>ets.wms13.core.dgiwg.testsuite.getcapabilities.ConfiguredOutputFormatTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getcapabilities.GetCapabilitiesOutputFormatTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getfeatureinfo.GetFeatureInfoOutputFormatTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getcapabilities.interactive.GetCapabilitiesInEnglishLanguageTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getfeatureinfo.interactive.GetFeatureInfoInEnglishLanguageTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getmap.GetMapOutputFormatTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getcapabilities.GetCapabilitiesLayerCrsTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getmap.GetMapLayerCrsTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getfeatureinfo.interactive.GetFeatureInfoExceptionInEnglishLanguageTest<br/>
-      ets.wms13.core.dgiwg.testsuite.getmap.interactive.GetMapExceptionInEnglishLanguageTest</td>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 2</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesOperations</td>
     </tr>
     <tr>
-      <td>GetCapabilities Operation - 6.6.1, 6.6.2</td>
-      <td>ets.wms13.core.dgiwg.testsuite.getcapabilities.*<br/>
-      (except of classes tested by "Basic service elements - 6.5")</td>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 3</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesSoap</td>
     </tr>
     <tr>
-      <td>GetMap Operation - 6.6.3, 6.6.4</td>
-      <td>ets.wms13.core.dgiwg.testsuite.getmap.*<br/>
-      (except of classes tested by "Basic service elements - 6.5")</td>
+      <td>NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.ServiceMetadataContent</td>
     </tr>
     <tr>
-      <td>GetFeatureInfo Operation - 6.6.5, 6.6.6</td>
-      <td>ets.wms13.core.dgiwg.testsuite.getfeatureinfo.*<br/>
-      (except of classes tested by "Basic service elements - 6.5")</td>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 4</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesRest</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 5</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersKvp</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 6</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersSoap</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 7</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersRest</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 8</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoKvp</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 9</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoSoap</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 10</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoRest</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 11</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesCrsTest</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 12</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesProjectionTest</td>
+    </tr>
+    <tr>
+      <td>NSG Test A.3 - Server Test Module;  Requirement 13</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 14</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileOfferings</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 15</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 16</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 17</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesKeywordTest</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 18</td>
+      <td>Test is missing as pending changes expected to NMF.</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 19</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileCachingInfo</td>
+    </tr>
+    <tr>
+      <td>G Test A.3 - Server Test Module;  Requirement 20</td>
+      <td>org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoResponse</td>
     </tr>
   </tbody>
 </table>
@@ -109,7 +170,7 @@ have the following values: M (mandatory), O (optional), or C (conditional).
   </thead>
   <tbody>
     <tr>
-      <td>wms</td>
+      <td>wmts</td>
       <td>URI</td>
       <td>M</td>
 	  <td>A URI that refers to the implementation under test or metadata about it.
@@ -127,13 +188,12 @@ have the following values: M (mandatory), O (optional), or C (conditional).
 
 ## Test Lead
 
-  - Dirk Stenger (latlon)
+  - ...
 
 
 ##  Contributors
 
-  - Dirk Stenger (latlon)
-  - Richard Martell (Galdos)
+  - ...
 
 
 ##  License
