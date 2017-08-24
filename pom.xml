@@ -63,7 +63,7 @@
   </developers>
 
   <properties>
-    <ets-code>ets-wmts10-nsg</ets-code>
+    <ets-code>wmts10-nsg</ets-code>
     <spec-version>1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
