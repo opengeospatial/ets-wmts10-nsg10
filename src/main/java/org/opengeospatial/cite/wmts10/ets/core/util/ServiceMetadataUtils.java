@@ -129,38 +129,16 @@ public final class ServiceMetadataUtils {
         if ( binding == null )
             return null;
 
-        String xPathExpr = String.format("//ows:OperationsMetadata/ows:Operation[@name = '%s']/ows:DCP/ows:HTTP/ows:%s", opName, binding.getElementName() );
-        
-        String href = null;
-        XPath xPath = createXPath();
-        try 
-        {
-        	NodeList nodes = getNodeElements(wmtsMetadata, xPathExpr );
-        	
-        	for (int i = 0; ((i < nodes.getLength()) && (href == null)); i++)
-        	{
-        		Node node = nodes.item(i);
-        		
-        		NodeList nodeValueList = getNodeElements( xPath, node, "./ows:Constraint/ows:AllowedValues/ows:Value");
-        		
-        		for (int nodeValueIndx=0; nodeValueIndx<nodeValueList.getLength(); nodeValueIndx++)
-        		{
-        			String value = (String) xPath.evaluate(".", nodeValueList.item(nodeValueIndx), XPathConstants.STRING);
-        			if (( value != null ) && ( value != "" ) && value.equals(protocol))
-        			{
-        				href = (String) createXPath().evaluate( "@xlink:href", node, XPathConstants.STRING );
-        				break;
-        			}
-        		}
-        	}
-        }
-        catch ( XPathExpressionException ex )
-        {
+        try {
+            String xPathString = "//ows:OperationsMetadata/ows:Operation[@name = '%s' and ./ows:Constraint/ows:AllowedValues/ows:Value = '%s']/ows:DCP/ows:HTTP/ows:%s/@xlink:href";
+            String xPathExpr = String.format( xPathString, opName, protocol, binding.getElementName() );
+            XPath xPath = createXPath();
+            String href = getNodeText( xPath, wmtsMetadata, xPathExpr );
+            return createEndpoint( href );
+        } catch ( XPathExpressionException ex ) {
             TestSuiteLogger.log( Level.INFO, ex.getMessage() );
         }
-        assertTrue(href != "", "No "+ protocol + " support for " + opName);
-
-        return createEndpoint( href );
+        return null;
     }
     
     
@@ -725,7 +703,7 @@ public final class ServiceMetadataUtils {
 
     private static boolean isOperationBindingSupported( Document wmtsMetadata, String opName, ProtocolBinding binding )
     {
-        String exprTemplate = "count(/wmts:Capabilities/ows:Capability/ows:Request/ows:%s/ows:DCPType/ows:HTTP/ows:%s)";
+        String exprTemplate = "count(/wmts:Capabilities/ows:OperationsMetadata/ows:Operation[@name='%s']/ows:DCP/ows:HTTP/ows:%s)";
         String xPathExpr = String.format( exprTemplate, opName, binding.getElementName() );
         try {
             XPath xPath = createXPath();

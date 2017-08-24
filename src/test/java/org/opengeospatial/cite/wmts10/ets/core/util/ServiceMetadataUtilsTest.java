@@ -57,7 +57,7 @@ public class ServiceMetadataUtilsTest {
     @Test
     public void testGetOperationBindings()
                     throws Exception {
-        Set<ProtocolBinding> globalBindings = ServiceMetadataUtils.getOperationBindings( wmtsCapabilities(), "GetMap" );
+        Set<ProtocolBinding> globalBindings = ServiceMetadataUtils.getOperationBindings( wmtsCapabilities(), "GetTile" );
 
         assertThat( globalBindings.size(), is( 1 ) );
         assertThat( globalBindings, hasItems( ProtocolBinding.GET ) );
@@ -66,7 +66,7 @@ public class ServiceMetadataUtilsTest {
     @Test
     public void testGetOperationEndpoint()
                     throws Exception {
-        URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_REST( wmtsCapabilities(), "GetTile", ProtocolBinding.GET );
+        URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_KVP( wmtsCapabilities(), "GetTile", ProtocolBinding.GET );
 
         assertThat( endpointUri, is( new URI( "http://cite.deegree.org/deegree-webservices-3.4-RC3/services/wmts100" ) ) );
     }
