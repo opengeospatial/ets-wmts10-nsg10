@@ -68,7 +68,7 @@ public class ServiceMetadataUtilsTest {
                     throws Exception {
         URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_REST( wmtsCapabilities(), "GetTile", ProtocolBinding.GET );
 
-        assertThat( endpointUri, is( new URI( "http://demo.deegree.org/utah-workspace/services/wms" ) ) );
+        assertThat( endpointUri, is( new URI( "http://cite.deegree.org/deegree-webservices-3.4-RC3/services/wmts100" ) ) );
     }
 
     @Test
@@ -95,111 +95,7 @@ public class ServiceMetadataUtilsTest {
                     throws Exception {
         List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
 
-        assertThat( layerInfos.size(), is( 24 ) );
-    }
-
-    @Test
-    public void testParseLayerInfo_BoundingBoxes()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "weatherstations" );
-
-        List<BoundingBox> bboxes = layerInfo.getBboxes();
-        assertThat( bboxes.size(), is( 4 ) );
-        assertThat( bboxes, hasItems( new BoundingBox( "EPSG:26912", 330187.5966164868, 4256460.6503901705,
-                        450589.437745681, 4541709.090664327 ) ) );
-        assertThat( bboxes, hasItems( new BoundingBox( "EPSG:4326", -113.01934846637089, 38.440287470710686,
-                        -111.56629505010868, 41.025094027971484 ) ) );
-        assertThat( bboxes, hasItems( new BoundingBox( "EPSG:4258", -113.01934846637089, 38.440287470710686,
-                        -111.56629505010868, 41.025094027971484 ) ) );
-        assertThat( bboxes, hasItems( new BoundingBox( "CRS:84", -113.01934846637089, 38.440287470710686,
-                        -111.56629505010868, 41.025094027971484 ) ) );
-    }
-/*--
-    @Test
-    public void testParseLayerInfo_queryable1()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "weatherstations" );
-
-        assertThat( layerInfo.isQueryable(), is( true ) );
-    }
---*/
-/*--
-    @Test
-    public void testParseLayerInfo_queryable0()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "counties" );
-
-        assertThat( layerInfo.isQueryable(), is( false ) );
-    }
---*/
-/*--    
-    @Test
-    public void testParseLayerInfo_queryableMissing()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "countynames" );
-
-        assertThat( layerInfo.isQueryable(), is( false ) );
-    }
---*/
-
-    @Test
-    public void testParseGeographicBoundingBox()
-                    throws Exception
-    {
-        Node layerNode = layerNode( "municipalities" );
-        BoundingBox geographicBoundingBox = ServiceMetadataUtils.parseBoundingBox( layerNode, true );
-
-        assertThat( geographicBoundingBox.getCrs(), is( "CRS:84" ) );
-        assertThat( geographicBoundingBox.getMinX(), is( -115.40027851288826 ) );
-        assertThat( geographicBoundingBox.getMinY(), is( 35.43540497508244 ) );
-        assertThat( geographicBoundingBox.getMaxX(), is( -107.69462459394548 ) );
-        assertThat( geographicBoundingBox.getMaxY(), is( 43.06062467392451 ) );
-    }
-
-    @Test
-    public void testParseLayerInfo_TimeDimension()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "weatherstations" );
-
-        List<Dimension> dimensions = layerInfo.getDimensions();
-        assertThat( dimensions.size(), is( 1 ) );
-
-        Dimension dimension = dimensions.get( 0 );
-        assertThat( dimension.getName(), is( "time" ) );
-
-        DimensionUnitValue dimensionValue = dimension.getDimensionValue();
-        assertThat( dimensionValue.getUnits(), is( "ISO8601" ) );
-
-        DateTimeDimensionInterval dimensionInterval = (DateTimeDimensionInterval) dimensionValue.getRequestableDimension();
-        assertTrue( dimensionInterval.getMin().isEqual( new DateTime( 2009, 1, 1, 0, 0, DateTimeZone.UTC ) ) );
-        assertTrue( dimensionInterval.getMax().isEqual( new DateTime( 2009, 1, 7, 0, 0, DateTimeZone.UTC ) ) );
-        assertThat( dimensionInterval.getResolution(), is( new Period( 0, 0, 0, 1, 0, 0, 0, 0 ) ) );
-    }
-
-    @Test
-    public void testParseLayerInfo_ElevationDimension()
-                    throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
-        LayerInfo layerInfo = getLayerInfoWithName( layerInfos, "DEM30" );
-
-        List<Dimension> dimensions = layerInfo.getDimensions();
-        assertThat( dimensions.size(), is( 1 ) );
-
-        Dimension dimension = dimensions.get( 0 );
-        assertThat( dimension.getName(), is( "elevation" ) );
-
-        DimensionUnitValue dimensionValue = dimension.getDimensionValue();
-        assertThat( dimensionValue.getUnits(), is( "CRS:88" ) );
-
-        NumberDimensionInterval dimensionInterval = (NumberDimensionInterval) dimensionValue.getRequestableDimension();
-        assertThat( dimensionInterval.getMin().intValue(), is( 1 ) );
-        assertThat( dimensionInterval.getMax().intValue(), is( 3500 ) );
-        assertThat( dimensionInterval.getResolution().intValue(), is( 1 ) );
+        assertThat( layerInfos.size(), is( 1 ) );
     }
 
     @Test
@@ -287,21 +183,13 @@ public class ServiceMetadataUtilsTest {
                     throws Exception {
         NodeList allLayerNodes = parseLayers( wmtsCapabilities() );
 
-        assertThat( allLayerNodes.getLength(), is( 29 ) );
+        assertThat( allLayerNodes.getLength(), is( 1 ) );
     }
 
     @Test(expected = Exception.class)
     public void testParseAllLayerNodesWithNullShouldThrowException()
                     throws Exception {
         parseLayers( null );
-    }
-
-    @Test
-    public void testParseRequestableLayerNodes()
-                    throws Exception {
-        NodeList requestableLayerNodes = parseLayers( wmtsCapabilities() );
-
-        assertThat( requestableLayerNodes.getLength(), is( 24 ) );
     }
 
     @Test(expected = Exception.class)
@@ -321,14 +209,6 @@ public class ServiceMetadataUtilsTest {
     private Document wmtsCapabilities()
                     throws SAXException, IOException, ParserConfigurationException {
         return capabilities( "../capabilities_wmts10.xml" );
-    }
-
-    private Node layerNode( String layerName )
-                    throws Exception {
-        Document wmtsCapabilities = wmtsCapabilities();
-        String expression = String.format( "//wms:Layer[wms:Name/text() = '%s']", layerName );
-
-        return (Node) createXPath().evaluate( expression, wmtsCapabilities, XPathConstants.NODE );
     }
 
     private Document capabilities( String resource )
