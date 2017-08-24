@@ -42,18 +42,6 @@
                 </label>
                 <input id="wmts-uri" name="wmts-uri" size="96" type="text" value="" />
               </p>
-              <p>
-                <label for="wmts-vector">
-                  <h5 style="margin-bottom: 0.5em">Contains vector data layers?</h5>
-                </label>
-                <input id="wmts-vector-false" name="wmts-vector" type="radio" value="no" checked="checked">
-                  <label for="wmts-vector-false"> no</label>
-                </input>
-                <br />
-                <input id="wmts-vector-true" name="wmts-vector" type="radio" value="yes">
-                  <label for="wmts-vector-true"> yes</label>
-                </input>
-              </p>
             </fieldset>
           </div>
           <p>
@@ -67,16 +55,6 @@
         <properties version="1.0">
           <entry key="wmts">
             <xsl:value-of select="normalize-space($form-data/values/value[@key='wmts-uri'])" />
-          </entry>
-          <entry key="vector">
-            <xsl:choose>
-              <xsl:when test="normalize-space($form-data/values/value[@key='wmts-vector']) = 'yes'">
-                <xsl:text>true</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>false</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
           </entry>
         </properties>
       </xsl:variable>

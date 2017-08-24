@@ -3,5 +3,4 @@
 <properties version="1.0">
   <comment>NSG WMTS reference implementation</comment>
   <entry key="wmts"></entry>
-  <entry key="vector">false</entry>
 </properties>

@@ -3,5 +3,4 @@
 <properties version="1.0">
   <comment>Test run arguments (ets-wmts10-nsg)</comment>
   <entry key="wmts">wmts-capabilities.xml</entry>
-  <entry key="vector">false</entry>
 </properties>

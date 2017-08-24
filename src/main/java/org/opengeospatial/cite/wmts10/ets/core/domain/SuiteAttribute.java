@@ -16,15 +16,13 @@ public enum SuiteAttribute
      */
     TEST_SUBJECT( "testSubject", Document.class ),
 
-    LAYER_INFO( "layerInfo", List.class ),
-
-    IS_VECTOR( "vector", Boolean.class );
+    LAYER_INFO( "layerInfo", List.class );
 	
     private final Class<?> attrType;
 
     private final String attrName;
 
-    private SuiteAttribute( String attrName, Class<?> attrType ) {
+    SuiteAttribute( String attrName, Class<?> attrType ) {
         this.attrName = attrName;
         this.attrType = attrType;
     }

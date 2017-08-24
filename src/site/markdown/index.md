@@ -176,12 +176,6 @@ have the following values: M (mandatory), O (optional), or C (conditional).
 	  <td>A URI that refers to the implementation under test or metadata about it.
       Ampersand ('&amp;') characters must be percent-encoded as '%26'.</td>
     </tr>
-	<tr>
-      <td>vector</td>
-      <td>Boolean</td>
-      <td>M</td>
-      <td>Controls if tests targeting layers which base on vector data are executed.</td>
-    </tr>
   </tbody>
 </table>
 
