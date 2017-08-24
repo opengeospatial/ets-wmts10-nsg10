@@ -4,7 +4,7 @@
   xmlns:tns="http://www.opengis.net/cite/dgiwg/wmts" 
   xmlns:saxon="http://saxon.sf.net/" 
   xmlns:tec="java:com.occamlab.te.TECore" 
-  xmlns:tng="java:nsg.wmts10.WmtsNSGTestNGController">
+  xmlns:tng="java:org.opengeospatial.cite.wmts10.nsg.WmtsNSGTestNGController">
 
   <ctl:function name="tns:run-ets-${ets-code}">
     <ctl:param name="testRunArgs">A Document node containing test run arguments (as XML properties).</ctl:param>
