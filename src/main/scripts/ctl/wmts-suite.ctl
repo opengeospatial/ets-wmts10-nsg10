@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ctl:package xmlns:ctl="http://www.occamlab.com/ctl" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:tns="http://www.opengis.net/cite/dgiwg/wmts" 
+  xmlns:tns="http://www.opengis.net/cite/nsg/wmts"
   xmlns:saxon="http://saxon.sf.net/" 
   xmlns:tec="java:com.occamlab.te.TECore" 
   xmlns:tng="java:org.opengeospatial.cite.wmts10.nsg.WmtsNSGTestNGController">

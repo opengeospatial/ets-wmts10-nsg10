@@ -3,19 +3,19 @@
 <organization>
   <name>NSG</name>
   <standard>
-    <name>NSG DGIWG WMTS Profile</name>
+    <name>NSG WMTS 1.0 Profile</name>
     <version>
       <name>${spec-version}</name>
       <suite>
-        <namespace-uri>http://www.opengis.net/cite/dgiwg/wmts</namespace-uri>
+        <namespace-uri>http://www.opengis.net/cite/nsg/wmts</namespace-uri>
         <prefix>tns</prefix>
         <local-name>ets-${ets-code}-${version}</local-name>
-        <title>NSG WMTS Conformance Test Suite</title>
-        <description>Checks implementations for conformance to the NSG DGIWG WMTS profile.</description>
+        <title>NSG WMTS 1.0 Conformance Test Suite</title>
+        <description>Checks implementations for conformance to the NSG WMTS 1.0 profile.</description>
       </suite>
       <revision>
         <name>${project.version}</name>
-        <status>Delta</status>
+        <status>Beta</status>
         <sources>
           <source>${ets-code}/${spec-version}/ctl</source>
         </sources>

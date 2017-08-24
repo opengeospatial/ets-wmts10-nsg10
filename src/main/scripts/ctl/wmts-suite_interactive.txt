@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ctl:package xmlns:ctl="http://www.occamlab.com/ctl" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:tns="http://www.opengis.net/cite/dgiwg/wmts" 
+  xmlns:tns="http://www.opengis.net/cite/nsg/wmts"
   xmlns:saxon="http://saxon.sf.net/" 
   xmlns:interactive="https://lat-lon.de/wms-1.3.0/dgiwg/ctl/interactive.xml"
   xmlns:tec="java:com.occamlab.te.TECore" 
