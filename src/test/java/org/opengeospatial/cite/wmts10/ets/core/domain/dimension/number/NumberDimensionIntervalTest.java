@@ -7,8 +7,6 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
-
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  */

@@ -1,13 +1,12 @@
 package org.opengeospatial.cite.wmts10.ets.core.util;
 
-import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseLayers;
-import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseRequestableDimension;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseLayers;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseRequestableDimension;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,36 +17,24 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Period;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
-import org.opengeospatial.cite.wmts10.ets.core.domain.Dimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
-import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.DimensionUnitValue;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimensionList;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeDimensionInterval;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeRequestableDimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberRequestableDimension;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
@@ -79,16 +66,6 @@ public class ServiceMetadataUtilsTest {
         assertThat( endpointUri, is( nullValue() ) );
     }
 
-    @Test
-    public void testP()
-                    throws Exception {
-    	/*--
-        List<String> supportedFormats = ServiceMetadataUtils.parseSupportedFormats( wmtsCapabilities(), "GetTile" );
-
-        assertThat( supportedFormats.size(), is( 7 ) );
-        assertThat( supportedFormats, hasItems( "image/png", "image/x-ms-bmp", "image/png; mode=8bit" ) );
-        --*/
-    }
 
     @Test
     public void testParseLayerInfo()
@@ -198,14 +175,6 @@ public class ServiceMetadataUtilsTest {
     	parseLayers( null );
     }
 
-    private LayerInfo getLayerInfoWithName( List<LayerInfo> layerInfos, String name ) {
-        for ( LayerInfo layerInfo : layerInfos ) {
-            if ( name.equals( layerInfo.getLayerName() ) )
-                return layerInfo;
-        }
-        return null;
-    }
-
     private Document wmtsCapabilities()
                     throws SAXException, IOException, ParserConfigurationException {
         return capabilities( "../capabilities_wmts10.xml" );
@@ -220,13 +189,6 @@ public class ServiceMetadataUtilsTest {
         return builder.parse( new InputSource( wmtsCapabilities ) );
     }
 
-    private XPath createXPath()
-                    throws XPathFactoryConfigurationException {
-        XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
-        XPath xpath = factory.newXPath();
-        xpath.setNamespaceContext( WmtsNamespaces.withStandardBindings() );
-        return xpath;
-    }
 
     private Matcher<Iterable<? super NumberRequestableDimension>> hasNumberRequestableDimension( final int value ) {
         return new BaseMatcher<Iterable<? super NumberRequestableDimension>>() {

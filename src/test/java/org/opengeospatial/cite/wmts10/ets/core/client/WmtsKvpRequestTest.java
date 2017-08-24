@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import org.opengeospatial.cite.wmts10.ets.core.client.WmtsKvpRequest;
-
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  */
