@@ -4,38 +4,25 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URI;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-import org.joda.time.format.ISOPeriodFormat;
 import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimensionList;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeDimensionInterval;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeRequestableDimension;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
-import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberRequestableDimension;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -317,87 +304,6 @@ public final class ServiceMetadataUtils {
                                         "Error evaluating XPath expression against capabilities doc while parsing geographic BBOX of layer. ",
                                         xpe );
         }
-    }
-
-    /**
-     * 
-     * @param units
-     *            dimension units
-     * @param value
-     *            dimension values
-     * @return dimension object
-     * @throws ParseException
-     *             in case of bad XPath
-     */
-    public static RequestableDimension parseRequestableDimension( String units, String value )
-                            throws ParseException {
-        if ( value.contains( "," ) ) {
-            return parseListRequestableDimension( units, value );
-        }
-        return parseSingleRequestableDimension( units, value );
-    }
-
-    private static RequestableDimension parseListRequestableDimension( String units, String value )
-                            throws ParseException {
-        List<RequestableDimension> requestableDimensions = new ArrayList<>();
-        String[] singleValues = value.split( "," );
-        for ( String singleValue : singleValues ) {
-            requestableDimensions.add( parseSingleRequestableDimension( units, singleValue ) );
-        }
-        return new RequestableDimensionList( requestableDimensions );
-    }
-
-    private static RequestableDimension parseSingleRequestableDimension( String units, String singleValue )
-                            throws ParseException {
-        if ( singleValue.contains( "/" ) ) {
-            return parseInterval( units, singleValue );
-        }
-        return parseSingleValue( units, singleValue );
-    }
-
-    private static RequestableDimension parseInterval( String units, String token )
-                            throws ParseException {
-        LOGR.fine( String.format( "Parsing temporal interval with units %s: %s", units, token ) );
-        String[] minMaxRes = token.split( "/" );
-        if ( "ISO8601".equals( units ) ) {
-            DateTime min = parseDateTime( minMaxRes[0] );
-            DateTime max = parseDateTime( minMaxRes[1] );
-            String period = ( minMaxRes.length > 2 ) ? minMaxRes[2] : "";
-            Period resolution = parseResolution( period );
-            return new DateTimeDimensionInterval( min, max, resolution );
-        }
-        Number min = parseNumber( minMaxRes[0] );
-        Number max = parseNumber( minMaxRes[1] );
-        Number resolution = parseNumber( minMaxRes[2] );
-        return new NumberDimensionInterval( min, max, resolution );
-    }
-
-    private static Period parseResolution( String resolution ) {
-        if ( "0".equals( resolution ) || resolution.isEmpty() )
-            return null;
-        return ISOPeriodFormat.standard().parsePeriod( resolution );
-    }
-
-    private static RequestableDimension parseSingleValue( String units, String value )
-                            throws ParseException {
-        if ( "ISO8601".equals( units ) ) {
-            DateTime dateTime = parseDateTime( value );
-            return new DateTimeRequestableDimension( dateTime );
-        }
-        Number number = parseNumber( value );
-        return new NumberRequestableDimension( number );
-    }
-
-    private static Number parseNumber( String token )
-                            throws ParseException {
-        NumberFormat instance = NumberFormat.getInstance( Locale.ENGLISH );
-        instance.setParseIntegerOnly( false );
-        return instance.parse( token );
-    }
-
-    private static DateTime parseDateTime( String token ) {
-        Calendar dateTime = DatatypeConverter.parseDateTime( token );
-        return new DateTime( dateTime.getTimeInMillis() );
     }
 
     private static LayerInfo parseLayerInfo( XPath xPath, Node layerNode )
