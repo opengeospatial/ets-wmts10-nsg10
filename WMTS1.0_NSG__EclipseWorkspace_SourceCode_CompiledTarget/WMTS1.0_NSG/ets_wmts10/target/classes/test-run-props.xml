@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties version="1.0">
-  <comment>Test run arguments (ets-wmts10)</comment>
-  <entry key="wmts"></entry>
-  <entry key="vector">false</entry>
-  <entry key="tes">http://cite.opengeospatial.org/te2/</entry>
-</properties>
