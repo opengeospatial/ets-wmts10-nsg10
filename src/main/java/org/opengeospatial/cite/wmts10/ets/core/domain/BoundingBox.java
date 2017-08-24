@@ -31,8 +31,7 @@ public class BoundingBox {
      * @throws IllegalArgumentException
      *             if crs is <code>null</code> or minX greater/equal maxX or minY greater/equal maxY
      */
-    public BoundingBox( String crs, double minX, double minY, double maxX, double maxY )
-    {
+    public BoundingBox( String crs, double minX, double minY, double maxX, double maxY ) {
         checkParameters( crs, minX, minY, maxX, maxY );
         this.crs = crs;
         this.minX = minX;

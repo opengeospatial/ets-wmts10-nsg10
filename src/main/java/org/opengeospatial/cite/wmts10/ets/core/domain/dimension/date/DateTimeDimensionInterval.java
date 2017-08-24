@@ -6,7 +6,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
 
 /**

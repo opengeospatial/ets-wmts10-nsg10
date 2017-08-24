@@ -37,7 +37,7 @@ public class SOAPMessageConsumer implements MessageBodyReader<SOAPMessage> {
     public SOAPMessage readFrom( Class<SOAPMessage> type, Type genericType, Annotation[] annotations,
                                  MediaType mediaType, MultivaluedMap<String, String> httpHeaders,
                                  InputStream entityStream )
-                    throws IOException, WebApplicationException {
+                            throws IOException, WebApplicationException {
         SOAPMessage message = null;
         try {
             MessageFactory messageFactory = MessageFactory.newInstance();

@@ -18,11 +18,7 @@ public enum SuiteAttribute
 
     LAYER_INFO( "layerInfo", List.class ),
 
-    IS_VECTOR( "vector", Boolean.class ),
-/*--
-    INTERACTIVE_TEST_RESULT( "interactiveTestResult", InteractiveTestResult.class ),
---*/
-    ;
+    IS_VECTOR( "vector", Boolean.class );
 	
     private final Class<?> attrType;
 

@@ -7,9 +7,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 
-import org.w3c.dom.Document;
-
 import org.opengeospatial.cite.wmts10.ets.core.AbstractWmtsTestNGController;
+import org.w3c.dom.Document;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a> (original)
@@ -51,7 +50,7 @@ public class WmtsNSGTestNGController extends AbstractWmtsTestNGController {
      *             If the test run cannot be executed (usually due to unsatisfied pre-conditions).
      */
     public static void main( String[] args )
-                    throws Exception {
+                            throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         File xmlArgs = findXmlArgs( args );

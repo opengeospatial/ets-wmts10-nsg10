@@ -26,19 +26,11 @@ import javax.xml.xpath.XPathFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.ISOPeriodFormat;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import de.latlon.ets.core.util.NamespaceBindings;
-import de.latlon.ets.core.util.TestSuiteLogger;
-
 import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
 import org.opengeospatial.cite.wmts10.ets.core.domain.Dimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
-
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.DimensionUnitValue;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimensionList;
@@ -46,7 +38,12 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeDim
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeRequestableDimension;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
 import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberRequestableDimension;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import de.latlon.ets.core.util.NamespaceBindings;
+import de.latlon.ets.core.util.TestSuiteLogger;
 
 /**
  * Provides various utility methods for accessing service metadata.
@@ -56,15 +53,16 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberReq
  */
 public final class ServiceMetadataUtils {
 
-    private static final Logger LOGR = Logger.getLogger(ServiceMetadataUtils.class.getName());
+    private static final Logger LOGR = Logger.getLogger( ServiceMetadataUtils.class.getName() );
+
     private static final NamespaceBindings NS_BINDINGS = WmtsNamespaces.withStandardBindings();
 
     private ServiceMetadataUtils() {
     }
 
     /**
-     * Extracts a request KVP endpoint from a WMTS capabilities document. If the request URI contains a query component it is
-     * removed (but not from the source document).
+     * Extracts a request KVP endpoint from a WMTS capabilities document. If the request URI contains a query component
+     * it is removed (but not from the source document).
      * 
      * @param wmtsMetadata
      *            the document node containing service metadata (OGC capabilities document).
@@ -72,18 +70,17 @@ public final class ServiceMetadataUtils {
      *            the operation (request) name
      * @param binding
      *            the message binding to use (if {@code null} any supported binding will be used)
-     *            
+     * 
      * @return the URI referring to a request endpoint, <code>null</code> if no matching endpoint is found
      * 
      */
-    public static URI getOperationEndpoint_KVP( final Document wmtsMetadata, String opName, ProtocolBinding binding ) 
-    {
-        return getOperationEndpoint( wmtsMetadata, binding, "KVP", opName);
+    public static URI getOperationEndpoint_KVP( final Document wmtsMetadata, String opName, ProtocolBinding binding ) {
+        return getOperationEndpoint( wmtsMetadata, binding, "KVP", opName );
     }
 
     /**
-     * Extracts a request REST endpoint from a WMTS capabilities document. If the request URI contains a query component it is
-     * removed (but not from the source document).
+     * Extracts a request REST endpoint from a WMTS capabilities document. If the request URI contains a query component
+     * it is removed (but not from the source document).
      * 
      * @param wmtsMetadata
      *            the document node containing service metadata (OGC capabilities document).
@@ -91,39 +88,35 @@ public final class ServiceMetadataUtils {
      *            the operation (request) name
      * @param binding
      *            the message binding to use (if {@code null} any supported binding will be used)
-     *            
+     * 
      * @return the URI referring to a request endpoint, <code>null</code> if no matching endpoint is found
      * 
      */
-      public static URI getOperationEndpoint_REST( final Document wmtsMetadata, String opName, ProtocolBinding binding ) 
-    {
-        return getOperationEndpoint( wmtsMetadata, binding, "RESTful", opName);
+    public static URI getOperationEndpoint_REST( final Document wmtsMetadata, String opName, ProtocolBinding binding ) {
+        return getOperationEndpoint( wmtsMetadata, binding, "RESTful", opName );
     }
-      /**
-       * Extracts a request SOAP endpoint from a WMTS capabilities document. If the request URI contains a query component it is
-       * removed (but not from the source document).
-       * 
-       * @param wmtsMetadata
-       *            the document node containing service metadata (OGC capabilities document).
-       * @param opName
-       *            the operation (request) name
-       * @param binding
-       *            the message binding to use (if {@code null} any supported binding will be used)
-       *            
-       * @return the URI referring to a request endpoint, <code>null</code> if no matching endpoint is found
-       * 
-       */    
-    public static URI getOperationEndpoint_SOAP( final Document wmtsMetadata, String opName, ProtocolBinding binding ) 
-    {
-        return getOperationEndpoint( wmtsMetadata, binding, "SOAP", opName);
+
+    /**
+     * Extracts a request SOAP endpoint from a WMTS capabilities document. If the request URI contains a query component
+     * it is removed (but not from the source document).
+     * 
+     * @param wmtsMetadata
+     *            the document node containing service metadata (OGC capabilities document).
+     * @param opName
+     *            the operation (request) name
+     * @param binding
+     *            the message binding to use (if {@code null} any supported binding will be used)
+     * 
+     * @return the URI referring to a request endpoint, <code>null</code> if no matching endpoint is found
+     * 
+     */
+    public static URI getOperationEndpoint_SOAP( final Document wmtsMetadata, String opName, ProtocolBinding binding ) {
+        return getOperationEndpoint( wmtsMetadata, binding, "SOAP", opName );
     }
-    
-    // --- -------
-    
-    private static URI getOperationEndpoint( final Document wmtsMetadata, ProtocolBinding binding, String protocol, String opName ) 
-    {
-        if (( binding == null ) || binding.equals( ProtocolBinding.ANY ) )
-        {
+
+    private static URI getOperationEndpoint( final Document wmtsMetadata, ProtocolBinding binding, String protocol,
+                                             String opName ) {
+        if ( ( binding == null ) || binding.equals( ProtocolBinding.ANY ) ) {
             binding = getOperationBindings( wmtsMetadata, opName ).iterator().next();
         }
         if ( binding == null )
@@ -140,8 +133,7 @@ public final class ServiceMetadataUtils {
         }
         return null;
     }
-    
-    
+
     /**
      * Determines which protocol bindings are supported for a given operation.
      * 
@@ -151,8 +143,7 @@ public final class ServiceMetadataUtils {
      *            the name of the WMTS operation
      * @return A Set of protocol bindings supported for the operation. May be empty but never <code>null</code>.
      */
-    public static Set<ProtocolBinding> getOperationBindings( final Document wmtsMetadata, String opName ) 
-    {
+    public static Set<ProtocolBinding> getOperationBindings( final Document wmtsMetadata, String opName ) {
         Set<ProtocolBinding> protoBindings = new HashSet<>();
 
         if ( isOperationBindingSupported( wmtsMetadata, opName, ProtocolBinding.GET ) )
@@ -163,64 +154,41 @@ public final class ServiceMetadataUtils {
         return protoBindings;
     }
 
-    // ---
-    
     public static NodeList getNodeElements( XPath xPath, Node wmtsCapabilities, String xPathAbstract )
-                    throws XPathExpressionException 
-    {
-    	if ( xPath == null )
-    		xPath = createXPath();
+                            throws XPathExpressionException {
+        if ( xPath == null )
+            xPath = createXPath();
         return (NodeList) xPath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.NODESET );
     }
 
-    // ---
-    
     public static NodeList getNodeElements( Node wmtsCapabilities, String xPathAbstract )
-                    throws XPathExpressionException 
-    {
-        return getNodeElements(null, wmtsCapabilities, xPathAbstract );
+                            throws XPathExpressionException {
+        return getNodeElements( null, wmtsCapabilities, xPathAbstract );
     }
 
-    // ---
-    
     public static Node getNode( XPath xPath, Node wmtsCapabilities, String xPathAbstract )
-            throws XPathExpressionException 
-    {
-    	if ( xPath == null )
-    		xPath = createXPath();
-    	return (Node) xPath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.NODE );
+                            throws XPathExpressionException {
+        if ( xPath == null )
+            xPath = createXPath();
+        return (Node) xPath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.NODE );
     }
-
-    // ---
 
     public static Node getNode( Node wmtsCapabilities, String xPathAbstract )
-            throws XPathExpressionException 
-    {
-    	return getNode(null, wmtsCapabilities, xPathAbstract );
+                            throws XPathExpressionException {
+        return getNode( null, wmtsCapabilities, xPathAbstract );
     }
 
-    // ---
-    
     public static String getNodeText( XPath xPath, Node wmtsCapabilities, String xPathAbstract )
-            throws XPathExpressionException 
-    {
-    	if ( xPath == null )
-    		xPath = createXPath();
-    	return (String) xPath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.STRING );
+                            throws XPathExpressionException {
+        if ( xPath == null )
+            xPath = createXPath();
+        return (String) xPath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.STRING );
     }
-
-    // ---
 
     public static String getNodeText( Node wmtsCapabilities, String xPathAbstract )
-            throws XPathExpressionException 
-    {
-    	return getNodeText(null, wmtsCapabilities, xPathAbstract );
+                            throws XPathExpressionException {
+        return getNodeText( null, wmtsCapabilities, xPathAbstract );
     }
-
-    // ---
-
- 
-    // ---
 
     /**
      * Parses the configured formats for the given operation.
@@ -233,27 +201,19 @@ public final class ServiceMetadataUtils {
      *            the child element(s) of the layer
      * @return a list of the child elements by the operation, never <code>null</code>
      */
-    
-    public static NodeList parseLayerChildElements( Document wmtsCapabilities, String layerName, String childElement ) 
-    {
-    	if ( !childElement.startsWith("ows:") && !childElement.startsWith("wmts:"))
-    		childElement = "wmts:" + childElement;		// --- apply default namespace if none given
-    	
-		String xPathExpr = "//wmts:Contents/wmts:Layer[ows:Identifier = '" + layerName + "']/" + childElement;
-        try 
-        {
-            return getNodeElements(wmtsCapabilities, xPathExpr );
-        } 
-        catch ( XPathExpressionException ex )
-        {
+
+    public static NodeList parseLayerChildElements( Document wmtsCapabilities, String layerName, String childElement ) {
+        if ( !childElement.startsWith( "ows:" ) && !childElement.startsWith( "wmts:" ) )
+            childElement = "wmts:" + childElement; // --- apply default namespace if none given
+
+        String xPathExpr = "//wmts:Contents/wmts:Layer[ows:Identifier = '" + layerName + "']/" + childElement;
+        try {
+            return getNodeElements( wmtsCapabilities, xPathExpr );
+        } catch ( XPathExpressionException ex ) {
             TestSuiteLogger.log( Level.INFO, ex.getMessage() );
         }
         return null;
     }
-    
-    // ---
-     
-    // ---
 
     /**
      * Parses all named layers from the capabilities document.
@@ -262,241 +222,125 @@ public final class ServiceMetadataUtils {
      *            the capabilities document (wmts:Capabilities), never <code>null</code>
      * @return a list of {@link LayerInfo}s supported by the WMTS, never <code>null</code>
      */
-    public static List<LayerInfo> parseLayerInfo( Document wmtsCapabilities )
-    {
+    public static List<LayerInfo> parseLayerInfo( Document wmtsCapabilities ) {
         ArrayList<LayerInfo> layerInfos = new ArrayList<>();
         XPath xPath = createXPath();
-        try
-        {
+        try {
             NodeList layerNodes = parseLayers( xPath, wmtsCapabilities );
 
-            for ( int layerNodeIndex = 0; layerNodeIndex < layerNodes.getLength(); layerNodeIndex++ ) 
-            {
+            for ( int layerNodeIndex = 0; layerNodeIndex < layerNodes.getLength(); layerNodeIndex++ ) {
                 Node layerNode = layerNodes.item( layerNodeIndex );
                 LayerInfo layerInfo = parseLayerInfo( xPath, layerNode );
                 layerInfos.add( layerInfo );
             }
-        }
-        catch ( XPathExpressionException xpe )
-        {
+        } catch ( XPathExpressionException xpe ) {
             throw new RuntimeException( "Error evaluating XPath expression against capabilities doc. ", xpe );
-        }
-        catch ( ParseException e )
-        {
+        } catch ( ParseException e ) {
             throw new RuntimeException( "Error parsing layer infos from doc. ", e );
         }
-   
+
         return layerInfos;
     }
-    
-    // --- 
-    
-    public static NodeList parseLayers( XPath xPath, Document wmtsCapabilities ) 
-    {
-        try 
-        {
-        	return getNodeElements(xPath, wmtsCapabilities, "//wmts:Contents/wmts:Layer" );      
-        } 
-        catch ( XPathExpressionException xpe )
-        {
+
+    public static NodeList parseLayers( XPath xPath, Document wmtsCapabilities ) {
+        try {
+            return getNodeElements( xPath, wmtsCapabilities, "//wmts:Contents/wmts:Layer" );
+        } catch ( XPathExpressionException xpe ) {
             throw new RuntimeException( "Error collecting layers from the Service Metadata Capabilities doc. ", xpe );
         }
-//        return null;
     }
-    
-    // --- 
-    
-    public static NodeList parseLayers( Document wmtsCapabilities ) 
-    {
-        return parseLayers(createXPath(), wmtsCapabilities );
-    }
-    
-    // --- 
 
-    public static String parseNodeElementName(XPath xPath, Node nodeElement)
-    		  throws XPathExpressionException
-    {
-   		if ( xPath == null )
-   			xPath = createXPath();
-   		String name = (String) xPath.evaluate( "ows:Identifier", nodeElement, XPathConstants.STRING );
-   		return name.trim();
+    public static NodeList parseLayers( Document wmtsCapabilities ) {
+        return parseLayers( createXPath(), wmtsCapabilities );
     }
-    
-    // --- 
 
-    public static String parseNodeElementName( Node nodeElement)
-    		  throws XPathExpressionException
-    {
-   		return parseNodeElementName(createXPath(), nodeElement);
+    public static String parseNodeElementName( XPath xPath, Node nodeElement )
+                            throws XPathExpressionException {
+        if ( xPath == null )
+            xPath = createXPath();
+        String name = (String) xPath.evaluate( "ows:Identifier", nodeElement, XPathConstants.STRING );
+        return name.trim();
     }
-    
-	/*--
-    private static void parseNodes(Node n)
-    {
-       	
-    	if ( n != null)
-    	{
-    		String nam = n.getNodeName();
-    		String val = n.getNodeValue();
-    		String lnm = n.getLocalName();
-    		
-    		parseNodes(n.getFirstChild());
-    		
-    		parseNodes(n.getNextSibling());
-    	}
+
+    public static String parseNodeElementName( Node nodeElement )
+                            throws XPathExpressionException {
+        return parseNodeElementName( createXPath(), nodeElement );
     }
-  	--*/
-    
-    /**
-     * Parses the updateSequence value from the capabilities document.
-     * 
-     * @param wmtsCapabilities
-     *            the capabilities document (wmts:Capabilities), never <code>null</code>
-     * @return the value of the {@link ServiceMetadataUtils} attribute, <code>null</code> if the attribute is missing or
-     *         the value empty
-     */
-     /*--
-   public static String parseUpdateSequence( Document wmtsCapabilities )
-    {
-        try
-        {
-/ *-* /            String layerExpr = "//wmts:Capabilities/@updateSequence ";
-            XPath xPath = createXPath();
-            String updateSequence = (String) xPath.evaluate( layerExpr, wmtsCapabilities, XPathConstants.STRING );
-            return updateSequence == null || updateSequence.isEmpty() ? null : updateSequence;
-        } 
-        catch ( XPathExpressionException xpe )
-        {
-            throw new RuntimeException( "Error evaluating XPath expression against capabilities doc. ", xpe );
-        }
-    }
---*/
+
     /**
      * Parses the BoundingBox from the layer; either as the WGS84 Bbox, or one of the other listed ones
      * 
      * @param bboxNode
-     *            node of the layer, never <code>null</code>
-     *            wgs84 if parsing the WGS84 bounding box
+     *            node of the layer, never <code>null</code> wgs84 if parsing the WGS84 bounding box
      * @param presumedWGS84
-     * 				are we working in WGS84 bounding box or not
-     *            
+     *            are we working in WGS84 bounding box or not
+     * 
      * @return the {@link BoundingBox} - crs is CRS:84 if wgs84 is true, otherwise parse from attribute
      */
-    public static BoundingBox parseBoundingBox( Node bboxNode, boolean presumedWGS84 ) 
-    {
+    public static BoundingBox parseBoundingBox( Node bboxNode, boolean presumedWGS84 ) {
         XPath xPath = createXPath();
-        
+
         String crsID = "";
         BoundingBox bbox = null;
-        try 
-        {
-            NodeList coordsList = (NodeList)bboxNode.getChildNodes();
-            if ( coordsList.getLength() > 0 )
-            {
-            	Node cornerCoordNode = (Node) xPath.evaluate("//ows:LowerCorner", bboxNode, XPathConstants.NODE);
-           		double[] lowerCoords = asDoublePair(bboxNode, cornerCoordNode.getNodeName(), xPath );
-            		
-            	cornerCoordNode = (Node) xPath.evaluate("//ows:UpperCorner", bboxNode, XPathConstants.NODE);
-           		double[] upperCoords = asDoublePair(bboxNode, cornerCoordNode.getNodeName(), xPath );
-            		
-        	 	String crsStr = ((String) xPath.evaluate( "@crs", bboxNode, XPathConstants.STRING )).toUpperCase();
-        	 	
-            	if ( presumedWGS84 )
-            	{
-            		crsID = "CRS:84";
-            		if ( crsStr.contains("EPSG:"))            	 	
-            	 	{
-            			crsID = "EPSG:4326";
-            	 	}
-            	}
-            	else
-            	{                	
-            	    // crs="urn:ogc:def:crs:EPSG::3857"
-            	 	if ( crsStr.contains("EPSG:"))            	 	
-            	 	{	
-            	 		int indx = crsStr.indexOf("EPSG:");
-            	 		crsID = crsStr.substring(indx).replace("::", ":");
-            	 	}
-            	 	else if ( crsStr.contains("CRS:") )
-            	 	{
-            	 		int indx = crsStr.indexOf("CRS:");
-            	 		crsID = crsStr.substring(indx).replace("::", ":");
-            	 	}
-            	 	assertFalse(crsID.equals(""), "Unknown CRS: " + crsStr);
-            	}            		
-            	bbox = new BoundingBox(crsID, lowerCoords[0], lowerCoords[1], upperCoords[0], upperCoords[1]);
-            }            
-           assertTrue(bbox != null, String.format("Could not parse %s Bounding Box", crsID ));
-            
+        try {
+            NodeList coordsList = (NodeList) bboxNode.getChildNodes();
+            if ( coordsList.getLength() > 0 ) {
+                Node cornerCoordNode = (Node) xPath.evaluate( "//ows:LowerCorner", bboxNode, XPathConstants.NODE );
+                double[] lowerCoords = asDoublePair( bboxNode, cornerCoordNode.getNodeName(), xPath );
+
+                cornerCoordNode = (Node) xPath.evaluate( "//ows:UpperCorner", bboxNode, XPathConstants.NODE );
+                double[] upperCoords = asDoublePair( bboxNode, cornerCoordNode.getNodeName(), xPath );
+
+                String crsStr = ( (String) xPath.evaluate( "@crs", bboxNode, XPathConstants.STRING ) ).toUpperCase();
+
+                if ( presumedWGS84 ) {
+                    crsID = "CRS:84";
+                    if ( crsStr.contains( "EPSG:" ) ) {
+                        crsID = "EPSG:4326";
+                    }
+                } else {
+                    // crs="urn:ogc:def:crs:EPSG::3857"
+                    if ( crsStr.contains( "EPSG:" ) ) {
+                        int indx = crsStr.indexOf( "EPSG:" );
+                        crsID = crsStr.substring( indx ).replace( "::", ":" );
+                    } else if ( crsStr.contains( "CRS:" ) ) {
+                        int indx = crsStr.indexOf( "CRS:" );
+                        crsID = crsStr.substring( indx ).replace( "::", ":" );
+                    }
+                    assertFalse( crsID.equals( "" ), "Unknown CRS: " + crsStr );
+                }
+                bbox = new BoundingBox( crsID, lowerCoords[0], lowerCoords[1], upperCoords[0], upperCoords[1] );
+            }
+            assertTrue( bbox != null, String.format( "Could not parse %s Bounding Box", crsID ) );
+
             return bbox;
-        }
-        catch ( XPathExpressionException xpe )
-        {
+        } catch ( XPathExpressionException xpe ) {
             throw new RuntimeException(
-                  "Error evaluating XPath expression against capabilities doc while parsing geographic BBOX of layer. ", xpe );
+                                        "Error evaluating XPath expression against capabilities doc while parsing geographic BBOX of layer. ",
+                                        xpe );
         }
     }
 
     /**
-     * Parses all Layer elements of a capabilities document.
      * 
-     * param wmtsCapabilities
-     *            capabilities document, never <code>null</code>
-     * return node list containing all layer elements of the capabilities document
-     * throws XPathFactoryConfigurationException
-     * throws XPathExpressionException
+     * @param units
+     *            dimension units
+     * @param value
+     *            dimension values
+     * @return dimension object
+     * @throws ParseException
+     *             in case of bad XPath
      */
-/*--    
-    public static NodeList parseAllLayerNodes( Document wmtsCapabilities )
-                    throws XPathFactoryConfigurationException, XPathExpressionException 
-    {
-        String xPathAbstract = "//ows:Layer";
-        return createNodeList( wmtsCapabilities, xPathAbstract );
-    }
---*/    
-    /**
-     * Parses all requestable Layer elements of a capabilities document. Requestable layers are identified by the
-     * existence of a Name sub element.
-     * 
-     * param wmtsCapabilities
-     *            capabilities document, never <code>null</code>
-     * return node list containing all requestable layer elements of the capabilities document
-     * throws XPathFactoryConfigurationException
-     * throws XPathExpressionException
-     */
-/*--    
-    public static NodeList parseRequestableLayerNodes( Document wmtsCapabilities )
-                    throws XPathFactoryConfigurationException, XPathExpressionException
-    {
-        String xPathAbstract = "//ows:Layer[ows:Name]";
-        return createNodeList( wmtsCapabilities, xPathAbstract );
-    }
---*/    
-
-    // --- 
-/**
- * 
- * @param units
- * 			dimension units
- * @param value
- * 			dimension values
- * @return dimension object
- * @throws ParseException in case of bad XPath
- */
     public static RequestableDimension parseRequestableDimension( String units, String value )
-                    throws ParseException
-    {
-        if ( value.contains( "," ) )
-        {
+                            throws ParseException {
+        if ( value.contains( "," ) ) {
             return parseListRequestableDimension( units, value );
         }
         return parseSingleRequestableDimension( units, value );
     }
-    
-    // ---
-    
+
     private static RequestableDimension parseListRequestableDimension( String units, String value )
-                    throws ParseException {
+                            throws ParseException {
         List<RequestableDimension> requestableDimensions = new ArrayList<>();
         String[] singleValues = value.split( "," );
         for ( String singleValue : singleValues ) {
@@ -504,30 +348,23 @@ public final class ServiceMetadataUtils {
         }
         return new RequestableDimensionList( requestableDimensions );
     }
-    
-    // ---
-    
+
     private static RequestableDimension parseSingleRequestableDimension( String units, String singleValue )
-                    throws ParseException 
-    {
-        if ( singleValue.contains( "/" ) )
-        {
+                            throws ParseException {
+        if ( singleValue.contains( "/" ) ) {
             return parseInterval( units, singleValue );
         }
         return parseSingleValue( units, singleValue );
     }
 
-    // ---
-
     private static RequestableDimension parseInterval( String units, String token )
-                    throws ParseException {
-        LOGR.fine(String.format("Parsing temporal interval with units %s: %s", units, token));
+                            throws ParseException {
+        LOGR.fine( String.format( "Parsing temporal interval with units %s: %s", units, token ) );
         String[] minMaxRes = token.split( "/" );
-        if ( "ISO8601".equals( units ) )
-        {
+        if ( "ISO8601".equals( units ) ) {
             DateTime min = parseDateTime( minMaxRes[0] );
             DateTime max = parseDateTime( minMaxRes[1] );
-            String period = (minMaxRes.length > 2) ? minMaxRes[2] : "";
+            String period = ( minMaxRes.length > 2 ) ? minMaxRes[2] : "";
             Period resolution = parseResolution( period );
             return new DateTimeDimensionInterval( min, max, resolution );
         }
@@ -537,20 +374,15 @@ public final class ServiceMetadataUtils {
         return new NumberDimensionInterval( min, max, resolution );
     }
 
-    // ---
-
     private static Period parseResolution( String resolution ) {
-        if ( "0".equals( resolution ) || resolution.isEmpty())
+        if ( "0".equals( resolution ) || resolution.isEmpty() )
             return null;
         return ISOPeriodFormat.standard().parsePeriod( resolution );
     }
 
-    // ---
-    
     private static RequestableDimension parseSingleValue( String units, String value )
-                    throws ParseException {
-        if ( "ISO8601".equals( units ) )
-        {
+                            throws ParseException {
+        if ( "ISO8601".equals( units ) ) {
             DateTime dateTime = parseDateTime( value );
             return new DateTimeRequestableDimension( dateTime );
         }
@@ -558,84 +390,57 @@ public final class ServiceMetadataUtils {
         return new NumberRequestableDimension( number );
     }
 
-    // ---
-    
     private static Number parseNumber( String token )
-                    throws ParseException
-    {
+                            throws ParseException {
         NumberFormat instance = NumberFormat.getInstance( Locale.ENGLISH );
         instance.setParseIntegerOnly( false );
         return instance.parse( token );
     }
 
-    // ---
-
-    private static DateTime parseDateTime( String token )
-    {
+    private static DateTime parseDateTime( String token ) {
         Calendar dateTime = DatatypeConverter.parseDateTime( token );
         return new DateTime( dateTime.getTimeInMillis() );
     }
 
-    // ---
-    
     private static LayerInfo parseLayerInfo( XPath xPath, Node layerNode )
-                    throws XPathExpressionException, ParseException
-    {
-        String layerName = parseNodeElementName(xPath, layerNode);
-//        boolean isQueryable = parseQueryable( xPath, layerNode );
+                            throws XPathExpressionException, ParseException {
+        String layerName = parseNodeElementName( xPath, layerNode );
+        // boolean isQueryable = parseQueryable( xPath, layerNode );
         List<BoundingBox> bboxes = parseBoundingBoxes( xPath, layerNode );
         BoundingBox wgs84BBox = parseWGS84BoundingBox( xPath, layerNode );
         List<Dimension> dimensions = parseDimensions( xPath, layerNode );
-        return new LayerInfo( layerName, /*--isQueryable, --*/ bboxes, dimensions, wgs84BBox );
+        return new LayerInfo( layerName, /*--isQueryable, --*/bboxes, dimensions, wgs84BBox );
     }
-    
-    /*--
-    private static boolean parseQueryable( XPath xPath, Node layerNode )
-                            throws XPathExpressionException {
-        String queryableAttribute = (String) xPath.evaluate( "@queryable", layerNode, XPathConstants.STRING );
-        return queryableAttribute != null &&
-               ( "1".equals( queryableAttribute ) ? true : false || Boolean.parseBoolean( queryableAttribute ) );
-    }
-	--*/
-    
+
     private static List<BoundingBox> parseBoundingBoxes( XPath xPath, Node layerNode )
-                    throws XPathExpressionException 
-    {
+                            throws XPathExpressionException {
         Map<String, BoundingBox> bboxes = new HashMap<>();
         String bboxesExpr = "ancestor-or-self::wmts:Layer/ows:BoundingBox";
-        NodeList bboxNodes = getNodeElements(xPath, layerNode, bboxesExpr );
-        for ( int bboxNodeIndex = 0; bboxNodeIndex < bboxNodes.getLength(); bboxNodeIndex++ )
-        {
+        NodeList bboxNodes = getNodeElements( xPath, layerNode, bboxesExpr );
+        for ( int bboxNodeIndex = 0; bboxNodeIndex < bboxNodes.getLength(); bboxNodeIndex++ ) {
             Node bboxNode = bboxNodes.item( bboxNodeIndex );
             BoundingBox bbox = parseBoundingBox( bboxNode, false );
             bboxes.put( bbox.getCrs(), bbox );
         }
         return new ArrayList<>( bboxes.values() );
     }
-    
-    // ---
-    
+
     private static BoundingBox parseWGS84BoundingBox( XPath xPath, Node layerNode )
-            throws XPathExpressionException 
-    {
-    	String bboxExpr = "ancestor-or-self::wmts:Layer/ows:WGS84BoundingBox";
-    	Node bboxNode = (Node) xPath.evaluate( bboxExpr, layerNode, XPathConstants.NODE );
+                            throws XPathExpressionException {
+        String bboxExpr = "ancestor-or-self::wmts:Layer/ows:WGS84BoundingBox";
+        Node bboxNode = (Node) xPath.evaluate( bboxExpr, layerNode, XPathConstants.NODE );
 
-    	BoundingBox bbox = parseBoundingBox( bboxNode, true );
+        BoundingBox bbox = parseBoundingBox( bboxNode, true );
 
-    	return bbox;
+        return bbox;
     }
-    
-    // ---
 
     private static List<Dimension> parseDimensions( XPath xPath, Node layerNode )
-                    throws XPathExpressionException, ParseException
-    {
+                            throws XPathExpressionException, ParseException {
         ArrayList<Dimension> dimensions = new ArrayList<>();
         String dimensionExpr = "ows:Dimension";
         NodeList dimensionNodes = getNodeElements( xPath, layerNode, dimensionExpr );
-        for ( int dimensionNodeIndex = 0; dimensionNodeIndex < dimensionNodes.getLength(); dimensionNodeIndex++ ) 
-        {
+        for ( int dimensionNodeIndex = 0; dimensionNodeIndex < dimensionNodes.getLength(); dimensionNodeIndex++ ) {
             Node dimensionNode = dimensionNodes.item( dimensionNodeIndex );
             Dimension dimension = parseDimension( xPath, dimensionNode );
             if ( dimension != null )
@@ -643,21 +448,9 @@ public final class ServiceMetadataUtils {
         }
         return dimensions;
     }
-    
-/*--
-    private static BoundingBox parseBoundingBox( Node bboxNode )
-                    throws XPathExpressionException {
-        XPath xPath = createXPath();
-        double minx = asDouble( bboxNode, "@minx", xPath );
-        double miny = asDouble( bboxNode, "@miny", xPath );
-        double maxx = asDouble( bboxNode, "@maxx", xPath );
-        double maxy = asDouble( bboxNode, "@maxy", xPath );
-        String crs = (String) xPath.evaluate( "@CRS", bboxNode, XPathConstants.STRING );
-        return new BoundingBox( crs, minx, miny, maxx, maxy );
-    }
---*/
+
     private static Dimension parseDimension( XPath xPath, Node dimensionNode )
-                    throws XPathExpressionException, ParseException {
+                            throws XPathExpressionException, ParseException {
         String name = (String) xPath.evaluate( "@name", dimensionNode, XPathConstants.STRING );
         if ( name != null ) {
             String units = (String) xPath.evaluate( "@units", dimensionNode, XPathConstants.STRING );
@@ -668,41 +461,32 @@ public final class ServiceMetadataUtils {
         }
         return null;
     }
-    
-    //--------
-    
+
     private static double asDouble( Node node, String xPathExpr, XPath xPath )
-                    throws XPathExpressionException 
-    {
+                            throws XPathExpressionException {
         String content = (String) xPath.evaluate( xPathExpr, node, XPathConstants.STRING );
         return Double.parseDouble( content );
     }
-    
-    //--------
-    
+
     private static double[] asDoublePair( Node node, String xPathExpr, XPath xPath )
-            throws XPathExpressionException 
-    {
-    	String content = (String) xPath.evaluate( xPathExpr, node, XPathConstants.STRING );
-    	
-    	int indx = content.indexOf(' ');
-    	if ( indx < 0 )
-    		indx = content.indexOf(',');
-    	
-    	String content0 = (String)content.substring(0, indx);
-    	String content1 = (String)content.substring(indx+1);
-    	
-    	double[] pair = new double[2];
-    	pair[0] = Double.parseDouble( content0 );
-    	pair[1] = Double.parseDouble( content1 );
-    	
-    	return pair;
+                            throws XPathExpressionException {
+        String content = (String) xPath.evaluate( xPathExpr, node, XPathConstants.STRING );
+
+        int indx = content.indexOf( ' ' );
+        if ( indx < 0 )
+            indx = content.indexOf( ',' );
+
+        String content0 = (String) content.substring( 0, indx );
+        String content1 = (String) content.substring( indx + 1 );
+
+        double[] pair = new double[2];
+        pair[0] = Double.parseDouble( content0 );
+        pair[1] = Double.parseDouble( content1 );
+
+        return pair;
     }
 
-    // --- 
-
-    private static boolean isOperationBindingSupported( Document wmtsMetadata, String opName, ProtocolBinding binding )
-    {
+    private static boolean isOperationBindingSupported( Document wmtsMetadata, String opName, ProtocolBinding binding ) {
         String exprTemplate = "count(/wmts:Capabilities/ows:OperationsMetadata/ows:Operation[@name='%s']/ows:DCP/ows:HTTP/ows:%s)";
         String xPathExpr = String.format( exprTemplate, opName, binding.getElementName() );
         try {
@@ -717,75 +501,21 @@ public final class ServiceMetadataUtils {
         return false;
     }
 
-    // --- 
-    
-    private static URI createEndpoint( String href )
-    {
+    private static URI createEndpoint( String href ) {
         if ( href == null || href.isEmpty() )
             return null;
         URI endpoint = URI.create( href );
-        if ( null != endpoint.getQuery() )
-        {
+        if ( null != endpoint.getQuery() ) {
             String uri = endpoint.toString();
             endpoint = URI.create( uri.substring( 0, uri.indexOf( '?' ) ) );
         }
         return endpoint;
     }
 
-    // --- 
-    /*--
-    private static NodeList createNodeList( Document wmtsCapabilities, String xPathAbstract )
-                    throws XPathExpressionException 
-    {
-        XPath xpath = createXPath();
-        return (NodeList) xpath.evaluate( xPathAbstract, wmtsCapabilities, XPathConstants.NODESET );
-    }
---*/    
-    // --- 
-
-    private static XPath createXPath()
-    {
+    private static XPath createXPath() {
         XPath xPath = XPathFactory.newInstance().newXPath();
         xPath.setNamespaceContext( NS_BINDINGS );
         return xPath;
     }
 
-/*--    
-    public static URI getSoapOperationEndpoint( Document wmtsCapabilities, String operation )
-    {
-        if ( isSoapSupported( wmtsCapabilities, operation ) ) {
-            String href = parseSoapEndpoint( wmtsCapabilities );
-            return createEndpoint( href );
-        }
-        return null;
-    }
-
-    private static String parseSoapEndpoint( Document wmtsCapabilities )
-    {
-        final String xPathExpr = "//wmts:Capabilities/ows:Capability/soapwmts:ExtendedCapabilities/soapwmts:SOAP/ows:OnlineResource/@xlink:href";
-        String href = null;
-        try 
-        {
-            XPath xPath = createXPath();
-            href = xPath.evaluate( xPathExpr, wmtsCapabilities );
-        }
-        catch ( XPathExpressionException ex )
-        {
-            TestSuiteLogger.log( Level.INFO, ex.getMessage() );
-        }
-        return href;
-    }
-
-    private static boolean isSoapSupported( Document wmtsCapabilities, String operation ) 
-    {
-        final String exprTemplate = "//wmts:Capabilities/ows:Capability/soapwmts:ExtendedCapabilities/soapwmts:SOAP/soapwmts:SupportedOperations/soapwmts:Operation[@name='%s']";
-        String xPathExpr = String.format( exprTemplate, operation );
-        XPath xPath = createXPath();
-        try {
-            return (Boolean) xPath.evaluate( xPathExpr, wmtsCapabilities, XPathConstants.BOOLEAN );
-        } catch ( XPathExpressionException xpe ) {
-            throw new RuntimeException( "Error evaluating XPath expression against capabilities doc. ", xpe );
-        }
-    }
---*/
 }
