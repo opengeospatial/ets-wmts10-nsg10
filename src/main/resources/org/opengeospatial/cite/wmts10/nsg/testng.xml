@@ -11,13 +11,13 @@
   <parameter name="tes" value="" />
 
   <listeners>
-    <listener class-name="ets.wmts10.core.SuiteFixtureListener" />
+    <listener class-name="org.opengeospatial.cite.wmts10.ets.core.SuiteFixtureListener" />
   </listeners>
 
   <test name="Preconditions">
     <classes>
    	<!-- test method: -->
-      <class name="ets.wmts10.testsuite.Prerequisites" />
+      <class name="org.opengeospatial.cite.wmts10.ets.testsuite.Prerequisites" />
       
     </classes>
   </test>
@@ -39,7 +39,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 2">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesOperations" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesOperations" />
 		</classes>
 	</test> 
 
@@ -47,7 +47,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 3">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoap" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesSoap" />
 		</classes>
 	</test> 
 
@@ -56,7 +56,7 @@
 	<test name="NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)">
 		<classes>
 			<!-- test methods: 1-14  -->
-			<class name="nsg.wmts10.testsuite.getcapabilities.ServiceMetadataContent" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.ServiceMetadataContent" />
 		</classes>
 	</test> 
 
@@ -64,7 +64,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 4">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesRest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesRest" />
 		</classes>
 	</test> 
 
@@ -72,7 +72,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 5">
 		<classes>
-			<class name="nsg.wmts10.testsuite.gettile.GetTileParametersKvp" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersKvp" />
 		</classes>
 	</test> 
 
@@ -80,7 +80,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 6">
 		<classes>
-			<class name="nsg.wmts10.testsuite.gettile.GetTileParametersSoap" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersSoap" />
 		</classes>
 	</test> 
 
@@ -88,7 +88,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 7">
 		<classes>
-			<class name="nsg.wmts10.testsuite.gettile.GetTileParametersRest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileParametersRest" />
 		</classes>
 	</test> 
 
@@ -96,7 +96,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 8">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoKvp" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoKvp" />
 		</classes>
 	</test> 
 
@@ -104,7 +104,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 9">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoSoap" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoSoap" />
 		</classes>
 	</test> 
 
@@ -112,7 +112,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 10">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoRest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoRest" />
 		</classes>
 	</test> 
 
@@ -120,7 +120,7 @@
 
  	<test name="NSG Test A.3 - Server Test Module;  Requirement 11">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesCrsTest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesCrsTest" />
 		</classes>
 	</test> 
  
@@ -128,7 +128,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 12">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesProjectionTest" />		
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesProjectionTest" />		
 			<!-- TBD:  incomplete with respect to implementing UPS projections (in overlap areas) -->	
 		</classes>
 	</test> 
@@ -137,7 +137,7 @@
 
   	<test name="NSG Test A.3 - Server Test Module;  Requirement 13">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest" />	
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesWellKnownScaleTest" />	
 			<!-- TBD:  incomplete in that well-known scale not yet implemented -->	
 		</classes>
 	</test>
@@ -146,7 +146,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 14">
 		<classes>
-			<class name="nsg.wmts10.testsuite.gettile.GetTileOfferings" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileOfferings" />
 			<!-- TBD:  incomplete w/r/t the "In English" test -->
 		</classes>
 	</test> 
@@ -155,7 +155,7 @@
   
   	<test name="NSG Test A.3 - Server Test Module;  Requirement 15">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesKvpVersionTest" />
 		</classes>
 	</test> 
 
@@ -163,7 +163,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 16">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesSoapVersionTest" />
 		</classes>
 	</test> 
 
@@ -171,7 +171,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 17">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getcapabilities.GetCapabilitiesKeywordTest" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities.GetCapabilitiesKeywordTest" />
 		</classes>
 	</test> 
 
@@ -187,7 +187,7 @@
  
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 19">
 		<classes>
-			<class name="nsg.wmts10.testsuite.gettile.GetTileCachingInfo" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.gettile.GetTileCachingInfo" />
 		</classes>
 	</test> 
 
@@ -195,7 +195,7 @@
 
 	<test name="NSG Test A.3 - Server Test Module;  Requirement 20">
 		<classes>
-			<class name="nsg.wmts10.testsuite.getfeatureinfo.GetFeatureInfoResponse" />
+			<class name="org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo.GetFeatureInfoResponse" />
 		</classes>
 	</test> 
 
