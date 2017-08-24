@@ -8,8 +8,8 @@
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ets</groupId>
-  <artifactId>wmts10</artifactId>
+  <artifactId>ets-wmts10-nsg</artifactId>
+  <groupId>org.opengis.cite</groupId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   
