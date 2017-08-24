@@ -1,4 +1,4 @@
-package ets.wmts10.core.domain.dimension.number;
+package org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number;
 
 import static org.junit.Assert.assertTrue;
 
@@ -7,7 +7,7 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
-import ets.wmts10.core.domain.dimension.number.NumberDimensionInterval;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>

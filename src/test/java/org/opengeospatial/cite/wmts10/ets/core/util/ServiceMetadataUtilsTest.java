@@ -1,7 +1,7 @@
-package ets.wmts10.core.util;
+package org.opengeospatial.cite.wmts10.ets.core.util;
 
-import static ets.wmts10.core.util.ServiceMetadataUtils.parseLayers;
-import static ets.wmts10.core.util.ServiceMetadataUtils.parseRequestableDimension;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseLayers;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.parseRequestableDimension;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -36,18 +36,18 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import ets.wmts10.core.domain.BoundingBox;
-import ets.wmts10.core.domain.Dimension;
-import ets.wmts10.core.domain.LayerInfo;
-import ets.wmts10.core.domain.WmtsNamespaces;
-import ets.wmts10.core.domain.ProtocolBinding;
-import ets.wmts10.core.domain.dimension.DimensionUnitValue;
-import ets.wmts10.core.domain.dimension.RequestableDimension;
-import ets.wmts10.core.domain.dimension.RequestableDimensionList;
-import ets.wmts10.core.domain.dimension.date.DateTimeDimensionInterval;
-import ets.wmts10.core.domain.dimension.date.DateTimeRequestableDimension;
-import ets.wmts10.core.domain.dimension.number.NumberDimensionInterval;
-import ets.wmts10.core.domain.dimension.number.NumberRequestableDimension;
+import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
+import org.opengeospatial.cite.wmts10.ets.core.domain.Dimension;
+import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
+import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
+import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.DimensionUnitValue;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimension;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.RequestableDimensionList;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeDimensionInterval;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date.DateTimeRequestableDimension;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberDimensionInterval;
+import org.opengeospatial.cite.wmts10.ets.core.domain.dimension.number.NumberRequestableDimension;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>

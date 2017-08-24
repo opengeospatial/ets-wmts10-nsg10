@@ -1,4 +1,4 @@
-package ets.wmts10.core.crs;
+package org.opengeospatial.cite.wmts10.ets.core.crs;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-//import ets.wmts10.core.crs.CrsMatcher;
-import ets.wmts10.core.domain.BoundingBox;
+//import org.opengeospatial.cite.wmts10.ets.core.crs.CrsMatcher;
+import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>

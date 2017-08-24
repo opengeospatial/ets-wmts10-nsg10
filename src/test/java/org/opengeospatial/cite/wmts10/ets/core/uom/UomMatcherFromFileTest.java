@@ -1,4 +1,4 @@
-package ets.wmts10.core.uom;
+package org.opengeospatial.cite.wmts10.ets.core.uom;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

@@ -1,4 +1,4 @@
-package ets.wmts10.core.domain.dimension.date;
+package org.opengeospatial.cite.wmts10.ets.core.domain.dimension.date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

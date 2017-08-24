@@ -1,4 +1,4 @@
-package ets.wmts10.core.client;
+package org.opengeospatial.cite.wmts10.ets.core.client;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -11,8 +11,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import ets.wmts10.core.domain.WMTS_Constants;
-import ets.wmts10.core.domain.WmtsNamespaces;
+import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
+import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>

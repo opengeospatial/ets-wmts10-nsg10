@@ -1,4 +1,4 @@
-package ets.wmts10.core.client;
+package org.opengeospatial.cite.wmts10.ets.core.client;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import ets.wmts10.core.client.WmtsKvpRequest;
+import org.opengeospatial.cite.wmts10.ets.core.client.WmtsKvpRequest;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>

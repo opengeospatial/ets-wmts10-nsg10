@@ -1,4 +1,4 @@
-package ets.wmts10.core.dgiwg.testsuite.gettile;
+package org.opengeospatial.cite.wmts10.ets.core.dgiwg.testsuite.gettile;
 
 import static java.nio.file.Files.createTempDirectory;
 import static org.junit.Assert.assertTrue;
