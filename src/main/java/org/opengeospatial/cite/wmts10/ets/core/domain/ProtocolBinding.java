@@ -24,7 +24,7 @@ public enum ProtocolBinding {
 
     private final String elementName;
 
-    private ProtocolBinding( String elementName ) {
+    ProtocolBinding( String elementName ) {
         this.elementName = elementName;
     }
 

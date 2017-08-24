@@ -196,16 +196,6 @@ public final class WmtsAssertion {
     }
 
     /**
-     * Asserts that the url is resolvable (status code is 200).
-     * 
-     * @param url
-     *            The url to check.
-     */
-    public static void assertUriIsResolvable( String url ) {
-        assertUriIsResolvable( null, url );
-    }
-
-    /**
      * Asserts that an XPath 1.0 expression holds true for the given evaluation context.
      * 
      * The method arguments will be logged at level FINE or lower.

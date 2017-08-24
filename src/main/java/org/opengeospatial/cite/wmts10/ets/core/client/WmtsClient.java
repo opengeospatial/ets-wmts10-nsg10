@@ -95,24 +95,6 @@ public class WmtsClient {
         return submitGetRequest( resource, request );
     }
 
-    /**
-     * Submits a HTTP POST request.
-     * 
-     * @param payload
-     *            the payload in XML format
-     * @param endpoint
-     *            the service endpoint
-     * 
-     * @return the response message
-     */
-    public ClientResponse submitRequest( Source payload, URI endpoint ) {
-        if ( payload == null || endpoint == null )
-            throw new IllegalArgumentException( "Neither payload nor endpoint must be null" );
-        WebResource resource = client.resource( endpoint );
-        resource.uri( UriBuilder.fromUri( endpoint ).build() );
-        return submitPostRequest( resource, payload );
-    }
-
     private ClientResponse submitPostRequest( WebResource resource, Source payload ) {
         LOGR.log( Level.FINE, String.format( "Submitting POST request to URI %s", resource.getURI() ) );
         LOGR.log( Level.FINE, String.format( "Request Payload: %s", XMLUtils.transformToString( payload ) ) );
