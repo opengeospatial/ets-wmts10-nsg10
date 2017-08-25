@@ -16,6 +16,20 @@ main dependencies are:
 Visit the [project documentation website](http://opengeospatial.github.io/ets-wfs20-nsg/) 
 for more information, including the API documentation.
 
+### Dependencies and Building
+Before building it you need to build ets-dgiwg-core. Do the follwoing:
+* git clone https://github.com/opengeospatial/ets-dgiwg-core
+* cd ets-dgiwg-core
+* mvn clean install
+
+Build the test:
+* git clone https://github.com/opengeospatial/ets-wmts10-nsg
+* cd ets-wmts10-nsg
+* mvn clean install
+
+It will creat the jars to be installed in TEAM Engine.
+
+
 ### How to run the tests
 The test suite is built using [Apache Maven v3](https://maven.apache.org/). The options 
 for running the suite are summarized below.
