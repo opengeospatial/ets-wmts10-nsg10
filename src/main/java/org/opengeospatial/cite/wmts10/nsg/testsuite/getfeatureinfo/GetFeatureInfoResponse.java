@@ -25,19 +25,18 @@ public class GetFeatureInfoResponse extends AbstractBaseGetFeatureInfoFixture {
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 20", dependsOnMethods = "verifyGetFeatureInfoSupported")
     public void wmtsGetFeatureInfoRespondWith() {
-        NodeList infoFormats = null;
+        NodeList xmlFormat = null;
+        NodeList htmlFormat = null;
         try {
-            infoFormats = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
-                                                                           "//wmts:InfoFormat[text() = 'text/xml']" );
-            if ( ( infoFormats == null ) || ( infoFormats.getLength() <= 0 ) ) {
-                infoFormats = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
-                                                                               "//wmts:InfoFormat[text() = 'text/html']" );
-            }
+            xmlFormat = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
+                                                                        "//wmts:InfoFormat[text() = 'text/xml']" );
+            htmlFormat = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
+                                                                        "//wmts:InfoFormat[text() = 'text/html']" );
         } catch ( XPathExpressionException xpe ) {
             // xpe.printStackTrace();
         }
-        assertFalse( ( ( infoFormats == null ) || ( infoFormats.getLength() <= 0 ) ),
-                     "This WMTS does not support 'text/xml' or 'text/html' for GetFeatureInfo function." );
+        assertFalse( ( xmlFormat == null || xmlFormat.getLength() <= 0 ) || ( htmlFormat == null || htmlFormat.getLength() <= 0 ),
+                     "This WMTS does not support 'text/xml' and 'text/html' for GetFeatureInfo function." );
 
         // getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities,
         // WMTS_Constants.GET_FEATURE_INFO, ProtocolBinding.GET );
