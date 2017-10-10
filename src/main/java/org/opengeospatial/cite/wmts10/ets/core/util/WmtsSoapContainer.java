@@ -2,6 +2,22 @@ package org.opengeospatial.cite.wmts10.ets.core.util;
 
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Level.WARNING;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.GET_CAPABILITIES;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.GET_FEATURE_INFO;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.GET_TILE;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.INFO_FORMAT_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.I_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.J_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.SERVICE_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.SERVICE_TYPE_CODE;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.VERSION;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.VERSION_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.OWS;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.SOAP;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.WMTS;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.serviceOWS;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.serviceSOAP;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.getNodeElements;
 import static org.testng.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -31,8 +47,6 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
-import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -60,7 +74,6 @@ public class WmtsSoapContainer {
 
     private Document responseDocument;
 
-
     public WmtsSoapContainer( String function, String soap_URL ) {
         this.callFunction = function;
         this.soapURL = soap_URL;
@@ -75,25 +88,25 @@ public class WmtsSoapContainer {
             soapMessageEnvelope = soapMessagePart.getEnvelope();
             soapMessageBody = soapMessageEnvelope.getBody();
 
-            QName qnElem = new QName( WmtsNamespaces.WMTS, callFunction );
+            QName qnElem = new QName( WMTS, callFunction );
             soapMessageElement = soapMessageBody.addChildElement( qnElem );
 
-            this.addWmtsAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
-            if ( !callFunction.equals( WMTS_Constants.GET_CAPABILITIES ) ) {
-                this.addWmtsAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
+            this.addWmtsAttribute( SERVICE_PARAM, SERVICE_TYPE_CODE );
+            if ( !callFunction.equals( GET_CAPABILITIES ) ) {
+                this.addWmtsAttribute( VERSION_PARAM, VERSION );
             }
-            this.addNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
+            this.addNamespace( serviceOWS, OWS );
 
-            if ( callFunction.equals( WMTS_Constants.GET_FEATURE_INFO ) ) {
+            if ( callFunction.equals( GET_FEATURE_INFO ) ) {
                 soapMessageElementParent = soapMessageElement;
 
-                QName qnTileElem = new QName( WmtsNamespaces.WMTS, WMTS_Constants.GET_TILE );
+                QName qnTileElem = new QName( WMTS, GET_TILE );
                 soapMessageElement = soapMessageElementParent.addChildElement( qnTileElem );
 
-                this.addWmtsAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
-                this.addWmtsAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
+                this.addWmtsAttribute( SERVICE_PARAM, SERVICE_TYPE_CODE );
+                this.addWmtsAttribute( VERSION_PARAM, VERSION );
 
-                this.addNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
+                this.addNamespace( serviceOWS, OWS );
             }
         } catch ( SOAPException se ) {
             LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
@@ -104,7 +117,7 @@ public class WmtsSoapContainer {
     public void addWmtsAttribute( String attribute, String value ) {
         if ( soapMessageElement != null ) {
             try {
-                QName qAttr = new QName( WmtsNamespaces.WMTS, attribute.toLowerCase() );
+                QName qAttr = new QName( WMTS, attribute.toLowerCase() );
                 soapMessageElement.addAttribute( qAttr, value );
             } catch ( SOAPException se ) {
                 LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
@@ -129,11 +142,9 @@ public class WmtsSoapContainer {
         if ( soapMessageElement != null ) {
             try {
                 SOAPElement element = soapMessageElement;
-                if ( callFunction.equals( WMTS_Constants.GET_FEATURE_INFO ) && ( soapMessageElementParent != null ) ) {
-                    if ( parameterName.equals( WMTS_Constants.I_PARAM )
-                         || parameterName.equals( WMTS_Constants.J_PARAM )
-                         || parameterName.equals( WMTS_Constants.INFO_FORMAT_PARAM ) // ||
-                    ) {
+                if ( callFunction.equals( GET_FEATURE_INFO ) && ( soapMessageElementParent != null ) ) {
+                    if ( parameterName.equals( I_PARAM ) || parameterName.equals( J_PARAM )
+                         || parameterName.equals( INFO_FORMAT_PARAM ) ) {
                         element = soapMessageElementParent;
                     }
                 }
@@ -178,8 +189,7 @@ public class WmtsSoapContainer {
 
             responseDocument = makeResponseDocument( soapResponse );
 
-            NodeList anyResponseExceptions = ServiceMetadataUtils.getNodeElements( responseDocument,
-                                                                                   "//ows:ExceptionText" );
+            NodeList anyResponseExceptions = getNodeElements( responseDocument, "//ows:ExceptionText" );
             if ( ( anyResponseExceptions != null ) && ( anyResponseExceptions.getLength() > 0 ) ) {
                 String exceptionText = "";
                 for ( int i = 0; i < anyResponseExceptions.getLength(); i++ ) {
@@ -236,12 +246,12 @@ public class WmtsSoapContainer {
             SOAPHeader header = soapMessage.getSOAPHeader();
             SOAPFault fault = soapMessageBody.getFault();
             soapMessageEnvelope.removeNamespaceDeclaration( soapMessageEnvelope.getPrefix() );
-            soapMessageEnvelope.addNamespaceDeclaration( WmtsNamespaces.serviceSOAP, WmtsNamespaces.SOAP );
-            soapMessageEnvelope.setPrefix( WmtsNamespaces.serviceSOAP );
-            header.setPrefix( WmtsNamespaces.serviceSOAP );
-            soapMessageBody.setPrefix( WmtsNamespaces.serviceSOAP );
+            soapMessageEnvelope.addNamespaceDeclaration( serviceSOAP, SOAP );
+            soapMessageEnvelope.setPrefix( serviceSOAP );
+            header.setPrefix( serviceSOAP );
+            soapMessageBody.setPrefix( serviceSOAP );
             if ( fault != null ) {
-                fault.setPrefix( WmtsNamespaces.serviceSOAP );
+                fault.setPrefix( serviceSOAP );
             }
             soapMessage.saveChanges();
         } catch ( SOAPException se ) {
@@ -252,7 +262,7 @@ public class WmtsSoapContainer {
 
     private void logSoapResponse() {
         try {
-            if ( Level.SEVERE.equals( LOGR.getLevel() ) ) {
+            if ( SEVERE.equals( LOGR.getLevel() ) ) {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 Source sourceContent = soapResponse.getSOAPPart().getContent();
@@ -274,7 +284,7 @@ public class WmtsSoapContainer {
 
     private void logSoapMessage() {
         try {
-            if ( Level.SEVERE.equals( LOGR.getLevel() ) ) {
+            if ( SEVERE.equals( LOGR.getLevel() ) ) {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 soapMessage.writeTo( bos );
                 bos.close();
