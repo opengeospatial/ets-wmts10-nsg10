@@ -57,6 +57,16 @@ public class ServiceMetadataUtilsTest {
     }
 
     @Test
+    public void testGetOperationEndpoint_Soap()
+                            throws Exception {
+        URI soapEndpoint = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities(),
+                                                                             "GetFeatureInfo",
+                                                                             ProtocolBinding.POST );
+
+        assertThat( soapEndpoint, is( new URI( "http://ips.terrapixel.com/terrapixel/cubeserv.cgi" ) ) );
+    }
+
+    @Test
     public void testParseLayerInfo()
                             throws Exception {
         List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
