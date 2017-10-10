@@ -1,8 +1,13 @@
 package org.opengeospatial.cite.wmts10.ets.core.util;
 
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Level.WARNING;
 import static org.testng.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
@@ -32,52 +37,41 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class WMTS_SOAPcontainer {
-    private SOAPMessage soapMessage = null;
 
-    private SOAPEnvelope soapMessageEnvelope = null;
+    private static final Logger LOGR = Logger.getLogger( WMTS_SOAPcontainer.class.getName() );
 
-    private SOAPBody soapMessageBody = null;
+    private SOAPMessage soapMessage;
 
-    private SOAPPart soapMessagePart = null;
+    private SOAPEnvelope soapMessageEnvelope;
 
-    private SOAPElement soapMessageElement = null;
+    private SOAPBody soapMessageBody;
 
-    private SOAPElement soapMessageElementParent = null;
+    private SOAPPart soapMessagePart;
 
-    private SOAPMessage soapResponse = null;
+    private SOAPElement soapMessageElement;
 
-    private Document responseDocument = null;
+    private SOAPElement soapMessageElementParent;
 
-    private String soapURL;
+    private SOAPMessage soapResponse;
 
-    private String callFunction;
+    private Document responseDocument;
 
-    private boolean _debug = false;
+    private final String soapURL;
 
-    protected WMTS_SOAPcontainer() {
-        // create();
-    }
+    private final String callFunction;
 
     public WMTS_SOAPcontainer( String function, String soap_URL ) {
-        create( function, soap_URL );
-    }
-
-    public void create( String function, String soap_URL ) {
+        this.callFunction = function;
+        this.soapURL = soap_URL;
         try {
             MessageFactory messageFactory = MessageFactory.newInstance( SOAPConstants.SOAP_1_2_PROTOCOL );
             soapMessage = messageFactory.createMessage();
 
             MimeHeaders headers = soapMessage.getMimeHeaders();
-            this.soapURL = soap_URL;
-            this.callFunction = function;
             headers.addHeader( "SOAPAction", soapURL + "/" + callFunction );
 
             soapMessagePart = soapMessage.getSOAPPart();
-
-            // --- SOAP Envelope
             soapMessageEnvelope = soapMessagePart.getEnvelope();
-
-            // --- SOAP Body
             soapMessageBody = soapMessageEnvelope.getBody();
 
             QName qnElem = new QName( WmtsNamespaces.WMTS, callFunction );
@@ -101,11 +95,8 @@ public class WMTS_SOAPcontainer {
                 this.AddNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
             }
         } catch ( SOAPException se ) {
-            System.out.println( "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
-            if ( this._debug ) {
-                se.printStackTrace();
-            }
-            assertTrue( false, "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
+            LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
+            assertTrue( false, "Error adding SOAP Namespace identifier:  " + se.getMessage() );
         }
     }
 
@@ -115,10 +106,7 @@ public class WMTS_SOAPcontainer {
                 QName qAttr = new QName( WmtsNamespaces.WMTS, attribute.toLowerCase() );
                 soapMessageElement.addAttribute( qAttr, value );
             } catch ( SOAPException se ) {
-                System.out.println( "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
-                if ( this._debug ) {
-                    se.printStackTrace();
-                }
+                LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
                 assertTrue( false, "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
             }
         }
@@ -130,10 +118,7 @@ public class WMTS_SOAPcontainer {
                 soapMessageElement.addNamespaceDeclaration( namespace, namespaceURL );
                 // soapMessageElementOperation.addNamespaceDeclaration(WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS);
             } catch ( SOAPException se ) {
-                System.out.println( "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
-                if ( this._debug ) {
-                    se.printStackTrace();
-                }
+                LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
                 assertTrue( false, "Error adding SOAP Namesapce identifier:  " + se.getMessage() );
             }
         }
@@ -154,10 +139,7 @@ public class WMTS_SOAPcontainer {
                 SOAPElement childElement = element.addChildElement( parameterName, namespace );
                 childElement.addTextNode( value );
             } catch ( SOAPException se ) {
-                System.out.println( "Error adding SOAP Parameter:  " + se.getMessage() );
-                if ( this._debug ) {
-                    se.printStackTrace();
-                }
+                LOGR.log( SEVERE, "Error adding SOAP Parameter", se );
                 assertTrue( false, "Error adding SOAP Parameter:  " + se.getMessage() );
             }
         }
@@ -175,10 +157,7 @@ public class WMTS_SOAPcontainer {
                 elemOperationAcceptVersionsVersion.addTextNode(WMTS_Constants.VERSION);
                 --*/
             } catch ( SOAPException se ) {
-                System.out.println( "Error adding SOAP Parameter:  " + se.getMessage() );
-                if ( this._debug ) {
-                    se.printStackTrace();
-                }
+                LOGR.log( SEVERE, "Error adding SOAP Parameter", se );
                 assertTrue( false, "Error adding SOAP Parameter:  " + se.getMessage() );
             }
         }
@@ -186,26 +165,20 @@ public class WMTS_SOAPcontainer {
 
     public SOAPMessage getSOAPresponse( boolean trapSoapErrors ) {
         try {
-            // --- Send SOAP Message to SOAP Server
-
             SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
             SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
             this.finalizeSoapMessage();
 
-            // --- Print the request message
-            if ( this._debug ) {
-                System.out.print( "Request SOAP Message = " );
-                soapMessage.writeTo( System.out );
-                System.out.println();
-            }
+            logSoapMessage();
+
             soapResponse = soapConnection.call( soapMessage, soapURL );
             soapConnection.close();
 
             responseDocument = makeResponseDocument( soapResponse );
 
-            NodeList anyResponseExceptions = (NodeList) ServiceMetadataUtils.getNodeElements( responseDocument,
-                                                                                              "//ows:ExceptionText" );
+            NodeList anyResponseExceptions = ServiceMetadataUtils.getNodeElements( responseDocument,
+                                                                                   "//ows:ExceptionText" );
             if ( ( anyResponseExceptions != null ) && ( anyResponseExceptions.getLength() > 0 ) ) {
                 String exceptionText = "";
                 for ( int i = 0; i < anyResponseExceptions.getLength(); i++ ) {
@@ -214,29 +187,14 @@ public class WMTS_SOAPcontainer {
                 throw new SOAPException( exceptionText );
             }
 
-            // --- Process the SOAP Response
-            if ( this._debug ) {
-                this.printSOAPResponse();
-            }
+            logSoapResponse();
         } catch ( SOAPException se ) {
             if ( trapSoapErrors ) {
-                System.out.println( "Error with SOAP Response:  " + se.getMessage() );
-                if ( this._debug ) {
-                    se.printStackTrace();
-                }
-                assertTrue( false, "Error with SOAP Response:  " + se.getMessage() );
+                LOGR.log( SEVERE, "Error with SOAP Response:  ", se );
+                assertTrue( false, "Error with SOAP Response" + se.getMessage() );
             }
-        } catch ( IOException ioe ) {
-            System.out.println( "Error writing SOAP message:  " + ioe.getMessage() );
-            if ( this._debug ) {
-                ioe.printStackTrace();
-            }
-            assertTrue( false, "Error writing SOAP message:  " + ioe.getMessage() );
         } catch ( XPathExpressionException xe ) {
-            System.out.println( "Error processing SOAP exception message:  " + xe.getMessage() );
-            if ( this._debug ) {
-                xe.printStackTrace();
-            }
+            LOGR.log( SEVERE, "Error processing SOAP exception message", xe );
             assertTrue( false, "Error processing SOAP exception message:  " + xe.getMessage() );
         }
         return soapResponse;
@@ -262,18 +220,10 @@ public class WMTS_SOAPcontainer {
 
             soapDocument = (Document) result.getNode();
         } catch ( SOAPException se ) {
-            System.out.println( "Converting SOAP message to document Error = " + se.getMessage() );
-            // if ( this._debug )
-            {
-                se.printStackTrace();
-            }
+            LOGR.log( SEVERE, "Converting SOAP message to document", se );
             assertTrue( false, "Converting SOAP message to document Error = " + se.getMessage() );
         } catch ( TransformerException te ) {
-            System.out.println( "Transforming SOAP message to document error = " + te.getMessage() );
-            // if ( this._debug )
-            {
-                te.printStackTrace();
-            }
+            LOGR.log( SEVERE, "Transforming SOAP message to document", te );
             assertTrue( false, "Transforming SOAP message to document error = " + te.getMessage() );
         }
         return soapDocument;
@@ -294,37 +244,45 @@ public class WMTS_SOAPcontainer {
             }
             soapMessage.saveChanges();
         } catch ( SOAPException se ) {
-            System.out.println( "Completing SOAP message construct Error = " + se.getMessage() );
-            if ( this._debug ) {
-                se.printStackTrace();
-            }
+            LOGR.log( SEVERE, "Completing SOAP message construct", se );
             assertTrue( false, "Completing SOAP message construct Error = " + se.getMessage() );
         }
     }
 
-    /**
-     * Method used to print the SOAP Response
-     */
-    private void printSOAPResponse() {
+    private void logSoapResponse() {
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            Source sourceContent = soapResponse.getSOAPPart().getContent();
-            System.out.print( "\nResponse SOAP Message = " );
-            StreamResult result = new StreamResult( System.out );
-            transformer.transform( sourceContent, result );
+            if ( Level.SEVERE.equals( LOGR.getLevel() ) ) {
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                Source sourceContent = soapResponse.getSOAPPart().getContent();
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                StreamResult result = new StreamResult( bos );
+                transformer.transform( sourceContent, result );
+                bos.close();
+                LOGR.log( SEVERE, "Response SOAP message ", bos.toString() );
+            }
         } catch ( TransformerException te ) {
-            System.out.println( "Transforming Error when printing SOAPresponse: " + te.getMessage() );
-            if ( this._debug ) {
-                te.printStackTrace();
-            }
-            assertTrue( false, "Transforming Error when printing SOAPresponse: " + te.getMessage() );
+            LOGR.log( WARNING, "Transforming Error when printing SOAP response for logging", te );
         } catch ( SOAPException se ) {
-            System.out.println( "Error when printing SOAPresponse: " + se.getMessage() );
-            if ( this._debug ) {
-                se.printStackTrace();
+            LOGR.log( WARNING, "Error when printing SOAP response for logging", se );
+        } catch ( IOException ioe ) {
+            LOGR.log( WARNING, "Error when printing SOAP response for logging", ioe );
+        }
+    }
+
+    private void logSoapMessage() {
+        try {
+            if ( Level.SEVERE.equals( LOGR.getLevel() ) ) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                soapMessage.writeTo( bos );
+                bos.close();
+                LOGR.log( SEVERE, "Request SOAP message ", bos.toString() );
             }
-            assertTrue( false, "Error when printing SOAPresponse: " + se.getMessage() );
+        } catch ( SOAPException se ) {
+            LOGR.log( WARNING, "Error when printing SOAP message for logging", se );
+        } catch ( IOException ioe ) {
+            LOGR.log( WARNING, "Error when printing SOAP message for logging", ioe );
         }
     }
 
