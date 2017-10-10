@@ -13,7 +13,7 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
-import org.opengeospatial.cite.wmts10.ets.core.util.WMTS_SOAPcontainer;
+import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getfeatureinfo.AbstractBaseGetFeatureInfoFixture;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
@@ -79,20 +79,20 @@ public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
             String infoFormat = this.reqEntity.getKvpValue( WMTS_Constants.INFO_FORMAT_PARAM );
             String requestFormat = this.reqEntity.getKvpValue( WMTS_Constants.FORMAT_PARAM );
 
-            WMTS_SOAPcontainer soap = new WMTS_SOAPcontainer( WMTS_Constants.GET_FEATURE_INFO, soapURIstr );
+            WmtsSoapContainer soap = new WmtsSoapContainer( WMTS_Constants.GET_FEATURE_INFO, soapURIstr );
 
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.I_PARAM, pixelI );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.J_PARAM, pixelJ );
-            soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.INFO_FORMAT_PARAM, infoFormat );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.I_PARAM, pixelI );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.J_PARAM, pixelJ );
+            soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.INFO_FORMAT_PARAM, infoFormat );
 
-            SOAPMessage soapResponse = soap.getSOAPresponse( true );
+            SOAPMessage soapResponse = soap.getSoapResponse( true );
             assertTrue( soapResponse != null, "SOAP reposnse came back null" );
 
             Document soapDocument = (Document) soap.getResponseDocument();

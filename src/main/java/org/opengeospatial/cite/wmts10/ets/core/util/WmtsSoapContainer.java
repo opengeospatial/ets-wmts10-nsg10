@@ -36,9 +36,13 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-public class WMTS_SOAPcontainer {
+public class WmtsSoapContainer {
 
-    private static final Logger LOGR = Logger.getLogger( WMTS_SOAPcontainer.class.getName() );
+    private static final Logger LOGR = Logger.getLogger( WmtsSoapContainer.class.getName() );
+
+    private final String soapURL;
+
+    private final String callFunction;
 
     private SOAPMessage soapMessage;
 
@@ -56,11 +60,8 @@ public class WMTS_SOAPcontainer {
 
     private Document responseDocument;
 
-    private final String soapURL;
 
-    private final String callFunction;
-
-    public WMTS_SOAPcontainer( String function, String soap_URL ) {
+    public WmtsSoapContainer( String function, String soap_URL ) {
         this.callFunction = function;
         this.soapURL = soap_URL;
         try {
@@ -77,11 +78,11 @@ public class WMTS_SOAPcontainer {
             QName qnElem = new QName( WmtsNamespaces.WMTS, callFunction );
             soapMessageElement = soapMessageBody.addChildElement( qnElem );
 
-            this.AddWMTSAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
+            this.addWmtsAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
             if ( !callFunction.equals( WMTS_Constants.GET_CAPABILITIES ) ) {
-                this.AddWMTSAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
+                this.addWmtsAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
             }
-            this.AddNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
+            this.addNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
 
             if ( callFunction.equals( WMTS_Constants.GET_FEATURE_INFO ) ) {
                 soapMessageElementParent = soapMessageElement;
@@ -89,10 +90,10 @@ public class WMTS_SOAPcontainer {
                 QName qnTileElem = new QName( WmtsNamespaces.WMTS, WMTS_Constants.GET_TILE );
                 soapMessageElement = soapMessageElementParent.addChildElement( qnTileElem );
 
-                this.AddWMTSAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
-                this.AddWMTSAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
+                this.addWmtsAttribute( WMTS_Constants.SERVICE_PARAM, WMTS_Constants.SERVICE_TYPE_CODE );
+                this.addWmtsAttribute( WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
 
-                this.AddNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
+                this.addNamespace( WmtsNamespaces.serviceOWS, WmtsNamespaces.OWS );
             }
         } catch ( SOAPException se ) {
             LOGR.log( SEVERE, "Error adding SOAP Namespace identifier", se );
@@ -100,7 +101,7 @@ public class WMTS_SOAPcontainer {
         }
     }
 
-    public void AddWMTSAttribute( String attribute, String value ) {
+    public void addWmtsAttribute( String attribute, String value ) {
         if ( soapMessageElement != null ) {
             try {
                 QName qAttr = new QName( WmtsNamespaces.WMTS, attribute.toLowerCase() );
@@ -112,7 +113,7 @@ public class WMTS_SOAPcontainer {
         }
     }
 
-    public void AddNamespace( String namespace, String namespaceURL ) {
+    public void addNamespace( String namespace, String namespaceURL ) {
         if ( soapMessageElement != null ) {
             try {
                 soapMessageElement.addNamespaceDeclaration( namespace, namespaceURL );
@@ -124,7 +125,7 @@ public class WMTS_SOAPcontainer {
         }
     }
 
-    public void AddParameter( String namespace, String parameterName, String value ) {
+    public void addParameter( String namespace, String parameterName, String value ) {
         if ( soapMessageElement != null ) {
             try {
                 SOAPElement element = soapMessageElement;
@@ -145,7 +146,7 @@ public class WMTS_SOAPcontainer {
         }
     }
 
-    public void AddParameterWithChild( String namespace, String parameterName, String childParameterName, String value ) {
+    public void addParameterWithChild( String namespace, String parameterName, String childParameterName, String value ) {
         if ( soapMessageElement != null ) {
             try {
                 SOAPElement childElement = soapMessageElement.addChildElement( parameterName, namespace );
@@ -163,7 +164,7 @@ public class WMTS_SOAPcontainer {
         }
     }
 
-    public SOAPMessage getSOAPresponse( boolean trapSoapErrors ) {
+    public SOAPMessage getSoapResponse( boolean trapSoapErrors ) {
         try {
             SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
             SOAPConnection soapConnection = soapConnectionFactory.createConnection();

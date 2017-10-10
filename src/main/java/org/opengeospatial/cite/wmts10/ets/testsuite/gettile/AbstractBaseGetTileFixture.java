@@ -21,7 +21,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.joda.time.DateTime;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
-import org.opengeospatial.cite.wmts10.ets.core.util.WMTS_SOAPcontainer;
+import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
 import org.opengeospatial.cite.wmts10.ets.core.util.request.WmtsKvpRequestBuilder;
 import org.opengeospatial.cite.wmts10.ets.testsuite.AbstractBaseGetFixture;
 import org.testng.ITestContext;
@@ -159,7 +159,7 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
                 imageFile = testClassDirectory.resolve( fileName );
             }
 
-            Document soapDocument = WMTS_SOAPcontainer.makeResponseDocument( soapResponse );
+            Document soapDocument = WmtsSoapContainer.makeResponseDocument( soapResponse );
 
             // String formatStr = (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:Format",
             // soapDocument,XPathConstants.STRING);
