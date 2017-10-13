@@ -17,6 +17,7 @@ import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.core.util.WMTS_SOAPcontainer;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getfeatureinfo.AbstractBaseGetFeatureInfoFixture;
 import org.testng.ITestContext;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.w3c.dom.NodeList;
 
@@ -37,16 +38,17 @@ public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
     private URI getFeatureInfoURI = null;
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "verifyGetFeatureInfoSupported")
-    public void wmtsGetFeatureInfoSOAPRequestsExists() {
+    public void wmtsGetFeatureInfoSoapSupported() {
         getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities,
                                                                             WMTS_Constants.GET_FEATURE_INFO,
                                                                             ProtocolBinding.POST );
-        assertNotNull( this.getFeatureInfoURI,
-                    "GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
+        if ( this.getFeatureInfoURI == null )
+            throw new SkipException(
+                                     "GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
     }
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "wmtsGetFeatureInfoSOAPRequestsExists")
-    public void wmtsGetFeatureInfoRequestFormatParameters( ITestContext testContext ) {
+    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "wmtsGetFeatureInfoSoapSupported")
+    public void wmtsGetFeatureInfoSoapRequestFormatParameters( ITestContext testContext ) {
         if ( getFeatureInfoURI == null ) {
             getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( this.wmtsCapabilities,
                                                                                 WMTS_Constants.GET_FEATURE_INFO,
