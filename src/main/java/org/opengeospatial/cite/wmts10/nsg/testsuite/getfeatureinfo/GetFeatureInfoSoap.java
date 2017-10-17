@@ -1,6 +1,20 @@
 package org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo;
 
 import static de.latlon.ets.core.assertion.ETSAssert.assertUrl;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding.POST;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.FORMAT_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.GET_FEATURE_INFO;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.INFO_FORMAT_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.I_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.J_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.LAYER_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.STYLE_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.TILE_MATRIX_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.TILE_MATRIX_SET_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants.TILE_ROW_PARAM;
+import static org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces.serviceOWS;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.getNodeElements;
+import static org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils.getOperationEndpoint_SOAP;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URI;
@@ -9,10 +23,6 @@ import java.util.logging.Level;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
-import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
-import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
-import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getfeatureinfo.AbstractBaseGetFeatureInfoFixture;
 import org.testng.ITestContext;
@@ -38,9 +48,7 @@ public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "verifyGetFeatureInfoSupported")
     public void wmtsGetFeatureInfoSoapSupported() {
-        getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities,
-                                                                            WMTS_Constants.GET_FEATURE_INFO,
-                                                                            ProtocolBinding.POST );
+        getFeatureInfoURI = getOperationEndpoint_SOAP( wmtsCapabilities, GET_FEATURE_INFO, POST );
         if ( this.getFeatureInfoURI == null )
             throw new SkipException(
                                      "GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
@@ -49,9 +57,7 @@ public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "wmtsGetFeatureInfoSoapSupported")
     public void wmtsGetFeatureInfoSoapRequestFormatParameters( ITestContext testContext ) {
         if ( getFeatureInfoURI == null ) {
-            getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( this.wmtsCapabilities,
-                                                                                WMTS_Constants.GET_FEATURE_INFO,
-                                                                                ProtocolBinding.POST );
+            getFeatureInfoURI = getOperationEndpoint_SOAP( this.wmtsCapabilities, GET_FEATURE_INFO, POST );
         }
         String soapURIstr = getFeatureInfoURI.toString();
         assertUrl( soapURIstr );
@@ -67,41 +73,35 @@ public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
 
     private WmtsSoapContainer createSoapContainer( String soapURIstr )
                             throws XPathExpressionException {
-        String layerName = this.reqEntity.getKvpValue( WMTS_Constants.LAYER_PARAM );
+        WmtsSoapContainer soap = new WmtsSoapContainer( GET_FEATURE_INFO, soapURIstr );
+
+        soap.addParameter( serviceOWS, LAYER_PARAM, findLayerName() );
+        addParamFromRequest( soap, STYLE_PARAM );
+        addParamFromRequest( soap, FORMAT_PARAM );
+        addParamFromRequest( soap, TILE_MATRIX_SET_PARAM );
+        addParamFromRequest( soap, TILE_MATRIX_PARAM );
+        addParamFromRequest( soap, TILE_ROW_PARAM );
+        addParamFromRequest( soap, I_PARAM );
+        addParamFromRequest( soap, J_PARAM );
+        addParamFromRequest( soap, INFO_FORMAT_PARAM );
+        return soap;
+    }
+
+    private String findLayerName()
+                            throws XPathExpressionException {
+        String layerName = this.reqEntity.getKvpValue( LAYER_PARAM );
         if ( layerName == null ) {
-            NodeList layers = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
-                                                                    "//wmts:Contents/wmts:Layer/ows:Identifier" );
+            NodeList layers = getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier" );
             if ( layers.getLength() > 0 ) {
                 layerName = ( layers.item( 0 ) ).getTextContent().trim();
             }
         }
+        return layerName;
+    }
 
-        // --- get the prepopulated KVP parameters, for the SOAP parameters
-        String style = this.reqEntity.getKvpValue( WMTS_Constants.STYLE_PARAM );
-        String tileMatrixSet = this.reqEntity.getKvpValue( WMTS_Constants.TILE_MATRIX_SET_PARAM );
-        String tileMatrix = this.reqEntity.getKvpValue( WMTS_Constants.TILE_MATRIX_PARAM );
-        String tileRow = this.reqEntity.getKvpValue( WMTS_Constants.TILE_ROW_PARAM );
-        String tileCol = this.reqEntity.getKvpValue( WMTS_Constants.TILE_COL_PARAM );
-
-        String pixelI = this.reqEntity.getKvpValue( WMTS_Constants.I_PARAM );
-        String pixelJ = this.reqEntity.getKvpValue( WMTS_Constants.J_PARAM );
-
-        String infoFormat = this.reqEntity.getKvpValue( WMTS_Constants.INFO_FORMAT_PARAM );
-        String requestFormat = this.reqEntity.getKvpValue( WMTS_Constants.FORMAT_PARAM );
-
-        WmtsSoapContainer soap = new WmtsSoapContainer( WMTS_Constants.GET_FEATURE_INFO, soapURIstr );
-
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.I_PARAM, pixelI );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.J_PARAM, pixelJ );
-        soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.INFO_FORMAT_PARAM, infoFormat );
-        return soap;
+    private void addParamFromRequest( WmtsSoapContainer soap, String paramName ) {
+        String style = this.reqEntity.getKvpValue( paramName );
+        soap.addParameter( serviceOWS, paramName, style );
     }
 
 }
