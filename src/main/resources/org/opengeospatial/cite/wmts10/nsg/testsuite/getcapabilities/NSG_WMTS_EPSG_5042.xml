@@ -1,0 +1,224 @@
+<TileMatrixSet>
+	<ows:Identifier>NSG Arctic (South) UPS Tile</ows:Identifier>
+	<ows:SupportedCRS>urn:ogc:def:crs:EPSG::5042</ows:SupportedCRS>
+	<BoundingBox crs="EPSG:5042">
+		<LowerCorner>-1.4440759350252E+07 -1.4440759350252E+07</LowerCorner>
+		<UpperCorner>1.8440759350252E+07 1.8440759350252E+07</UpperCorner>
+	</BoundingBox>
+	<TileMatrix>
+		<Identifier>0</Identifier>
+		<ScaleDenominator>458726544.371</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>1</MatrixWidth>
+		<MatrixHeight>1</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>1</Identifier>
+		<ScaleDenominator>229363272.185</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>2</MatrixWidth>
+		<MatrixHeight>2</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>2</Identifier>
+		<ScaleDenominator>114681636.093</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>4</MatrixWidth>
+		<MatrixHeight>4</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>3</Identifier>
+		<ScaleDenominator>57340818.0464</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>8</MatrixWidth>
+		<MatrixHeight>8</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>4</Identifier>
+		<ScaleDenominator>28670409.0232</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>16</MatrixWidth>
+		<MatrixHeight>16</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>5</Identifier>
+		<ScaleDenominator>14335204.5116</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>32</MatrixWidth>
+		<MatrixHeight>32</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>6</Identifier>
+		<ScaleDenominator>7167602.25579</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>64</MatrixWidth>
+		<MatrixHeight>64</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>7</Identifier>
+		<ScaleDenominator>3583801.1279</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>128</MatrixWidth>
+		<MatrixHeight>128</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>8</Identifier>
+		<ScaleDenominator>1791900.56395</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>256</MatrixWidth>
+		<MatrixHeight>256</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>9</Identifier>
+		<ScaleDenominator>895950.281974</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>512</MatrixWidth>
+		<MatrixHeight>512</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>10</Identifier>
+		<ScaleDenominator>447975.140987</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>1024</MatrixWidth>
+		<MatrixHeight>1024</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>11</Identifier>
+		<ScaleDenominator>223987.570494</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>2048</MatrixWidth>
+		<MatrixHeight>2048</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>12</Identifier>
+		<ScaleDenominator>111993.785247</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>4096</MatrixWidth>
+		<MatrixHeight>4096</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>13</Identifier>
+		<ScaleDenominator>55996.8926234</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>8192</MatrixWidth>
+		<MatrixHeight>8192</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>14</Identifier>
+		<ScaleDenominator>27998.4463117</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>16384</MatrixWidth>
+		<MatrixHeight>16384</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>15</Identifier>
+		<ScaleDenominator>13999.2231558</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>32768</MatrixWidth>
+		<MatrixHeight>32768</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>16</Identifier>
+		<ScaleDenominator>6999.61157792</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>65536</MatrixWidth>
+		<MatrixHeight>65536</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>17</Identifier>
+		<ScaleDenominator>3499.80578896</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>131072</MatrixWidth>
+		<MatrixHeight>131072</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>18</Identifier>
+		<ScaleDenominator>1749.90289448</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>262144</MatrixWidth>
+		<MatrixHeight>262144</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>19</Identifier>
+		<ScaleDenominator>874.951447241</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>524288</MatrixWidth>
+		<MatrixHeight>524288</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>20</Identifier>
+		<ScaleDenominator>437.47572362</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>1048576</MatrixWidth>
+		<MatrixHeight>1048576</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>21</Identifier>
+		<ScaleDenominator>218.73786181</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>2097152</MatrixWidth>
+		<MatrixHeight>2097152</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>22</Identifier>
+		<ScaleDenominator>109.368930905</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>4194304</MatrixWidth>
+		<MatrixHeight>4194304</MatrixHeight>
+	</TileMatrix>
+	<TileMatrix>
+		<Identifier>23</Identifier>
+		<ScaleDenominator>54.6844654525</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>8388608</MatrixWidth>
+		<MatrixHeight>8388608</MatrixHeight>
+	</TileMatrix>
+</TileMatrixSet>
