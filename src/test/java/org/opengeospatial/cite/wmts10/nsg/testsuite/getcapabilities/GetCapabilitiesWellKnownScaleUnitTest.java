@@ -10,7 +10,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -25,128 +24,79 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class GetCapabilitiesWellKnownScaleUnitTest {
-	List<LayerInfo> layerInfos;
-	GetCapabilitiesWellKnownScaleTest iut;
 
-	private static ITestContext testContext;
-	private static ISuite suite;
-	private static final String SUBJ = "testSubject";
-	private static final String LAYER = "layerInfo";
-	private static final String file = "../NSGWMTSImplementation.xml";
-	
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		testContext = mock(ITestContext.class);
-		suite = mock(ISuite.class);
-		when(testContext.getSuite()).thenReturn(suite);
-		
-	}
+    private static ITestContext testContext;
 
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	}
+    private static ISuite suite;
 
+    private static final String SUBJ = "testSubject";
 
-	@Test
-	public void wmtsCapabilitiesWellKnownScaleTest_3395_Test() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesWellKnownScaleTest_3395_Test();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void wmtsCapabilitiesWellKnownScaleTest_4326_Test() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesWellKnownScaleTest_4326_Test();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void wmtsCapabilitiesWellKnownScaleTest_5041_Test() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesWellKnownScaleTest_5041_Test();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void wmtsCapabilitiesWellKnownScaleTest_5042_Test() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesWellKnownScaleTest_5042_Test();
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void prepareTest(String resource) throws ParserConfigurationException, SAXException, IOException {
+    private static final String LAYER = "layerInfo";
 
-		try {
-			layerInfos = ServiceMetadataUtils.parseLayerInfo(capabilities(resource));
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    private static final String TEST_RESOURCE = "../NSGWMTSImplementation.xml";
 
-		
-		when(suite.getAttribute(SUBJ)).thenReturn(capabilities(resource));		
-		when(suite.getAttribute(LAYER)).thenReturn(layerInfos);
+    @BeforeClass
+    public static void setUpClass()
+                            throws Exception {
+        testContext = mock( ITestContext.class );
+        suite = mock( ISuite.class );
+        when( testContext.getSuite() ).thenReturn( suite );
+    }
 
-		this.iut = new GetCapabilitiesWellKnownScaleTest();	
-		this.iut.initBaseFixture(testContext);
-		this.iut.buildGetCapabilitiesRequest();
-	}
+    @AfterClass
+    public static void tearDownClass()
+                            throws Exception {
+    }
 
-	private Document capabilities(String resource) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream(resource);
-		return builder.parse(new InputSource(wmtsCapabilities));
-	}
+    @Test
+    public void wmtsCapabilitiesWellKnownScaleTest_3395_Test()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        iut.wmtsCapabilitiesWellKnownScaleTest_3395_Test();
+    }
+
+    @Test
+    public void wmtsCapabilitiesWellKnownScaleTest_4326_Test()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        iut.wmtsCapabilitiesWellKnownScaleTest_4326_Test();
+    }
+
+    @Test
+    public void wmtsCapabilitiesWellKnownScaleTest_5041_Test()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        iut.wmtsCapabilitiesWellKnownScaleTest_5041_Test();
+    }
+
+    @Test
+    public void wmtsCapabilitiesWellKnownScaleTest_5042_Test()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        iut.wmtsCapabilitiesWellKnownScaleTest_5042_Test();
+    }
+
+    private GetCapabilitiesWellKnownScaleTest prepareTest()
+                            throws Exception {
+
+        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( capabilities( TEST_RESOURCE ) );
+
+        when( suite.getAttribute( SUBJ ) ).thenReturn( capabilities( TEST_RESOURCE ) );
+        when( suite.getAttribute( LAYER ) ).thenReturn( layerInfos );
+
+        GetCapabilitiesWellKnownScaleTest iut = new GetCapabilitiesWellKnownScaleTest();
+        iut.initBaseFixture( testContext );
+        iut.buildGetCapabilitiesRequest();
+        return iut;
+    }
+
+    private Document capabilities( String resource )
+                            throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware( true );
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( resource );
+        return builder.parse( new InputSource( wmtsCapabilities ) );
+    }
 
 }

@@ -24,119 +24,77 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class GetCapabilitiesProjectionUnitTest {
-	List<LayerInfo> layerInfos;
-	GetCapabilitiesProjectionTest iut;
 
-	private static ITestContext testContext;
-	private static ISuite suite;
-	private static final String SUBJ = "testSubject";
-	private static final String LAYER = "layerInfo";
-	private static final String file = "../NSGWMTSImplementation.xml";
+    private static ITestContext testContext;
 
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		testContext = mock(ITestContext.class);
-		suite = mock(ISuite.class);
-		when(testContext.getSuite()).thenReturn(suite);
+    private static ISuite suite;
 
-	}
+    private static final String SUBJ = "testSubject";
 
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	}
+    private static final String LAYER = "layerInfo";
 
-	@Test
-	public void testwmtsCapabilitiesExists() {
-		try {
-			prepareTest(file);
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.iut.wmtsCapabilitiesExists();
-	}
+    private static final String TEST_RESOURCE = "../NSGWMTSImplementation.xml";
 
-	@Test
-	public void wmtsCapabilitiesEPSG3395Test() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesEPSG3395Test();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+    @BeforeClass
+    public static void setUpClass()
+                            throws Exception {
+        testContext = mock( ITestContext.class );
+        suite = mock( ISuite.class );
+        when( testContext.getSuite() ).thenReturn( suite );
+    }
 
-	@Test
-	public void wmtsCapabilitiesUPS_NorthTest() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesUPS_NorthTest();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    @AfterClass
+    public static void tearDownClass()
+                            throws Exception {
+    }
 
-	@Test
-	public void wmtsCapabilitiesUPS_SouthTest() {
-		try {
-			prepareTest(file);
-			this.iut.wmtsCapabilitiesUPS_SouthTest();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.iut.wmtsCapabilitiesUPS_SouthTest();
-	}
+    @Test
+    public void testwmtsCapabilitiesExists()
+                            throws Exception {
+        GetCapabilitiesProjectionTest iut = prepareTest();
+        iut.wmtsCapabilitiesExists();
+    }
 
-	public void prepareTest(String resource) throws ParserConfigurationException, SAXException, IOException {
+    @Test
+    public void wmtsCapabilitiesEPSG3395Test()
+                            throws Exception {
+        GetCapabilitiesProjectionTest iut = prepareTest();
+        iut.wmtsCapabilitiesEPSG3395Test();
+    }
 
-		try {
-			layerInfos = ServiceMetadataUtils.parseLayerInfo(capabilities(resource));
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    @Test
+    public void wmtsCapabilitiesUPS_NorthTest()
+                            throws Exception {
+        GetCapabilitiesProjectionTest iut = prepareTest();
+        iut.wmtsCapabilitiesUPS_NorthTest();
+    }
 
-		when(suite.getAttribute(SUBJ)).thenReturn(capabilities(resource));		
-		when(suite.getAttribute(LAYER)).thenReturn(layerInfos);
+    @Test
+    public void wmtsCapabilitiesUPS_SouthTest()
+                            throws Exception {
+        GetCapabilitiesProjectionTest iut = prepareTest();
+        iut.wmtsCapabilitiesUPS_SouthTest();
+    }
 
-		this.iut = new GetCapabilitiesProjectionTest();
-		this.iut.initBaseFixture(testContext);
-	}
+    private GetCapabilitiesProjectionTest prepareTest()
+                            throws Exception {
+        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( capabilities( TEST_RESOURCE ) );
 
-	private Document capabilities(String resource) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream(resource);
-		return builder.parse(new InputSource(wmtsCapabilities));
-	}
+        when( suite.getAttribute( SUBJ ) ).thenReturn( capabilities( TEST_RESOURCE ) );
+        when( suite.getAttribute( LAYER ) ).thenReturn( layerInfos );
+
+        GetCapabilitiesProjectionTest iut = new GetCapabilitiesProjectionTest();
+        iut.initBaseFixture( testContext );
+        return iut;
+    }
+
+    private Document capabilities( String resource )
+                            throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware( true );
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( resource );
+        return builder.parse( new InputSource( wmtsCapabilities ) );
+    }
 
 }

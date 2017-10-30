@@ -37,98 +37,83 @@ public class GetCapabilitiesProjectionTest extends AbstractBaseGetCapabilitiesFi
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
-    public void wmtsCapabilitiesEPSG3395Test() 
-    {
-    	//    	assessAdvertisedProjections("EPSG:3395", "World Mercator Projection", -20037508.342789244, 20037508.342789244, -85.0, 85.0);    	
-    	assessAdvertisedProjections("EPSG:3395", "World Mercator Projection", -15496570.7397, 18764656.2314, -84.0, 80.0);    	
+    public void wmtsCapabilitiesEPSG3395Test() {
+        assessAdvertisedProjections( "EPSG:3395", "World Mercator Projection", -15496570.7397, 18764656.2314, -84.0,
+                                     80.0 );
     }
-    
+
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
-    public void wmtsCapabilitiesUPS_NorthTest()
-    {
-    	assessAdvertisedProjections("EPSG:5041", "WGS 84 / UPS North", -14440759.350252, 18440759.350252, 60.0, 90.0);    	    	
+    public void wmtsCapabilitiesUPS_NorthTest() {
+        assessAdvertisedProjections( "EPSG:5041", "WGS 84 / UPS North", -14440759.350252, 18440759.350252, 60.0, 90.0 );
     }
+
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
-    public void wmtsCapabilitiesUPS_SouthTest()
-    {
-    	assessAdvertisedProjections("EPSG:5042", "WGS 84 / UPS South", -14440759.350252, 18440759.350252, -90.0, -60.0);    	    	
+    public void wmtsCapabilitiesUPS_SouthTest() {
+        assessAdvertisedProjections( "EPSG:5042", "WGS 84 / UPS South", -14440759.350252, 18440759.350252, -90.0, -60.0 );
     }
-    
-    private void assessAdvertisedProjections(String crsName2Look4, String crsFullName, double crsMin, double crsMax, double latMin, double latMax)
-    {
-    	try 
-    	{
-    		boolean crsFound = false;    		
-    		crsName2Look4 = NSG_CRSUtils.parseCRS( crsName2Look4 );   		
-    		if (wmtsCapabilities == null)
-			{
-				System.out.println("null");
-			}
-    		NodeList crsList = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//ows:SupportedCRS" );
-    		for ( int crsI = 0; ( crsI < crsList.getLength() && !crsFound ); crsI++ ) 
-    		{
-    			Node supportedCRS = crsList.item( crsI );
-    			String crsName = NSG_CRSUtils.parseCRS( supportedCRS.getTextContent() );
 
-    			crsFound = ( crsName.contains( crsName2Look4 ) );
-    		}
+    private void assessAdvertisedProjections( String crsName2Look4, String crsFullName, double crsMin, double crsMax,
+                                              double latMin, double latMax ) {
+        try {
+            String parsedCrs = NSG_CRSUtils.normaliseCrsName( crsName2Look4 );
 
-    		boolean hasLayerInRange = crsFound;
-    		boolean isAdvertised = crsFound;
+            boolean crsFound = isCrsFound( parsedCrs );
 
-    		// --- not in TileMatrixSet, check if defined in the Layers
-    		if ( !crsFound ) 
-    		{
-    			for ( int layerI = 0; ( layerI < layerInfo.size() && !crsFound ); layerI++ )
-    			{
-    				LayerInfo layer = layerInfo.get( layerI );
+            boolean hasLayerInRange = crsFound;
+            boolean isAdvertised = crsFound;
 
-    				List<BoundingBox> bbox = layer.getBboxes();
+            // --- not in TileMatrixSet, check if defined in the Layers
+            if ( !crsFound ) {
+                for ( int layerI = 0; ( layerI < layerInfo.size() && !crsFound ); layerI++ ) {
+                    LayerInfo layer = layerInfo.get( layerI );
 
-    				for ( int bboxI = -1; ( bboxI < bbox.size() && !crsFound ); bboxI++ ) 
-    				{
-    					double minLat, maxLat;
-    					boolean insideLimits = false;
-    					String crsName = null;
-    					
-    					if ( bboxI < 0 ) 
-    					{
-    						crsName = layer.getGeographicBbox().getCrs();
-    						minLat  = layer.getGeographicBbox().getMinY();
-    						maxLat  = layer.getGeographicBbox().getMaxY();
-    						insideLimits = ((( minLat >= latMin ) && ( minLat <= latMax )) ||
-    										(( maxLat >= latMin ) && ( maxLat <= latMax )));
-    					}
-    					else 
-    					{
-    						crsName = bbox.get( bboxI ).getCrs();
-    						minLat  = bbox.get( bboxI ).getMinY();
-    						maxLat  = bbox.get( bboxI ).getMaxY();
-    						insideLimits  = ((( minLat >= crsMin ) && ( minLat <= crsMax )) ||
-    										 (( maxLat >= crsMin ) && ( maxLat <= crsMax )));
-    					}
+                    List<BoundingBox> bbox = layer.getBboxes();
 
-    					if ( insideLimits )
-    					{
-    						hasLayerInRange = true;
-    						crsFound = ( crsName.contains( crsName2Look4 ));
-    					}
-    				}
-    			}
-    		}
-    		if ( hasLayerInRange || !isAdvertised )
-    		{
-    			assertTrue( crsFound && isAdvertised,
-                		"WMTS does not support " + crsName2Look4 + " (" + crsFullName + ") in any of its <Layer>s or <TileMatrixSet>s." );
-    		}
-    		else
-    		{
-    			throw new SkipException("WMTS does not have a Layer within range of " + crsName2Look4 + " (" + crsFullName + ")");
-    		}
-    	}
-    	catch ( XPathExpressionException xpe ) 
-    	{
-                // xpe.printStackTrace();
-    	}
+                    for ( int bboxI = -1; ( bboxI < bbox.size() && !crsFound ); bboxI++ ) {
+                        double minLat, maxLat;
+                        boolean insideLimits = false;
+                        String crsName = null;
+
+                        if ( bboxI < 0 ) {
+                            crsName = layer.getGeographicBbox().getCrs();
+                            minLat = layer.getGeographicBbox().getMinY();
+                            maxLat = layer.getGeographicBbox().getMaxY();
+                            insideLimits = ( ( ( minLat >= latMin ) && ( minLat <= latMax ) ) || ( ( maxLat >= latMin ) && ( maxLat <= latMax ) ) );
+                        } else {
+                            crsName = bbox.get( bboxI ).getCrs();
+                            minLat = bbox.get( bboxI ).getMinY();
+                            maxLat = bbox.get( bboxI ).getMaxY();
+                            insideLimits = ( ( ( minLat >= crsMin ) && ( minLat <= crsMax ) ) || ( ( maxLat >= crsMin ) && ( maxLat <= crsMax ) ) );
+                        }
+
+                        if ( insideLimits ) {
+                            hasLayerInRange = true;
+                            crsFound = ( crsName.contains( parsedCrs ) );
+                        }
+                    }
+                }
+            }
+            if ( hasLayerInRange || !isAdvertised ) {
+                assertTrue( crsFound && isAdvertised, "WMTS does not support " + parsedCrs + " (" + crsFullName
+                                                      + ") in any of its <Layer>s or <TileMatrixSet>s." );
+            } else {
+                throw new SkipException( "WMTS does not have a Layer within range of " + parsedCrs + " (" + crsFullName
+                                         + ")" );
+            }
+        } catch ( XPathExpressionException xpe ) {
+        }
+    }
+
+    private boolean isCrsFound( String crsName2Look4 )
+                            throws XPathExpressionException {
+        boolean crsFound = false;
+        NodeList crsList = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//ows:SupportedCRS" );
+        for ( int crsI = 0; ( crsI < crsList.getLength() && !crsFound ); crsI++ ) {
+            Node supportedCRS = crsList.item( crsI );
+            String crsName = NSG_CRSUtils.normaliseCrsName( supportedCRS.getTextContent() );
+
+            crsFound = ( crsName.contains( crsName2Look4 ) );
+        }
+        return crsFound;
     }
 }
