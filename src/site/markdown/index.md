@@ -20,12 +20,17 @@ visible characteristics or behaviors of the IUT while disregarding any implement
 
 ## What is tested
 
-  - ...
+  - The requirements 2 - 17 and 19 and 20 are currently tested. Limitations are documented below.
 
 
 ## What is not tested
 
-  - ...
+  - Currently the following requirements are not or incomplete tested:
+   
+    - Requirement 1 is not tested. The test pass if requirements 2, 4, 5, 7, 8, and 10 are successful.
+    - Requirement 11: The CRS of the GetTile response is not tested
+    - Requirement 14: The requirement 'A response to a "GetCapabilities" request in English language' is skipped.
+    - Requirement 18 is not tested as it is optional
 
 
 ## Test requirements
@@ -136,7 +141,7 @@ The general structure of the test suite is shown in Table 1.
     </tr>
     <tr>
       <td>G Test A.3 - Server Test Module;  Requirement 18</td>
-      <td>Test is missing as pending changes expected to NMF.</td>
+      <td>Test is missing as it is optional.</td>
     </tr>
     <tr>
       <td>G Test A.3 - Server Test Module;  Requirement 19</td>
@@ -151,7 +156,6 @@ The general structure of the test suite is shown in Table 1.
 
 The Javadoc documentation provides more detailed information about the test 
 methods that constitute the suite.
-
 
 ## Test run arguments
 
@@ -178,17 +182,6 @@ have the following values: M (mandatory), O (optional), or C (conditional).
     </tr>
   </tbody>
 </table>
-
-
-## Test Lead
-
-  - ...
-
-
-##  Contributors
-
-  - ...
-
 
 ##  License
 
