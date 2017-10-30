@@ -96,7 +96,7 @@ public class ServiceMetadataUtilsTest {
 
     private Document wmtsCapabilities()
                             throws SAXException, IOException, ParserConfigurationException {
-        return capabilities( "../capabilities_wmts10.xml" );
+        return capabilities( "../NSGWMTSImplementation.xml" );
     }
 
     private Document capabilities( String resource )

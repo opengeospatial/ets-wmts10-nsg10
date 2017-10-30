@@ -39,7 +39,7 @@ public class WmtsAssertTest {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware( true );
         DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( "../capabilities_wmts10.xml" );
+        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( "../NSGWMTSImplementation.xml" );
         return builder.parse( new InputSource( wmtsCapabilities ) );
     }
 
