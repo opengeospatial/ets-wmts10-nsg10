@@ -19,9 +19,10 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
-import org.opengeospatial.cite.wmts10.ets.core.util.WMTS_SOAPcontainer;
+import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
 import org.opengeospatial.cite.wmts10.ets.testsuite.gettile.AbstractBaseGetTileFixture;
 import org.testng.ITestContext;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Document;
@@ -45,15 +46,16 @@ public class GetTileParametersSoap extends AbstractBaseGetTileFixture {
     private URI getTileURI = null;
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 6", dependsOnMethods = "verifyGetTileSupported")
-    public void wmtsGetTileSOAPRequestsExists() {
+    public void wmtsGetTileSoapSupported() {
         getTileURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities, WMTS_Constants.GET_TILE,
                                                                      ProtocolBinding.POST );
-        assertTrue( this.getTileURI != null,
-                    "GetTile (GET) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
+        if ( this.getTileURI == null )
+            throw new SkipException(
+                                     "GetTile (GET) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
     }
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 6", dependsOnMethods = "wmtsGetTileSOAPRequestsExists")
-    public void wmtsGetTileRequestFormatParameters( ITestContext testContext ) {
+    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 6", dependsOnMethods = "wmtsGetTileSoapSupported")
+    public void wmtsGetTileSoapRequestFormatParameters( ITestContext testContext ) {
         if ( getTileURI == null ) {
             getTileURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( this.wmtsCapabilities,
                                                                          WMTS_Constants.GET_TILE, ProtocolBinding.POST );
@@ -95,17 +97,17 @@ public class GetTileParametersSoap extends AbstractBaseGetTileFixture {
             for ( int i = 0; i < imageFormats.getLength(); i++ ) {
                 requestFormat = imageFormats.item( i ).getTextContent().trim();
 
-                WMTS_SOAPcontainer soap = new WMTS_SOAPcontainer( WMTS_Constants.GET_TILE, soapURIstr );
+                WmtsSoapContainer soap = new WmtsSoapContainer( WMTS_Constants.GET_TILE, soapURIstr );
 
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow );
-                soap.AddParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.LAYER_PARAM, layerName );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.STYLE_PARAM, style );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.FORMAT_PARAM, requestFormat );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_SET_PARAM, tileMatrixSet );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_MATRIX_PARAM, tileMatrix );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_ROW_PARAM, tileRow );
+                soap.addParameter( WmtsNamespaces.serviceOWS, WMTS_Constants.TILE_COL_PARAM, tileCol );
 
-                SOAPMessage soapResponse = soap.getSOAPresponse( true );
+                SOAPMessage soapResponse = soap.getSoapResponse( true );
                 sa.assertTrue( soapResponse != null, "SOAP reposnse came back null" );
 
                 Document soapDocument = (Document) soap.getResponseDocument();

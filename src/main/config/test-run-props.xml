@@ -2,5 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
   <comment>NSG WMTS reference implementation</comment>
-  <entry key="wmts">http://localhost:7070/NSGWMTSImplementation.xml</entry>
+  <entry key="wmts"></entry>
 </properties>

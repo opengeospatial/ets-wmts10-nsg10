@@ -43,6 +43,7 @@ public class ServiceMetadataUtilsTest {
                             throws Exception {
         URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_KVP( wmtsCapabilities(), "GetTile",
                                                                          ProtocolBinding.GET );
+
         assertThat( endpointUri, is( new URI( "http://cite.deegree.org/deegree-webservices-3.4-RC3/services/wmts100" ) ) );
     }
 
@@ -53,6 +54,16 @@ public class ServiceMetadataUtilsTest {
                                                                           ProtocolBinding.POST );
 
         assertThat( endpointUri, is( nullValue() ) );
+    }
+
+    @Test
+    public void testGetOperationEndpoint_Soap()
+                            throws Exception {
+        URI soapEndpoint = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities(),
+                                                                             "GetFeatureInfo",
+                                                                             ProtocolBinding.POST );
+
+        assertThat( soapEndpoint, is( new URI( "http://ips.terrapixel.com/terrapixel/cubeserv.cgi" ) ) );
     }
 
     @Test
@@ -85,7 +96,7 @@ public class ServiceMetadataUtilsTest {
 
     private Document wmtsCapabilities()
                             throws SAXException, IOException, ParserConfigurationException {
-        return capabilities( "../NSGWMTSImplementation.xml" );
+        return capabilities( "../capabilities_wmts10.xml" );
     }
 
     private Document capabilities( String resource )
