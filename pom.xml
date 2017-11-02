@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wmts10-nsg</artifactId>
   <groupId>org.opengis.cite</groupId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <packaging>jar</packaging>
   <name>Conformance test suite for the WMTS profile 1.0 for NSG.</name>
-  <description></description>
+  <description />
   <url>https://github.com/opengeospatial/ets-wmts10-nsg</url>
 
   <parent>
@@ -32,7 +31,7 @@
     <url>https://github.com/opengeospatial/ets-wmts10-nsg</url>
     <connection>scm:git:https://github.com/opengeospatial/ets-wmts10-nsg.git</connection>
     <developerConnection>scm:git:git@github.com:opengeospatial/ets-wmts10-nsg.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>0.1</tag>
   </scm>
 
   <issueManagement>
