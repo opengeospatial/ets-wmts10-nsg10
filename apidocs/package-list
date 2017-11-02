@@ -1,0 +1,15 @@
+org.opengeospatial.cite.wmts10.ets.core
+org.opengeospatial.cite.wmts10.ets.core.assertion
+org.opengeospatial.cite.wmts10.ets.core.client
+org.opengeospatial.cite.wmts10.ets.core.domain
+org.opengeospatial.cite.wmts10.ets.core.util
+org.opengeospatial.cite.wmts10.ets.core.util.request
+org.opengeospatial.cite.wmts10.ets.testsuite
+org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities
+org.opengeospatial.cite.wmts10.ets.testsuite.getfeatureinfo
+org.opengeospatial.cite.wmts10.ets.testsuite.gettile
+org.opengeospatial.cite.wmts10.nsg
+org.opengeospatial.cite.wmts10.nsg.core.util
+org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities
+org.opengeospatial.cite.wmts10.nsg.testsuite.getfeatureinfo
+org.opengeospatial.cite.wmts10.nsg.testsuite.gettile
