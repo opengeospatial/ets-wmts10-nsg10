@@ -12,6 +12,28 @@
         <local-name>ets-${ets-code}-${version}</local-name>
         <title>NSG WMTS 1.0 Conformance Test Suite</title>
         <description>Checks implementations for conformance to the NSG WMTS 1.0 profile.</description>
+        <BasicConformanceClasses>
+          <conformanceClass>Preconditions</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 2</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 3</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Service Metadata Content Test (Requirements 4,7)</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 4</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 5</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 6</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 7</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 8</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 9</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 10</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 11</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 12</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 13</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 14</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 15</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 16</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 17</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 19</conformanceClass>
+          <conformanceClass>NSG Test A.3 - Server Test Module;  Requirement 20</conformanceClass>
+        </BasicConformanceClasses>
       </suite>
       <revision>
         <name>${project.version}</name>
