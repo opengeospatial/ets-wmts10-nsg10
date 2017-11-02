@@ -10,6 +10,7 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.BoundingBox;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
+import org.opengeospatial.cite.wmts10.nsg.core.util.NSG_CRSUtils;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.w3c.dom.Node;
@@ -37,64 +38,82 @@ public class GetCapabilitiesProjectionTest extends AbstractBaseGetCapabilitiesFi
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
     public void wmtsCapabilitiesEPSG3395Test() {
+        assessAdvertisedProjections( "EPSG:3395", "World Mercator Projection", -15496570.7397, 18764656.2314, -84.0,
+                                     80.0 );
+    }
+
+    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
+    public void wmtsCapabilitiesUPS_NorthTest() {
+        assessAdvertisedProjections( "EPSG:5041", "WGS 84 / UPS North", -14440759.350252, 18440759.350252, 60.0, 90.0 );
+    }
+
+    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
+    public void wmtsCapabilitiesUPS_SouthTest() {
+        assessAdvertisedProjections( "EPSG:5042", "WGS 84 / UPS South", -14440759.350252, 18440759.350252, -90.0, -60.0 );
+    }
+
+    private void assessAdvertisedProjections( String crsName2Look4, String crsFullName, double crsMin, double crsMax,
+                                              double latMin, double latMax ) {
         try {
-            boolean EPSG3395 = false;
+            String parsedCrs = NSG_CRSUtils.normaliseCrsName( crsName2Look4 );
 
-            NodeList crsList = (NodeList) ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//ows:SupportedCRS" );
-            for ( int crsI = 0; ( crsI < crsList.getLength() && !EPSG3395 ); crsI++ ) {
-                Node supportedCRS = crsList.item( crsI );
-                String crsName = supportedCRS.getTextContent();
+            boolean crsFound = isCrsFound( parsedCrs );
 
-                if ( !EPSG3395 && crsName.contains( "EPSG:" ) && crsName.contains( ":3395" ) ) {
-                    int indx0 = crsName.lastIndexOf( "EPSG:" );
-                    int indx1 = crsName.lastIndexOf( ":3395" );
-                    if ( indx0 < indx1 ) {
-                        String modCrsName = crsName.substring( indx0, indx0 + 4 )
-                                            + crsName.substring( indx1, indx1 + 5 );
-                        EPSG3395 = ( modCrsName.equals( "EPSG:3395" ) );
-                    }
-                }
-            }
+            boolean hasLayerInRange = crsFound;
+            boolean isAdvertised = crsFound;
 
             // --- not in TileMatrixSet, check if defined in the Layers
-            if ( !( EPSG3395 ) ) {
-                for ( int layerI = 0; ( layerI < layerInfo.size() && !EPSG3395 ); layerI++ ) {
+            if ( !crsFound ) {
+                for ( int layerI = 0; ( layerI < layerInfo.size() && !crsFound ); layerI++ ) {
                     LayerInfo layer = layerInfo.get( layerI );
 
                     List<BoundingBox> bbox = layer.getBboxes();
 
-                    for ( int bboxI = -1; ( bboxI < bbox.size() && !EPSG3395 ); bboxI++ ) {
+                    for ( int bboxI = -1; ( bboxI < bbox.size() && !crsFound ); bboxI++ ) {
+                        double minLat, maxLat;
+                        boolean insideLimits = false;
                         String crsName = null;
+
                         if ( bboxI < 0 ) {
                             crsName = layer.getGeographicBbox().getCrs();
+                            minLat = layer.getGeographicBbox().getMinY();
+                            maxLat = layer.getGeographicBbox().getMaxY();
+                            insideLimits = ( ( ( minLat >= latMin ) && ( minLat <= latMax ) ) || ( ( maxLat >= latMin ) && ( maxLat <= latMax ) ) );
                         } else {
                             crsName = bbox.get( bboxI ).getCrs();
+                            minLat = bbox.get( bboxI ).getMinY();
+                            maxLat = bbox.get( bboxI ).getMaxY();
+                            insideLimits = ( ( ( minLat >= crsMin ) && ( minLat <= crsMax ) ) || ( ( maxLat >= crsMin ) && ( maxLat <= crsMax ) ) );
                         }
 
-                        if ( !EPSG3395 && crsName.contains( "EPSG:" ) && crsName.contains( ":3395" ) ) {
-                            int indx0 = crsName.lastIndexOf( "EPSG:" );
-                            int indx1 = crsName.lastIndexOf( ":3395" );
-                            if ( indx0 < indx1 ) {
-                                String modCrsName = crsName.substring( indx0, indx0 + 4 )
-                                                    + crsName.substring( indx1, indx1 + 5 );
-                                EPSG3395 = ( modCrsName.equals( "EPSG:3395" ) );
-                            }
+                        if ( insideLimits ) {
+                            hasLayerInRange = true;
+                            crsFound = ( crsName.contains( parsedCrs ) );
                         }
                     }
                 }
             }
-
-            assertTrue( EPSG3395,
-                        "WMTS does not support EPSG:3395 (World Mercator Projection) in none of its <Layer>s or <TileMatrixSet>s." );
+            if ( hasLayerInRange || !isAdvertised ) {
+                assertTrue( crsFound && isAdvertised, "WMTS does not support " + parsedCrs + " (" + crsFullName
+                                                      + ") in any of its <Layer>s or <TileMatrixSet>s." );
+            } else {
+                throw new SkipException( "WMTS does not have a Layer within range of " + parsedCrs + " (" + crsFullName
+                                         + ")" );
+            }
         } catch ( XPathExpressionException xpe ) {
-            // xpe.printStackTrace();
         }
     }
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 12", dependsOnMethods = "wmtsCapabilitiesExists")
-    public void wmtsCapabilitiesUPSTest() {
-        // --- TODO - check for overlap areas, then check for appropriate UPS projection zones
-        throw new SkipException( "Test for UPS projections currenly not implemented" );
-    }
+    private boolean isCrsFound( String crsName2Look4 )
+                            throws XPathExpressionException {
+        boolean crsFound = false;
+        NodeList crsList = ServiceMetadataUtils.getNodeElements( wmtsCapabilities, "//ows:SupportedCRS" );
+        for ( int crsI = 0; ( crsI < crsList.getLength() && !crsFound ); crsI++ ) {
+            Node supportedCRS = crsList.item( crsI );
+            String crsName = NSG_CRSUtils.normaliseCrsName( supportedCRS.getTextContent() );
 
+            crsFound = ( crsName.contains( crsName2Look4 ) );
+        }
+        return crsFound;
+    }
 }
