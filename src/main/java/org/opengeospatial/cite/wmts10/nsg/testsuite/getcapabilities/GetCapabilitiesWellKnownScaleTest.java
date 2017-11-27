@@ -50,7 +50,7 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
                             throws IOException, XPathExpressionException {
         String wellKnownScaleSet = "EPSG:3395";
         NodeList listFromAnnexB = parseAnnex( ANNEX_B1_3395_TABLE, wellKnownScaleSet );
-        testWellKnownScale( wellKnownScaleSet, null, listFromAnnexB );
+        testWellKnownScale( wellKnownScaleSet, listFromAnnexB );
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 13, Annex B.2", dependsOnMethods = "wmtsCapabilitiesExists")
@@ -58,7 +58,7 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
                             throws IOException, XPathExpressionException {
         String wellKnownScaleSet = "EPSG:4326";
         NodeList listFromAnnexB = parseAnnex( ANNEX_B2_4326_TABLE, wellKnownScaleSet );
-        testWellKnownScale( wellKnownScaleSet, null, listFromAnnexB );
+        testWellKnownScale( wellKnownScaleSet, listFromAnnexB );
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 13, Annex B.3", dependsOnMethods = "wmtsCapabilitiesExists")
@@ -66,7 +66,7 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
                             throws IOException, XPathExpressionException {
         String wellKnownScaleSet = "EPSG:5041";
         NodeList listFromAnnexB = parseAnnex( NSG_WMTS_EPSG_5041, wellKnownScaleSet );
-        testWellKnownScale( wellKnownScaleSet, null, listFromAnnexB );
+        testWellKnownScale( wellKnownScaleSet, listFromAnnexB );
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 13, Annex B.3", dependsOnMethods = "wmtsCapabilitiesExists")
@@ -74,17 +74,14 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
                             throws IOException, XPathExpressionException {
         String wellKnownScaleSet = "EPSG:5042";
         NodeList listFromAnnexB = parseAnnex( NSG_WMTS_EPSG_5042, wellKnownScaleSet );
-        testWellKnownScale( wellKnownScaleSet, null, listFromAnnexB );
+        testWellKnownScale( wellKnownScaleSet, listFromAnnexB );
     }
 
-    private void testWellKnownScale( String wellKnownScaleSet, String wellKnownScaleSet_alt, NodeList listFromAnnexB )
+    private void testWellKnownScale( String wellKnownScaleSet, NodeList listFromAnnexB )
                             throws XPathExpressionException {
         boolean isWellKnown = false;
 
         wellKnownScaleSet = NSG_CRSUtils.normaliseCrsName( wellKnownScaleSet );
-        if ( ( wellKnownScaleSet_alt != null ) && !wellKnownScaleSet_alt.isEmpty() ) {
-            wellKnownScaleSet_alt = NSG_CRSUtils.normaliseCrsName( wellKnownScaleSet_alt );
-        }
 
         Element tileMatrixSet = null;
         NodeList tileMatrixSetList = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
@@ -96,9 +93,6 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
             crsName = NSG_CRSUtils.normaliseCrsName( crsName );
 
             isWellKnown = ( crsName.contains( wellKnownScaleSet ) );
-            if ( ( !isWellKnown ) && ( ( wellKnownScaleSet_alt != null ) && !wellKnownScaleSet_alt.isEmpty() ) ) {
-                isWellKnown = ( crsName.contains( wellKnownScaleSet_alt ) );
-            }
         }
 
         // --- in case "employed" means each is required, otherwise would fall through as a 'skip test' if not
