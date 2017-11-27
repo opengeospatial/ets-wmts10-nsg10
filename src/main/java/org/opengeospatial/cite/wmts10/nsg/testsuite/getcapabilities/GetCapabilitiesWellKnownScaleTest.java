@@ -26,8 +26,6 @@ import org.w3c.dom.NodeList;
  */
 public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabilitiesFixture {
 
-    private static final double TOLERANCE = 1.0e-10;
-
     /**
      * --- NSG Requirement 13: An NSG WMTS server shall employ the Well-Known Scale Sets identified in Annex B (based
      * upon World Mercator projection EPSG 3395 and WGS 84 Geodetic EPSG 4326) ---
@@ -144,17 +142,9 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
     }
 
     private boolean isScaleDenominatorCorrect( Element annexNode, Element node_tms ) {
-        double tolerance = this.TOLERANCE;
-
         String scaleDemon = getXMLElementTextValue( annexNode, "ScaleDenominator" );
-        BigDecimal bigNum = new BigDecimal( scaleDemon );
 
-        if ( bigNum.scale() <= 0 ) {
-            tolerance = 0.0;
-        } else // if ( bigNum.scale() <= 10)
-        {
-            tolerance = Math.pow( 10.0, -( bigNum.scale() - 2 ) );
-        }
+        double tolerance = determineTolerance( scaleDemon );
 
         double scaleDenominator4326 = Double.parseDouble( scaleDemon );
         double scaleDenominator = Double.parseDouble( getXMLElementTextValue( node_tms, "ScaleDenominator" ) );
@@ -175,6 +165,13 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
         int matrixWidth = parseAsInt( node_tms, "MatrixWidth" );
         int matrixHeight = parseAsInt( node_tms, "MatrixHeight" );
         return matrixWidth == annexMatrixWidth && matrixHeight == annexMatrixHeight;
+    }
+
+    private double determineTolerance( String scaleDemon ) {
+        BigDecimal bigNum = new BigDecimal( scaleDemon );
+        if ( bigNum.scale() <= 0 )
+            return 0.0;
+        return Math.pow( 10.0, -( bigNum.scale() - 2 ) );
     }
 
     private int parseAsInt( Element elementNode, String tagName ) {
