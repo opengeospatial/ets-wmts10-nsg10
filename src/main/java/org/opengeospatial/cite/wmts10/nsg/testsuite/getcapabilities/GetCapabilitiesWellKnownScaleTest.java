@@ -2,19 +2,18 @@ package org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities;
 
 import static org.opengeospatial.cite.wmts10.nsg.core.util.NSG_XMLUtils.getXMLElementTextValue;
 import static org.opengeospatial.cite.wmts10.nsg.core.util.NSG_XMLUtils.openXMLDocument;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.xpath.XPathExpressionException;
 
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
 import org.opengeospatial.cite.wmts10.nsg.core.util.NSG_CRSUtils;
-import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -86,42 +85,65 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
         NodeList tileMatrixSetList = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
                                                                            "//wmts:Contents/wmts:TileMatrixSet" );
 
-        Element tileMatrixSet = retrieveTileMatrixSetWithSupportedCrs( wellKnownScaleSet, tileMatrixSetList );
+        List<Element> tileMatrixSetsWithCrs = retrieveTileMatrixSetsWithSupportedCrs( wellKnownScaleSet,
+                                                                                      tileMatrixSetList );
+        assertTrue( tileMatrixSetsWithCrs.size() > 0, "Well-Known Scale Set for " + wellKnownScaleSet
+                                                      + " is not advertised in WMTS" );
 
-        assertNotNull( tileMatrixSet, "Well-Known Scale Set for " + wellKnownScaleSet + " is not advertised in WMTS" );
-
-        NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
-        assertTrue( listFromAnnexB.getLength() >= tileMatrixes.getLength() );
-
-        int annexI = 0;
-        int tmsI = 0;
-
-        // -- check each advertised zoom level, ensuring each matches the prescribed tables
-        while ( tmsI < tileMatrixes.getLength() ) {
-            Element annexNode = (Element) listFromAnnexB.item( annexI++ );
-            Element node_tms = (Element) tileMatrixes.item( tmsI++ );
-
-            String idStr = getXMLElementTextValue( node_tms, "ows:Identifier" );
-
-            checkScaleDenominator( annexNode, node_tms, idStr );
-            checkTileDimensions( annexNode, node_tms, idStr );
-            checkMatrixDimensions( annexNode, node_tms, idStr );
-        }
+        boolean isAtLeastOneTileMatrixSetWithCrsWellKnown = isAtLeastOneTileMatrixSetWithCrsWellKnown( listFromAnnexB,
+                                                                                                       tileMatrixSetsWithCrs );
+        assertTrue( isAtLeastOneTileMatrixSetWithCrsWellKnown, "Scale Set for " + wellKnownScaleSet
+                                                               + " is advertised in WMTS but not Well-Known" );
     }
 
-    private Element retrieveTileMatrixSetWithSupportedCrs( String wellKnownScaleSet, NodeList tileMatrixSetList ) {
+    private List<Element> retrieveTileMatrixSetsWithSupportedCrs( String wellKnownScaleSet, NodeList tileMatrixSetList ) {
+        List<Element> tileMatrixSetsWithSupportedCrs = new ArrayList<>();
         for ( int tmsI = 0; tmsI < tileMatrixSetList.getLength(); tmsI++ ) {
             Element tileMatrixSet = (Element) tileMatrixSetList.item( tmsI );
             String crsName = getXMLElementTextValue( tileMatrixSet, "ows:SupportedCRS" );
             crsName = NSG_CRSUtils.normaliseCrsName( crsName );
             if ( crsName.contains( wellKnownScaleSet ) )
-                return tileMatrixSet;
+                tileMatrixSetsWithSupportedCrs.add( tileMatrixSet );
 
         }
-        return null;
+        return tileMatrixSetsWithSupportedCrs;
     }
 
-    private void checkScaleDenominator( Element annexNode, Element node_tms, String idStr ) {
+    private boolean isAtLeastOneTileMatrixSetWithCrsWellKnown( NodeList listFromAnnexB,
+                                                               List<Element> tileMatrixSetsWithCrs ) {
+        for ( Element tileMatrixSet : tileMatrixSetsWithCrs ) {
+            boolean tileMatrixSetWellKnown = isTileMatrixSetWellKnown( listFromAnnexB, tileMatrixSet );
+            if ( tileMatrixSetWellKnown )
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isTileMatrixSetWellKnown( NodeList listFromAnnexB, Element tileMatrixSet ) {
+        NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
+        if ( !( listFromAnnexB.getLength() >= tileMatrixes.getLength() ) )
+            return false;
+
+        // -- check each advertised zoom level, ensuring each matches the prescribed tables
+        for ( int tmI = 0; tmI < tileMatrixes.getLength(); tmI++ ) {
+            boolean tileMatrixWellKnown = isTileMatrixWellKnown( listFromAnnexB, tileMatrixes, tmI );
+            if ( !tileMatrixWellKnown )
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isTileMatrixWellKnown( NodeList listFromAnnexB, NodeList tileMatrixes, int currentTileMatrix ) {
+        Element annexNode = (Element) listFromAnnexB.item( currentTileMatrix );
+        Element node_tms = (Element) tileMatrixes.item( currentTileMatrix );
+
+        boolean scaleDenominatorCorrect = isScaleDenominatorCorrect( annexNode, node_tms );
+        boolean tileDimensionsCorrect = isTileDimensionsCorrect( annexNode, node_tms );
+        boolean matrixDimensionsCorrect = isMatrixDimensionsCorrect( annexNode, node_tms );
+        return scaleDenominatorCorrect && tileDimensionsCorrect && matrixDimensionsCorrect;
+    }
+
+    private boolean isScaleDenominatorCorrect( Element annexNode, Element node_tms ) {
         double tolerance = this.TOLERANCE;
 
         String scaleDemon = getXMLElementTextValue( annexNode, "ScaleDenominator" );
@@ -136,34 +158,23 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
 
         double scaleDenominator4326 = Double.parseDouble( scaleDemon );
         double scaleDenominator = Double.parseDouble( getXMLElementTextValue( node_tms, "ScaleDenominator" ) );
-
-        assertTrue( ( Math.abs( scaleDenominator4326 - scaleDenominator ) <= tolerance ),
-                    "TileMatrix #" + idStr + " contains an incorrect ScaleDenominator: " + scaleDenominator
-                                            + " (should be:  " + scaleDenominator4326 + " )" );
+        return Math.abs( scaleDenominator4326 - scaleDenominator ) <= tolerance;
     }
 
-    private void checkTileDimensions( Element annexNode, Element node_tms, String idStr ) {
+    private boolean isTileDimensionsCorrect( Element annexNode, Element node_tms ) {
         int annexTileWidth = parseAsInt( annexNode, "TileWidth" );
         int annexTileHeight = parseAsInt( annexNode, "TileHeight" );
         int tileWidth = parseAsInt( node_tms, "TileWidth" );
         int tileHeight = parseAsInt( node_tms, "TileHeight" );
-        assertEquals( tileWidth, annexTileWidth, "TileMatrix #" + idStr + " contains an incorrect TileWidth: "
-                                                 + tileWidth + " (should be:  " + annexTileWidth + " )" );
-        assertEquals( tileHeight, annexTileHeight, "TileMatrix #" + idStr + " contains an incorrect TileHeight: "
-                                                   + tileHeight + " (should be:  " + annexTileHeight + " )" );
-        assertEquals( tileWidth, tileHeight, "TileMatrix #" + idStr + " has values for TileWidth (" + tileWidth
-                                             + ") and TileHeight (" + tileHeight + ") that do not match" );
+        return tileWidth == annexTileWidth && tileHeight == annexTileHeight && tileWidth == tileHeight;
     }
 
-    private void checkMatrixDimensions( Element annexNode, Element node_tms, String idStr ) {
+    private boolean isMatrixDimensionsCorrect( Element annexNode, Element node_tms ) {
         int annexMatrixWidth = parseAsInt( annexNode, "MatrixWidth" );
         int annexMatrixHeight = parseAsInt( annexNode, "MatrixHeight" );
         int matrixWidth = parseAsInt( node_tms, "MatrixWidth" );
         int matrixHeight = parseAsInt( node_tms, "MatrixHeight" );
-        assertEquals( matrixWidth, annexMatrixWidth, "TileMatrix #" + idStr + " contains an incorrect MatrixWidth: "
-                                                     + matrixWidth + " (should be:  " + annexMatrixWidth + " )" );
-        assertEquals( matrixHeight, annexMatrixHeight, "TileMatrix #" + idStr + " contains an incorrect MatrixHeight: "
-                                                       + matrixHeight + " (should be:  " + annexMatrixHeight + " )" );
+        return matrixWidth == annexMatrixWidth && matrixHeight == annexMatrixHeight;
     }
 
     private int parseAsInt( Element elementNode, String tagName ) {

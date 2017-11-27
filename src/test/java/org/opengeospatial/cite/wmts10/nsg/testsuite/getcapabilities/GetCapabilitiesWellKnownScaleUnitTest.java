@@ -11,7 +11,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
@@ -35,6 +34,8 @@ public class GetCapabilitiesWellKnownScaleUnitTest {
 
     private static final String TEST_RESOURCE = "../NSGWMTSImplementation.xml";
 
+    private static final String TEST_RESOURCE_INVALID = "../InvalidNSGWMTSImplementation.xml";
+
     @BeforeClass
     public static void setUpClass()
                             throws Exception {
@@ -43,45 +44,54 @@ public class GetCapabilitiesWellKnownScaleUnitTest {
         when( testContext.getSuite() ).thenReturn( suite );
     }
 
-    @AfterClass
-    public static void tearDownClass()
-                            throws Exception {
-    }
-
     @Test
     public void wmtsCapabilitiesWellKnownScaleTest_3395_Test()
                             throws Exception {
-        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE );
         iut.wmtsCapabilitiesWellKnownScaleTest_3395_Test();
     }
 
     @Test
     public void wmtsCapabilitiesWellKnownScaleTest_4326_Test()
                             throws Exception {
-        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE );
         iut.wmtsCapabilitiesWellKnownScaleTest_4326_Test();
     }
 
     @Test
     public void wmtsCapabilitiesWellKnownScaleTest_5041_Test()
                             throws Exception {
-        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE );
         iut.wmtsCapabilitiesWellKnownScaleTest_5041_Test();
     }
 
     @Test
     public void wmtsCapabilitiesWellKnownScaleTest_5042_Test()
                             throws Exception {
-        GetCapabilitiesWellKnownScaleTest iut = prepareTest();
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE );
         iut.wmtsCapabilitiesWellKnownScaleTest_5042_Test();
     }
 
-    private GetCapabilitiesWellKnownScaleTest prepareTest()
+    @Test(expected = AssertionError.class)
+    public void wmtsCapabilitiesWellKnownScaleTest_4326_Test_Invalid()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE_INVALID );
+        iut.wmtsCapabilitiesWellKnownScaleTest_4326_Test();
+    }
+
+    @Test
+    public void wmtsCapabilitiesWellKnownScaleTest_3395_Test_TwoTimeOneValid()
+                            throws Exception {
+        GetCapabilitiesWellKnownScaleTest iut = prepareTest( TEST_RESOURCE_INVALID );
+        iut.wmtsCapabilitiesWellKnownScaleTest_3395_Test();
+    }
+
+    private GetCapabilitiesWellKnownScaleTest prepareTest( String testResource )
                             throws Exception {
 
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( capabilities( TEST_RESOURCE ) );
+        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( capabilities( testResource ) );
 
-        when( suite.getAttribute( SUBJ ) ).thenReturn( capabilities( TEST_RESOURCE ) );
+        when( suite.getAttribute( SUBJ ) ).thenReturn( capabilities( testResource ) );
         when( suite.getAttribute( LAYER ) ).thenReturn( layerInfos );
 
         GetCapabilitiesWellKnownScaleTest iut = new GetCapabilitiesWellKnownScaleTest();
