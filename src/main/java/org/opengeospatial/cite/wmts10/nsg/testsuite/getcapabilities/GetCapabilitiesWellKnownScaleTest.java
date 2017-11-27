@@ -3,6 +3,7 @@ package org.opengeospatial.cite.wmts10.nsg.testsuite.getcapabilities;
 import static org.opengeospatial.cite.wmts10.nsg.core.util.NSG_XMLUtils.getXMLElementTextValue;
 import static org.opengeospatial.cite.wmts10.nsg.core.util.NSG_XMLUtils.openXMLDocument;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
@@ -87,37 +88,28 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
 
         Element tileMatrixSet = retrieveTileMatrixSetWithSupportedCrs( wellKnownScaleSet, tileMatrixSetList );
 
-        // --- in case "employed" means each is required, otherwise would fall through as a 'skip test' if not
-        // present
-        // assertTrue(isWellKnown, "Well-Known Scale Set for " + wellKnownScaleSet +
-        // " currently not advertised in WMTS" );
+        assertNotNull( tileMatrixSet, "Well-Known Scale Set for " + wellKnownScaleSet + " is not advertised in WMTS" );
 
-        if ( tileMatrixSet != null ) {
-            NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
+        NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
 
-            if ( ( listFromAnnexB != null ) && ( listFromAnnexB.getLength() > 0 ) ) {
-                assertTrue( listFromAnnexB.getLength() >= tileMatrixes.getLength() );
+        if ( ( listFromAnnexB != null ) && ( listFromAnnexB.getLength() > 0 ) ) {
+            assertTrue( listFromAnnexB.getLength() >= tileMatrixes.getLength() );
 
-                int annexI = 0;
-                int tmsI = 0;
+            int annexI = 0;
+            int tmsI = 0;
 
-                // -- check each advertised zoom level, ensuring each matches the prescribed tables
-                while ( tmsI < tileMatrixes.getLength() ) {
-                    Element annexNode = (Element) listFromAnnexB.item( annexI++ );
-                    Element node_tms = (Element) tileMatrixes.item( tmsI++ );
+            // -- check each advertised zoom level, ensuring each matches the prescribed tables
+            while ( tmsI < tileMatrixes.getLength() ) {
+                Element annexNode = (Element) listFromAnnexB.item( annexI++ );
+                Element node_tms = (Element) tileMatrixes.item( tmsI++ );
 
-                    String idStr = getXMLElementTextValue( node_tms, "ows:Identifier" );
+                String idStr = getXMLElementTextValue( node_tms, "ows:Identifier" );
 
-                    checkScaleDenominator( annexNode, node_tms, idStr );
-                    checkTileDimensions( annexNode, node_tms, idStr );
-                    checkMatrixDimensions( annexNode, node_tms, idStr );
-                }
+                checkScaleDenominator( annexNode, node_tms, idStr );
+                checkTileDimensions( annexNode, node_tms, idStr );
+                checkMatrixDimensions( annexNode, node_tms, idStr );
             }
-        } else {
-            throw new SkipException( "Well-Known Scale Set for " + wellKnownScaleSet
-                                     + " currently not advertised in WMTS" );
         }
-
     }
 
     private Element retrieveTileMatrixSetWithSupportedCrs( String wellKnownScaleSet, NodeList tileMatrixSetList ) {
