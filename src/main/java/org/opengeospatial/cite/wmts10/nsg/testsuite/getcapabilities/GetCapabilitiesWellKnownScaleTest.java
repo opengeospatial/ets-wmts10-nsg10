@@ -79,28 +79,20 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
 
     private void testWellKnownScale( String wellKnownScaleSet, NodeList listFromAnnexB )
                             throws XPathExpressionException {
-        boolean isWellKnown = false;
 
         wellKnownScaleSet = NSG_CRSUtils.normaliseCrsName( wellKnownScaleSet );
 
-        Element tileMatrixSet = null;
         NodeList tileMatrixSetList = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
                                                                            "//wmts:Contents/wmts:TileMatrixSet" );
 
-        for ( int tmsI = 0; ( tmsI < tileMatrixSetList.getLength() && !isWellKnown ); tmsI++ ) {
-            tileMatrixSet = (Element) tileMatrixSetList.item( tmsI );
-            String crsName = getXMLElementTextValue( tileMatrixSet, "ows:SupportedCRS" );
-            crsName = NSG_CRSUtils.normaliseCrsName( crsName );
-
-            isWellKnown = ( crsName.contains( wellKnownScaleSet ) );
-        }
+        Element tileMatrixSet = retrieveTileMatrixSetWithSupportedCrs( wellKnownScaleSet, tileMatrixSetList );
 
         // --- in case "employed" means each is required, otherwise would fall through as a 'skip test' if not
         // present
         // assertTrue(isWellKnown, "Well-Known Scale Set for " + wellKnownScaleSet +
         // " currently not advertised in WMTS" );
 
-        if ( isWellKnown && ( tileMatrixSet != null ) ) {
+        if ( tileMatrixSet != null ) {
             NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
 
             if ( ( listFromAnnexB != null ) && ( listFromAnnexB.getLength() > 0 ) ) {
@@ -126,6 +118,18 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
                                      + " currently not advertised in WMTS" );
         }
 
+    }
+
+    private Element retrieveTileMatrixSetWithSupportedCrs( String wellKnownScaleSet, NodeList tileMatrixSetList ) {
+        for ( int tmsI = 0; tmsI < tileMatrixSetList.getLength(); tmsI++ ) {
+            Element tileMatrixSet = (Element) tileMatrixSetList.item( tmsI );
+            String crsName = getXMLElementTextValue( tileMatrixSet, "ows:SupportedCRS" );
+            crsName = NSG_CRSUtils.normaliseCrsName( crsName );
+            if ( crsName.contains( wellKnownScaleSet ) )
+                return tileMatrixSet;
+
+        }
+        return null;
     }
 
     private void checkScaleDenominator( Element annexNode, Element node_tms, String idStr ) {
