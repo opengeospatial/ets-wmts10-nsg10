@@ -240,31 +240,7 @@ public class ServiceMetadataContent extends AbstractBaseGetCapabilitiesFixture {
                             WmtsAssertion.assertUriIsResolvable( sa, url );
 
                             // -- Test for scale denominator (Test Method 11)
-                            String minScaleDenominator = (String) xPath.evaluate( "@minScaleDenominator", legend,
-                                                                                  XPathConstants.STRING );
-                            String maxScaleDenominator = (String) xPath.evaluate( "@maxScaleDenominator", legend,
-                                                                                  XPathConstants.STRING );
-                            sa.assertTrue( !Strings.isNullOrEmpty( minScaleDenominator ),
-                                           "<Layer>: "
-                                                                   + layer.getLayerName()
-                                                                   + " does not have a minScaleDenominator for <Style>: "
-                                                                   + styleIdentifier + " for a Legend" );
-                            sa.assertTrue( !Strings.isNullOrEmpty( maxScaleDenominator ),
-                                           "<Layer>: "
-                                                                   + layer.getLayerName()
-                                                                   + " does not have a maxScaleDenominator for <Style>: "
-                                                                   + styleIdentifier + " for a Legend" );
-
-                            // -- Test for mix/max (Test Method 12)
-                            if ( !Strings.isNullOrEmpty( minScaleDenominator )
-                                 && !Strings.isNullOrEmpty( maxScaleDenominator ) ) {
-                                Double minScale = Double.parseDouble( minScaleDenominator );
-                                Double maxScale = Double.parseDouble( maxScaleDenominator );
-                                sa.assertTrue( minScale <= maxScale,
-                                               "The minScaleDenominator > maxScaleDenominator for <Layer>: "
-                                                                       + layer.getLayerName() + " and <Style>: "
-                                                                       + styleIdentifier + " for a Legend" );
-                            }
+                            checkScaleDenominator( xPath, sa, layer, styleIdentifier, legend );
                         }
                         sa.assertTrue( foundPreferredFormat,
                                        "<Style>: " + styleIdentifier + " under <Layer>: " + layer.getLayerName()
@@ -274,6 +250,22 @@ public class ServiceMetadataContent extends AbstractBaseGetCapabilitiesFixture {
             }
         }
         sa.assertAll();
+    }
+
+    private void checkScaleDenominator( XPath xPath, SoftAssert sa, LayerInfo layer, String styleIdentifier, Node legend )
+                            throws XPathExpressionException {
+        String minScaleDenominator = (String) xPath.evaluate( "@minScaleDenominator", legend, XPathConstants.STRING );
+        String maxScaleDenominator = (String) xPath.evaluate( "@maxScaleDenominator", legend, XPathConstants.STRING );
+
+        boolean minScaleDenominatorIsSet = !Strings.isNullOrEmpty( minScaleDenominator );
+        boolean maxScaleDenominatorIsSet = !Strings.isNullOrEmpty( maxScaleDenominator );
+        if ( minScaleDenominatorIsSet && maxScaleDenominatorIsSet ) {
+            Double minScale = Double.parseDouble( minScaleDenominator );
+            Double maxScale = Double.parseDouble( maxScaleDenominator );
+            sa.assertTrue( minScale <= maxScale,
+                           "The minScaleDenominator > maxScaleDenominator for <Layer>: " + layer.getLayerName()
+                                                   + " and <Style>: " + styleIdentifier + " for a Legend" );
+        }
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirements 4,7", dependsOnMethods = "wmtsCapabilitiesContentsExists")
