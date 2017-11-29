@@ -110,7 +110,9 @@ public class GetCapabilitiesWellKnownScaleTest extends AbstractBaseGetCapabiliti
             NodeList tileMatrixes = tileMatrixSet.getElementsByTagName( "TileMatrix" );
 
             if ( ( listFromAnnexB != null ) && ( listFromAnnexB.getLength() > 0 ) ) {
-                assertTrue( listFromAnnexB.getLength() >= tileMatrixes.getLength() );
+                assertTrue( listFromAnnexB.getLength() >= tileMatrixes.getLength(),
+                        String.format("Expected a grid set with %d levels but found %d levels.",
+                                listFromAnnexB.getLength(), tileMatrixes.getLength()));
 
                 int annexI = 0;
                 int tmsI = 0;
