@@ -226,7 +226,7 @@
 		<ScaleDenominator>27.34223273</ScaleDenominator>
 		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
 		<TileWidth>256</TileWidth>
-		<TileHieght>256</TileHieght>
+		<TileHeight>256</TileHeight>
 		<MatrixWidth>16777216</MatrixWidth>
 		<MatrixHeight>16777216</MatrixHeight>
 	</TileMatrix>
