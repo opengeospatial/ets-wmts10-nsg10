@@ -845,6 +845,15 @@
 		<MatrixWidth>8388608</MatrixWidth>
 		<MatrixHeight>8388608</MatrixHeight>
 	</TileMatrix>
+	<TileMatrix>
+		<ows:Identifier>24</ows:Identifier>
+		<ScaleDenominator>27.34223273</ScaleDenominator>
+		<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+		<TileWidth>256</TileWidth>
+		<TileHeight>256</TileHeight>
+		<MatrixWidth>16777216</MatrixWidth>
+		<MatrixHeight>16777216</MatrixHeight>
+	</TileMatrix>
 	</TileMatrixSet>
 	<TileMatrixSet>
 		<ows:Identifier>NSG Arctic (South) UPS Tile</ows:Identifier>
@@ -1065,8 +1074,15 @@
 			<MatrixWidth>8388608</MatrixWidth>
 			<MatrixHeight>8388608</MatrixHeight>
 		</TileMatrix>
-	</TileMatrixSet>
-	
-	
+		<TileMatrix>
+			<ows:Identifier>24</ows:Identifier>
+			<ScaleDenominator>27.34223273</ScaleDenominator>
+			<TopLeftCorner>-1.4440759350252E+07 1.8440759350252E+07</TopLeftCorner>
+			<TileWidth>256</TileWidth>
+			<TileHeight>256</TileHeight>
+			<MatrixWidth>16777216</MatrixWidth>
+			<MatrixHeight>16777216</MatrixHeight>
+	</TileMatrix>
+	</TileMatrixSet>	
   </Contents>
  </Capabilities>
