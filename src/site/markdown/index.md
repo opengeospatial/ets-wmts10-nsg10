@@ -2,7 +2,7 @@
 
 ## Scope
 
-This test suite verifies that a WMTS implementation conforms to the NSG Wem Map Tile Service 
+This test suite verifies that a WMTS implementation conforms to the NSG Web Map Tile Service 
 1.0 Implementation Interoperability Profile, v1.0.0 ([NGA.STND.0063_1.0_WMTS](https://nsgreg.nga.mil/doc/view?i=4258), 
 2016-09-15). The aim is to cover the MANDATORY and RECOMMENDED capabilities stipulated in 
 all relevant specifications.
@@ -20,12 +20,14 @@ visible characteristics or behaviors of the IUT while disregarding any implement
 
 ## What is tested
 
-  - The requirements 2 - 17 and 19 and 20 are currently tested. Limitations are documented below.
+  - The requirements 2 - 17 and 19 and 20 from WMTS 1.0 NSG Profile are currently tested. Limitations are documented below.
 
 
 ## What is not tested
 
-  - Currently the following requirements are not or incomplete tested:
+  - The OGC WMTS 1.0.0 test suite is not included in this test suite.  
+  - A WMTS 1.0 NSG Profile service must also be compliant to the (core) WMTS standard. This means that the WMTS 1.0 (core) tests must also be passed. Currently the OGC WMTS 1.0 test suite is not included in this test suite. For this reason it is required to execute the WMTS 1.0 test suite separately to ensure the service is compliant to the WMTS 1.0 NSG Profile.
+  - Currently the following requirements from WMTS 1.0 NSG Profile are not or incomplete tested:
    
     - Requirement 1 is not tested. The test pass if requirements 2, 4, 5, 7, 8, and 10 are successful.
     - Requirement 11: The CRS of the GetTile response is not tested
