@@ -26,8 +26,8 @@ visible characteristics or behaviors of the IUT while disregarding any implement
 ## What is not tested
 
   - The OGC WMTS 1.0.0 test suite is not included in this test suite.  
-  - A WMTS 1.0 NSG Profile service must also be compliant to the (core) WMTS standard. This means that the WMTS 1.0 (core) tests must also be passed. Currently the OGC WMTS 1.0 test suite is not included in this test suite. For this reason it is required to execute the WMTS 1.0 test suite separately to ensure the service is compliant to the WMTS 1.0 NSG Profile.
-  - Currently the following requirements from WMTS 1.0 NSG Profile are not or incomplete tested:
+  - A WMTS 1.0 NSG Profile service must also be compliant to the (core) WMTS standard. This means that the WMTS 1.0 (core) tests must be passed. Currently, the OGC WMTS 1.0 test suite is not included in this test suite. For this reason, it is required to execute the WMTS 1.0 test suite separately to ensure that the service is compliant to the WMTS 1.0 NSG Profile.
+  - Currently, the following requirements from WMTS 1.0 NSG Profile are not or incompletely tested:
    
     - Requirement 1 is not tested. The test pass if requirements 2, 4, 5, 7, 8, and 10 are successful.
     - Requirement 11: The CRS of the GetTile response is not tested
