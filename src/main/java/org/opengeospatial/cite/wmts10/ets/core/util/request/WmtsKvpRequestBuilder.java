@@ -25,7 +25,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.opengeospatial.cite.wmts10.ets.core.client.WmtsKvpRequest;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
@@ -89,7 +91,7 @@ public final class WmtsKvpRequestBuilder {
         assertNotNull( format, "Could not find request format for GetTile request for <Layer>: " + layerName );
         reqEntity.addKvp( FORMAT_PARAM, format );
 
-        String tileMatrixSetName = getRandomLayerTileMatrixLink( wmtsCapabilities, layerName );
+        String tileMatrixSetName = getRandomLayerTileMatrixSetName( wmtsCapabilities, layerName );
         assertNotNull( tileMatrixSetName, "Could not find tilematrix set for GetTile request for <Layer>: " + layerName );
         reqEntity.addKvp( TILE_MATRIX_SET_PARAM, tileMatrixSetName );
 
@@ -141,7 +143,7 @@ public final class WmtsKvpRequestBuilder {
         assertNotNull( format, "Could not find request format for GetFeatureInfo request for <Layer>: " + layerName );
         reqEntity.addKvp( FORMAT_PARAM, format );
 
-        String tileMatrixSetName = getRandomLayerTileMatrixLink( wmtsCapabilities, layerName );
+        String tileMatrixSetName = getRandomLayerTileMatrixSetName( wmtsCapabilities, layerName );
         assertNotNull( tileMatrixSetName, "Could not find tilematrix set for GetFeatureInfo request for <Layer>: "
                                           + layerName );
         reqEntity.addKvp( TILE_MATRIX_SET_PARAM, tileMatrixSetName );
@@ -216,16 +218,14 @@ public final class WmtsKvpRequestBuilder {
         return null;
     }
 
-    private static String getRandomLayerTileMatrixLink( Document wmtsCapabilities, String layerName )
+    private static String getRandomLayerTileMatrixSetName( Document wmtsCapabilities, String layerName )
                             throws XPathExpressionException {
-        NodeList tileMatrices = ServiceMetadataUtils.parseLayerChildElements( wmtsCapabilities, layerName,
+        NodeList tileMatrixSetLinks = ServiceMetadataUtils.parseLayerChildElements( wmtsCapabilities, layerName,
                                                                               "TileMatrixSetLink" );
-        if ( tileMatrices.getLength() > 0 ) {
-            int randomIndex = RANDOM.nextInt( tileMatrices.getLength() );
-            Node tileMatrixSet = tileMatrices.item( randomIndex );
-
-            String text = tileMatrixSet.getTextContent().trim();
-            return text;
+        if ( tileMatrixSetLinks.getLength() > 0 ) {
+            int randomIndex = RANDOM.nextInt( tileMatrixSetLinks.getLength() );
+            Node tileMatrixSetLink = tileMatrixSetLinks.item( randomIndex );
+            return ServiceMetadataUtils.getNodeText( tileMatrixSetLink, "wmts:TileMatrixSet" );
         }
         return null;
     }
