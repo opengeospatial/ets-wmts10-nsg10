@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.3 (2018-05-16)
+
+* Fix [#38](https://github.com/opengeospatial/ets-wmts10-nsg/issues/38): Update documentation
+
 ## 0.2 (2018-01-25)
 
 * Fix [#30](https://github.com/opengeospatial/ets-wmts10-nsg/issues/30): No error message provided for GriSets comparaison
