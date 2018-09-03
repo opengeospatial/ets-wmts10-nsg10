@@ -8,6 +8,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriBuilder;
 import javax.xml.transform.Source;
 
+import org.apache.tika.io.FilenameUtils;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.util.SOAPMessageConsumer;
@@ -103,7 +104,7 @@ public class WmtsClient {
             response = resource.accept( WMTS_Constants.SOAP_XML ).type( WMTS_Constants.SOAP_XML ).post( ClientResponse.class,
                                                                                                         payload );
             if ( LOGR.isLoggable( Level.FINE ) ) {
-                LOGR.log( Level.FINE, String.format( "SOAP Response: %s", response.toString() ) );
+                LOGR.log( Level.FINE, String.format( "SOAP Response: %s", FilenameUtils.normalize(response.toString()) ) );
             }
         } catch ( UniformInterfaceException | ClientHandlerException ex ) {
             LOGR.log( Level.SEVERE, "Failed to process SOAP request/response: " + resource.getURI(), ex );
