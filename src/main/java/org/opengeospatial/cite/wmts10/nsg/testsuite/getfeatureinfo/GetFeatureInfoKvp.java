@@ -16,6 +16,7 @@ import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getfeatureinfo.AbstractBaseGetFeatureInfoFixture;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -88,6 +89,7 @@ public class GetFeatureInfoKvp extends AbstractBaseGetFeatureInfoFixture {
             // this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
 
             ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getFeatureInfoURI );
+            this.rspEntity = rsp.getEntity( Document.class );
 
             // storeResponseImage( rsp, "Requirement5", "simple", requestFormat );
             /*--

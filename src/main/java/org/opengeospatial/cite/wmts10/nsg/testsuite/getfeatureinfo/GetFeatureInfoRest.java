@@ -21,6 +21,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 import org.testng.util.Strings;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -131,6 +132,7 @@ public class GetFeatureInfoRest extends AbstractBaseGetFeatureInfoFixture {
                 Client client = Client.create();
                 WebResource webRes = client.resource( getFeatureInfoURI );
                 ClientResponse rsp = webRes.get( ClientResponse.class );
+                this.rspEntity = rsp.getEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing REST GetFeatureInfo request" );
 
@@ -156,6 +158,7 @@ public class GetFeatureInfoRest extends AbstractBaseGetFeatureInfoFixture {
                 Client client = Client.create();
                 WebResource webRes = client.resource( invalidURI );
                 ClientResponse rsp = webRes.get( ClientResponse.class );
+                this.rspEntity = rsp.getEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing invalid REST GetFeatureInfo request" );
                 Assert.assertFalse( rsp.getStatus() == 200,
