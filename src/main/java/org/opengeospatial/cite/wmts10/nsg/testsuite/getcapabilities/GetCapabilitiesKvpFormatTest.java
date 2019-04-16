@@ -11,6 +11,7 @@ import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
 import org.testng.ITestContext;
+import org.w3c.dom.Document;
 
 import com.sun.jersey.api.client.ClientResponse;
 
@@ -63,6 +64,7 @@ public class GetCapabilitiesKvpFormatTest extends AbstractBaseGetCapabilitiesFix
         this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
 
         ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getCapabilitiesURI );
+        this.rspEntity = rsp.getEntity( Document.class );
         assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
         assertStatusCode( rsp.getStatus(), 200 );
         assertContentType( rsp.getHeaders(), requestFormat );

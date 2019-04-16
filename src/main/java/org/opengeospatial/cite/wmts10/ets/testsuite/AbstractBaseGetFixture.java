@@ -11,11 +11,13 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.w3c.dom.Document;
 
 import de.latlon.ets.core.util.NamespaceBindings;
 import de.latlon.ets.core.util.TestSuiteLogger;
 import de.latlon.ets.core.util.XMLUtils;
+
 import org.opengeospatial.cite.wmts10.ets.core.client.WmtsClient;
 import org.opengeospatial.cite.wmts10.ets.core.client.WmtsKvpRequest;
 import org.opengeospatial.cite.wmts10.ets.core.domain.LayerInfo;
@@ -84,6 +86,13 @@ public abstract class AbstractBaseGetFixture {
         }
     }
 
+    @BeforeMethod
+    public void buildGetCapabilitiesResponse() {
+        if(wmtsCapabilities != null){
+          this.rspEntity = this.wmtsCapabilities;
+        }
+    }
+    
     /**
      * Augments the test result with supplementary attributes in the event that a test method failed. The "request"
      * attribute contains a String representing the query component (GET method). The "response" attribute contains the
