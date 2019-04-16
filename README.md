@@ -13,7 +13,7 @@ main dependencies are:
 * OGC WMTS 1.0.0 (REST, KVP bindings) [OGC 07-057r7]
 * OGC WSC 1.1 [OGC 06-121r3]
 
-Visit the [project documentation website](http://opengeospatial.github.io/ets-wfs20-nsg/) 
+Visit the [project documentation website](https://opengeospatial.github.io/ets-wmts10-nsg/) 
 for more information, including the API documentation.
 
 ### Dependencies and Building
