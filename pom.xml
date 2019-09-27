@@ -69,6 +69,13 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+
     <dependency>
       <groupId>de.latlon</groupId>
       <artifactId>ets-dgiwg-core</artifactId>

@@ -15,6 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 
+import org.apache.tika.io.FilenameUtils;
+
 import javax.imageio.ImageIO;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathExpressionException;
@@ -52,7 +54,7 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
 
     /**
      * Builds a {WmtsKvpRequest} representing a GetTile request.
-     * 
+     *
      * @throws XPathExpressionException
      *             in case bad XPath
      */
@@ -89,7 +91,7 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
     /**
      * Stores the image in a the output directory of the testsuite:
      * testSUiteOutputDirectory/testGroup/testName.extension
-     * 
+     *
      * @param rsp
      *            containing the image, rsp.getEntityInputStream() is used to retrieve the content as stream, never
      *            <code>null</code>
@@ -129,11 +131,11 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
                 fileExtension = "." + fileExtension;
             }
             String fileName = testName + fileExtension;
-            Path imageFile = testClassDirectory.resolve( fileName );
+            Path imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
             Integer indx = -1;
             while ( Files.exists( imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS ) ) {
                 fileName = testName + ( ++indx ).toString() + "." + fileExtension;
-                imageFile = testClassDirectory.resolve( fileName );
+                imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
             }
 
             Files.copy( imageStream, imageFile );
@@ -152,11 +154,11 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
             }
 
             String fileName = testName + "." + fileExtension;
-            Path imageFile = testClassDirectory.resolve( fileName );
+            Path imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
             Integer indx = -1;
             while ( Files.exists( imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS ) ) {
                 fileName = testName + ( ++indx ).toString() + "." + fileExtension;
-                imageFile = testClassDirectory.resolve( fileName );
+                imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
             }
 
             Document soapDocument = WmtsSoapContainer.makeResponseDocument( soapResponse );
@@ -229,7 +231,7 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
 
     /**
      * Gets the location of the output directory from the test run context.
-     * 
+     *
      * @param testContext
      *            Information about a test run.
      * @return A String that identifies the directory containing test run results.
