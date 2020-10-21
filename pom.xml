@@ -127,7 +127,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>nsg.wmts10.WmtsNSGTestNGController</mainClass>
+              <mainClass>org.opengeospatial.cite.wmts10.nsg.WmtsNSGTestNGController</mainClass>
             </manifest>
           </archive>
           <descriptors>
