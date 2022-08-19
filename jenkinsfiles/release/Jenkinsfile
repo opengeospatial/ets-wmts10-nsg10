@@ -5,9 +5,12 @@ pipeline {
     jdk 'JDK 8'
   }
   stages {
-    stage('Preparation') {
+    stage('Initialize') {
       steps{
-        deleteDir()
+        sh '''
+          echo "PATH = ${PATH}"
+          echo "M2_HOME = ${M2_HOME}"
+        '''
         sh 'mvn --version'
       }
     }
@@ -26,6 +29,7 @@ pipeline {
     stage('Results') {
       steps{
         archive 'target/*'
+        deleteDir()
       }
     }
   }
