@@ -1,5 +1,17 @@
 # Release Notes
 
+## 0.4 (2022-08-19)
+
+* [#58](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/58): Update groupId of artifact ets-dgiwg-core
+* [#57](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/57): Set ets-dgiwg-core to v0.5
+* [#51](https://github.com/opengeospatial/ets-wmts10-nsg10/issues/51): Cleanup dependencies
+* [#46](https://github.com/opengeospatial/ets-wmts10-nsg10/issues/46): Security alert: Upgrade org.apache.tika:tika-core to version 1.22 or later
+* [#53](https://github.com/opengeospatial/ets-wmts10-nsg10/issues/53): Add template to get an XML/JSON response via rest endpoint
+* [#55](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/55): Bump commons-io from 2.5 to 2.7
+* [#48](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/48): Updated maven dependency of commons-io.
+* [#42](https://github.com/opengeospatial/ets-wmts10-nsg10/issues/42): Improve logging of request and response
+* [#45](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/45): Fixed URL for the project documentation website
+
 ## 0.3 (2018-05-16)
 
 * Fix [#38](https://github.com/opengeospatial/ets-wmts10-nsg/issues/38): Update documentation
