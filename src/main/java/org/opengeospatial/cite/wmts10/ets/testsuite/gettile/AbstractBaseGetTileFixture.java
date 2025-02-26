@@ -42,228 +42,231 @@ import jakarta.xml.soap.SOAPMessage;
  */
 @SuppressWarnings("restriction")
 public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture {
-    private final String MIME_FILENAME = "mime.types";
 
-    private final String SUBDIRECTORY = "GetTileTests";
+	private final String MIME_FILENAME = "mime.types";
 
-    private final String DISCRIMINATOR = DateTime.now().toString( "yyyyMMddHHmm" );
+	private final String SUBDIRECTORY = "GetTileTests";
 
-    private Path imageDirectory;
+	private final String DISCRIMINATOR = DateTime.now().toString("yyyyMMddHHmm");
 
-    /**
-     * Builds a {WmtsKvpRequest} representing a GetTile request.
-     *
-     * @throws XPathExpressionException
-     *             in case bad XPath
-     */
-    @BeforeClass
-    public void buildGetTileRequest()
-                            throws XPathExpressionException {
-        this.reqEntity = WmtsKvpRequestBuilder.buildGetTileRequest( wmtsCapabilities, layerInfo );
-    }
+	private Path imageDirectory;
 
-    @BeforeClass
-    public void setResultDirectory( ITestContext testContext ) {
-        String outputDirectory = retrieveSessionDir( testContext );
-        TestSuiteLogger.log( Level.INFO, "Directory to store GetTile responses: " + outputDirectory );
-        try {
-            Path resultDir = Paths.get( outputDirectory );
-            imageDirectory = createDirectory( resultDir, SUBDIRECTORY + "_" + DISCRIMINATOR ); // --- create a unique
-                                                                                               // directory name
-        } catch ( IOException e ) {
-            TestSuiteLogger.log( Level.WARNING, "Could not create directory for GetTile response.", e );
-        }
-    }
+	/**
+	 * Builds a {WmtsKvpRequest} representing a GetTile request.
+	 * @throws XPathExpressionException in case bad XPath
+	 */
+	@BeforeClass
+	public void buildGetTileRequest() throws XPathExpressionException {
+		this.reqEntity = WmtsKvpRequestBuilder.buildGetTileRequest(wmtsCapabilities, layerInfo);
+	}
 
-    @Test
-    public void verifyGetTileSupported() {
-        Node getTileEntry = null;
-        try {
-            getTileEntry = (Node) ServiceMetadataUtils.getNode( wmtsCapabilities,
-                                                                "//ows:OperationsMetadata/ows:Operation[@name = 'GetTile']" );
-        } catch ( XPathExpressionException e ) {
-        }
-        assertNotNull( getTileEntry, "GetTile is not supported by this WMTS" );
-    }
+	@BeforeClass
+	public void setResultDirectory(ITestContext testContext) {
+		String outputDirectory = retrieveSessionDir(testContext);
+		TestSuiteLogger.log(Level.INFO, "Directory to store GetTile responses: " + outputDirectory);
+		try {
+			Path resultDir = Paths.get(outputDirectory);
+			imageDirectory = createDirectory(resultDir, SUBDIRECTORY + "_" + DISCRIMINATOR); // ---
+																								// create
+																								// a
+																								// unique
+																								// directory
+																								// name
+		}
+		catch (IOException e) {
+			TestSuiteLogger.log(Level.WARNING, "Could not create directory for GetTile response.", e);
+		}
+	}
 
-    /**
-     * Stores the image in a the output directory of the testsuite:
-     * testSUiteOutputDirectory/testGroup/testName.extension
-     *
-     * @param rsp
-     *            containing the image, rsp.getEntityInputStream() is used to retrieve the content as stream, never
-     *            <code>null</code>
-     * @param testGroup
-     *            name of the test group (will be the name of the directory to create), never <code>null</code>
-     * @param testName
-     *            name of the test (will be the name of the file to create), never <code>null</code>
-     * @param requestFormat
-     *            the mime type of the image, never <code>null</code>
-     */
-    protected void storeResponseImage( Response rsp, String testGroup, String testName, String requestFormat ) {
-        if ( imageDirectory == null ) {
-            TestSuiteLogger.log( Level.WARNING,
-                                 "Directory to store GetTile responses is not set. GetTile response is not written!" );
-            return;
-        }
-        writeIntoFile( rsp, testGroup, testName, requestFormat );
-    }
+	@Test
+	public void verifyGetTileSupported() {
+		Node getTileEntry = null;
+		try {
+			getTileEntry = (Node) ServiceMetadataUtils.getNode(wmtsCapabilities,
+					"//ows:OperationsMetadata/ows:Operation[@name = 'GetTile']");
+		}
+		catch (XPathExpressionException e) {
+		}
+		assertNotNull(getTileEntry, "GetTile is not supported by this WMTS");
+	}
 
-    protected void storeSoapResponseImage( SOAPMessage soapResponse, String testGroup, String testName,
-                                           String requestFormat ) {
-        if ( imageDirectory == null ) {
-            TestSuiteLogger.log( Level.WARNING,
-                                 "Directory to store GetTile responses is not set. GetTile response is not written!" );
-            return;
-        }
-        writeIntoFile( soapResponse, testGroup, testName, requestFormat );
-    }
+	/**
+	 * Stores the image in a the output directory of the testsuite:
+	 * testSUiteOutputDirectory/testGroup/testName.extension
+	 * @param rsp containing the image, rsp.getEntityInputStream() is used to retrieve the
+	 * content as stream, never <code>null</code>
+	 * @param testGroup name of the test group (will be the name of the directory to
+	 * create), never <code>null</code>
+	 * @param testName name of the test (will be the name of the file to create), never
+	 * <code>null</code>
+	 * @param requestFormat the mime type of the image, never <code>null</code>
+	 */
+	protected void storeResponseImage(Response rsp, String testGroup, String testName, String requestFormat) {
+		if (imageDirectory == null) {
+			TestSuiteLogger.log(Level.WARNING,
+					"Directory to store GetTile responses is not set. GetTile response is not written!");
+			return;
+		}
+		writeIntoFile(rsp, testGroup, testName, requestFormat);
+	}
 
-    private void writeIntoFile( Response rsp, String testGroup, String testName, String requestFormat ) {
-        try {
-            Path testClassDirectory = createDirectory( imageDirectory, testGroup );
-            InputStream imageStream = rsp.readEntity(InputStream.class);
+	protected void storeSoapResponseImage(SOAPMessage soapResponse, String testGroup, String testName,
+			String requestFormat) {
+		if (imageDirectory == null) {
+			TestSuiteLogger.log(Level.WARNING,
+					"Directory to store GetTile responses is not set. GetTile response is not written!");
+			return;
+		}
+		writeIntoFile(soapResponse, testGroup, testName, requestFormat);
+	}
 
-            String fileExtension = detectFileExtension( requestFormat );
-            if ( ( fileExtension != null ) && ( !fileExtension.startsWith( "." ) ) ) {
-                fileExtension = "." + fileExtension;
-            }
-            String fileName = testName + fileExtension;
-            Path imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
-            Integer indx = -1;
-            while ( Files.exists( imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS ) ) {
-                fileName = testName + ( ++indx ).toString() + "." + fileExtension;
-                imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
-            }
+	private void writeIntoFile(Response rsp, String testGroup, String testName, String requestFormat) {
+		try {
+			Path testClassDirectory = createDirectory(imageDirectory, testGroup);
+			InputStream imageStream = rsp.readEntity(InputStream.class);
 
-            Files.copy( imageStream, imageFile );
-        } catch ( IOException ioe ) {
-            TestSuiteLogger.log( Level.WARNING, "IO:  Writing the GetTile response into file failed.", ioe );
-        }
-    }
+			String fileExtension = detectFileExtension(requestFormat);
+			if ((fileExtension != null) && (!fileExtension.startsWith("."))) {
+				fileExtension = "." + fileExtension;
+			}
+			String fileName = testName + fileExtension;
+			Path imageFile = testClassDirectory.resolve(FilenameUtils.normalize(fileName));
+			Integer indx = -1;
+			while (Files.exists(imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS)) {
+				fileName = testName + (++indx).toString() + "." + fileExtension;
+				imageFile = testClassDirectory.resolve(FilenameUtils.normalize(fileName));
+			}
 
-    private void writeIntoFile( SOAPMessage soapResponse, String testGroup, String testName, String requestFormat ) {
-        try {
-            Path testClassDirectory = createDirectory( imageDirectory, testGroup );
+			Files.copy(imageStream, imageFile);
+		}
+		catch (IOException ioe) {
+			TestSuiteLogger.log(Level.WARNING, "IO:  Writing the GetTile response into file failed.", ioe);
+		}
+	}
 
-            String fileExtension = detectFileExtension( requestFormat );
-            if ( ( fileExtension != null ) && ( fileExtension.startsWith( "." ) ) ) {
-                fileExtension = fileExtension.substring( 1 );
-            }
+	private void writeIntoFile(SOAPMessage soapResponse, String testGroup, String testName, String requestFormat) {
+		try {
+			Path testClassDirectory = createDirectory(imageDirectory, testGroup);
 
-            String fileName = testName + "." + fileExtension;
-            Path imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
-            Integer indx = -1;
-            while ( Files.exists( imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS ) ) {
-                fileName = testName + ( ++indx ).toString() + "." + fileExtension;
-                imageFile = testClassDirectory.resolve( FilenameUtils.normalize(fileName) );
-            }
+			String fileExtension = detectFileExtension(requestFormat);
+			if ((fileExtension != null) && (fileExtension.startsWith("."))) {
+				fileExtension = fileExtension.substring(1);
+			}
 
-            Document soapDocument = WmtsSoapContainer.makeResponseDocument( soapResponse );
+			String fileName = testName + "." + fileExtension;
+			Path imageFile = testClassDirectory.resolve(FilenameUtils.normalize(fileName));
+			Integer indx = -1;
+			while (Files.exists(imageFile, java.nio.file.LinkOption.NOFOLLOW_LINKS)) {
+				fileName = testName + (++indx).toString() + "." + fileExtension;
+				imageFile = testClassDirectory.resolve(FilenameUtils.normalize(fileName));
+			}
 
-            // String formatStr = (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:Format",
-            // soapDocument,XPathConstants.STRING);
-            // String imageString = (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:BinaryContent",
-            // soapDocument,XPathConstants.STRING);
-            String imageString = (String) ServiceMetadataUtils.getNodeText( soapDocument,
-                                                                            "//wmts:BinaryPayload/wmts:BinaryContent" );
+			Document soapDocument = WmtsSoapContainer.makeResponseDocument(soapResponse);
 
-            BufferedImage bufferedImage = null;
-            byte[] imageByte;
+			// String formatStr =
+			// (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:Format",
+			// soapDocument,XPathConstants.STRING);
+			// String imageString =
+			// (String)createXPath().evaluate("//wmts:BinaryPayload/wmts:BinaryContent",
+			// soapDocument,XPathConstants.STRING);
+			String imageString = (String) ServiceMetadataUtils.getNodeText(soapDocument,
+					"//wmts:BinaryPayload/wmts:BinaryContent");
 
-            Decoder decoder = Base64.getDecoder();
-            imageByte = decoder.decode( imageString );
-            ByteArrayInputStream bis = new ByteArrayInputStream( imageByte );
-            bufferedImage = ImageIO.read( bis );
-            bis.close();
+			BufferedImage bufferedImage = null;
+			byte[] imageByte;
 
-            OutputStream imageOutputFile = Files.newOutputStream( imageFile );
-            ImageIO.write( bufferedImage, fileExtension, imageOutputFile );
-            imageOutputFile.close();
-        } catch ( IOException ioe ) {
-            TestSuiteLogger.log( Level.WARNING, "IO:  Writing the GetTile response into file failed.", ioe );
-        } catch ( XPathExpressionException xpe )// | XPathFactoryConfigurationException xpe)
-        {
-            TestSuiteLogger.log( Level.WARNING,
-                                 "SOAP converted document contains an error (no or corrupt BinaryContent)", xpe );
-        }
-    }
+			Decoder decoder = Base64.getDecoder();
+			imageByte = decoder.decode(imageString);
+			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+			bufferedImage = ImageIO.read(bis);
+			bis.close();
 
-    private String detectFileExtension( String requestFormat ) // throws MimeTypeException
-    {
-        String extension = null;
-        try {
-            BufferedReader br = new BufferedReader(
-                                                    new InputStreamReader(
-                                                                           this.getClass().getResourceAsStream( MIME_FILENAME ),
-                                                                           "UTF-8" ) );
-            String mimeLine = null;
+			OutputStream imageOutputFile = Files.newOutputStream(imageFile);
+			ImageIO.write(bufferedImage, fileExtension, imageOutputFile);
+			imageOutputFile.close();
+		}
+		catch (IOException ioe) {
+			TestSuiteLogger.log(Level.WARNING, "IO:  Writing the GetTile response into file failed.", ioe);
+		}
+		catch (XPathExpressionException xpe)// | XPathFactoryConfigurationException xpe)
+		{
+			TestSuiteLogger.log(Level.WARNING,
+					"SOAP converted document contains an error (no or corrupt BinaryContent)", xpe);
+		}
+	}
 
-            do {
-                mimeLine = br.readLine();
+	private String detectFileExtension(String requestFormat) // throws MimeTypeException
+	{
+		String extension = null;
+		try {
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(this.getClass().getResourceAsStream(MIME_FILENAME), "UTF-8"));
+			String mimeLine = null;
 
-                if ( ( mimeLine != null ) && ( mimeLine.indexOf( ':' ) > 0 ) ) {
-                    int indx = mimeLine.indexOf( ':' );
-                    String mime = mimeLine.substring( 0, indx );
-                    String m_ext = mimeLine.substring( indx + 1 );
+			do {
+				mimeLine = br.readLine();
 
-                    if ( mime.equalsIgnoreCase( requestFormat ) ) {
-                        extension = m_ext;
-                    }
-                }
-            } while ( ( mimeLine != null ) && ( extension == null ) );
-            br.close();
-        } catch ( IOException e ) {
-            TestSuiteLogger.log( Level.WARNING, "Cannot find MIME Types.", e );
-        }
+				if ((mimeLine != null) && (mimeLine.indexOf(':') > 0)) {
+					int indx = mimeLine.indexOf(':');
+					String mime = mimeLine.substring(0, indx);
+					String m_ext = mimeLine.substring(indx + 1);
 
-        return extension;
-    }
+					if (mime.equalsIgnoreCase(requestFormat)) {
+						extension = m_ext;
+					}
+				}
+			}
+			while ((mimeLine != null) && (extension == null));
+			br.close();
+		}
+		catch (IOException e) {
+			TestSuiteLogger.log(Level.WARNING, "Cannot find MIME Types.", e);
+		}
 
-    private Path createDirectory( Path parent, String child )
-                            throws IOException {
-        Path testClassDirectory = parent.resolve( child );
-        Files.createDirectories( testClassDirectory );
-        return testClassDirectory;
-    }
+		return extension;
+	}
 
-    /**
-     * Gets the location of the output directory from the test run context.
-     *
-     * @param testContext
-     *            Information about a test run.
-     * @return A String that identifies the directory containing test run results.
-     */
+	private Path createDirectory(Path parent, String child) throws IOException {
+		Path testClassDirectory = parent.resolve(child);
+		Files.createDirectories(testClassDirectory);
+		return testClassDirectory;
+	}
 
-    private String retrieveSessionDir( ITestContext testContext ) {
-        File outputDir = new File( testContext.getOutputDirectory() );
-        return outputDir.getPath();
-    }
+	/**
+	 * Gets the location of the output directory from the test run context.
+	 * @param testContext Information about a test run.
+	 * @return A String that identifies the directory containing test run results.
+	 */
 
-    private void parseNodes( Node n, int level ) {
-        if ( n != null ) {
-            String nam = n.getNodeName();
-            String val = n.getNodeValue();
-            String lnm = n.getLocalName();
-            // String txt = n.getTextContent().trim();
-            if ( !nam.contains( ":" ) && !nam.startsWith( "#" ) ) {
-                String namespaceURI = n.getNamespaceURI();
-                if ( namespaceURI.contains( "soap" ) )
-                    nam = "soap:" + nam;
-                else if ( namespaceURI.contains( "ows" ) )
-                    nam = "ows:" + nam;
-                else if ( namespaceURI.contains( "wmts" ) )
-                    nam = "wmts:" + nam;
+	private String retrieveSessionDir(ITestContext testContext) {
+		File outputDir = new File(testContext.getOutputDirectory());
+		return outputDir.getPath();
+	}
 
-            }
+	private void parseNodes(Node n, int level) {
+		if (n != null) {
+			String nam = n.getNodeName();
+			String val = n.getNodeValue();
+			String lnm = n.getLocalName();
+			// String txt = n.getTextContent().trim();
+			if (!nam.contains(":") && !nam.startsWith("#")) {
+				String namespaceURI = n.getNamespaceURI();
+				if (namespaceURI.contains("soap"))
+					nam = "soap:" + nam;
+				else if (namespaceURI.contains("ows"))
+					nam = "ows:" + nam;
+				else if (namespaceURI.contains("wmts"))
+					nam = "wmts:" + nam;
 
-            for ( int i = 0; i < level; i++ )
-                System.out.print( "\t" );
-            System.out.println( "Node: " + nam + " = " + val );// + "( or:  " + txt + " )");
-            parseNodes( n.getFirstChild(), level + 1 );
+			}
 
-            parseNodes( n.getNextSibling(), level );
-        }
-    }
+			for (int i = 0; i < level; i++)
+				System.out.print("\t");
+			System.out.println("Node: " + nam + " = " + val);// + "( or: " + txt + " )");
+			parseNodes(n.getFirstChild(), level + 1);
+
+			parseNodes(n.getNextSibling(), level);
+		}
+	}
 
 }

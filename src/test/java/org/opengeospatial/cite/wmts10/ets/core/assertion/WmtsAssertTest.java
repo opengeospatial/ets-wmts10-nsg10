@@ -23,24 +23,21 @@ import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtilsTest;
  */
 public class WmtsAssertTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
-    @Test
-    public void testAssertVersion130()
-                    throws Exception
-    {
-        assertVersion100( wmtsCapabilities() );
-    }
+	@Test
+	public void testAssertVersion130() throws Exception {
+		assertVersion100(wmtsCapabilities());
+	}
 
-    private Document wmtsCapabilities()
-                    throws ParserConfigurationException, SAXException, IOException 
-    {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware( true );
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( "../NSGWMTSImplementation.xml" );
-        return builder.parse( new InputSource( wmtsCapabilities ) );
-    }
+	private Document wmtsCapabilities() throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class
+			.getResourceAsStream("../NSGWMTSImplementation.xml");
+		return builder.parse(new InputSource(wmtsCapabilities));
+	}
 
 }

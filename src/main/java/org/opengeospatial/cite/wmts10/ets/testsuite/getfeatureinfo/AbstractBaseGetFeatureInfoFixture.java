@@ -16,27 +16,26 @@ import org.w3c.dom.Node;
  * @author Jim Beatty (modified/fixed May/Jun/Jul-2017 for WMS/WMTS)
  */
 public abstract class AbstractBaseGetFeatureInfoFixture extends AbstractBaseGetFixture {
-    /**
-     * Builds a {WmtsKvpRequest} representing a GetMap request.
-     * 
-     * @throws XPathExpressionException
-     *             in case bad XPath
-     */
-    @BeforeClass
-    public void buildGetFeatureInfoRequest()
-                            throws XPathExpressionException {
-        this.reqEntity = WmtsKvpRequestBuilder.buildGetFeatureInfoRequest( wmtsCapabilities, layerInfo );
-    }
 
-    @Test
-    public void verifyGetFeatureInfoSupported() {
-        Node getFeatureInfoEntry = null;
-        try {
-            getFeatureInfoEntry = (Node) ServiceMetadataUtils.getNode( wmtsCapabilities,
-                                                                       "//ows:OperationsMetadata/ows:Operation[@name = 'GetFeatureInfo']" );
-        } catch ( XPathExpressionException e ) {
-        }
-        assertNotNull( getFeatureInfoEntry, "GetFeatureInfo is not supported by this WMTS" );
-    }
+	/**
+	 * Builds a {WmtsKvpRequest} representing a GetMap request.
+	 * @throws XPathExpressionException in case bad XPath
+	 */
+	@BeforeClass
+	public void buildGetFeatureInfoRequest() throws XPathExpressionException {
+		this.reqEntity = WmtsKvpRequestBuilder.buildGetFeatureInfoRequest(wmtsCapabilities, layerInfo);
+	}
+
+	@Test
+	public void verifyGetFeatureInfoSupported() {
+		Node getFeatureInfoEntry = null;
+		try {
+			getFeatureInfoEntry = (Node) ServiceMetadataUtils.getNode(wmtsCapabilities,
+					"//ows:OperationsMetadata/ows:Operation[@name = 'GetFeatureInfo']");
+		}
+		catch (XPathExpressionException e) {
+		}
+		assertNotNull(getFeatureInfoEntry, "GetFeatureInfo is not supported by this WMTS");
+	}
 
 }

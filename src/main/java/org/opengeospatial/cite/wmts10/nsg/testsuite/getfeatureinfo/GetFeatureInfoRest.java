@@ -34,159 +34,158 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 
 /**
- *
  * @author Jim Beatty (Jun/Jul-2017 for WMTS; based on original work of:
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  *
  */
 public class GetFeatureInfoRest extends AbstractBaseGetFeatureInfoFixture {
-    /**
-     * --- NSG Requirement 10: An NSG WMTS server shall provide standard endpoints from which representation of the
-     * GetFeatureInfo resources can be obtained. ---
-     */
 
-    private URI getFeatureInfoURI = null;
+	/**
+	 * --- NSG Requirement 10: An NSG WMTS server shall provide standard endpoints from
+	 * which representation of the GetFeatureInfo resources can be obtained. ---
+	 */
 
-    private boolean _debug = false;
+	private URI getFeatureInfoURI = null;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 10", dependsOnMethods = "verifyGetFeatureInfoSupported")
-    public void wmtsGetFeatureInfoRESTCapable()
-                            throws XPathExpressionException, XPathFactoryConfigurationException {
-        getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_REST( wmtsCapabilities,
-                                                                            WMTS_Constants.GET_FEATURE_INFO,
-                                                                            ProtocolBinding.GET );
+	private boolean _debug = false;
 
-        assertTrue( getFeatureInfoURI != null,
-                    "GetFeatureInfo (GET) endpoint not found or REST is not supported in ServiceMetadata capabilities document." );
-    }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 10",
+			dependsOnMethods = "verifyGetFeatureInfoSupported")
+	public void wmtsGetFeatureInfoRESTCapable() throws XPathExpressionException, XPathFactoryConfigurationException {
+		getFeatureInfoURI = ServiceMetadataUtils.getOperationEndpoint_REST(wmtsCapabilities,
+				WMTS_Constants.GET_FEATURE_INFO, ProtocolBinding.GET);
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 10", dependsOnMethods = "wmtsGetFeatureInfoRESTCapable")
-    public void wmtsGetFeatureInfoRequestParametersSupported( ITestContext testContext ) {
-        String requestFormat = null;
+		assertTrue(getFeatureInfoURI != null,
+				"GetFeatureInfo (GET) endpoint not found or REST is not supported in ServiceMetadata capabilities document.");
+	}
 
-        try {
-            String layerName = this.reqEntity.getKvpValue( WMTS_Constants.LAYER_PARAM );
-            if ( layerName == null ) {
-                NodeList layers = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
-                                                                        "//wmts:Contents/wmts:Layer/ows:Identifier" );
-                if ( layers.getLength() > 0 ) {
-                    layerName = ( (Node) layers.item( 0 ) ).getTextContent().trim();
-                }
-            }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 10",
+			dependsOnMethods = "wmtsGetFeatureInfoRESTCapable")
+	public void wmtsGetFeatureInfoRequestParametersSupported(ITestContext testContext) {
+		String requestFormat = null;
 
-            XPath xPath = createXPath();
+		try {
+			String layerName = this.reqEntity.getKvpValue(WMTS_Constants.LAYER_PARAM);
+			if (layerName == null) {
+				NodeList layers = ServiceMetadataUtils.getNodeElements(wmtsCapabilities,
+						"//wmts:Contents/wmts:Layer/ows:Identifier");
+				if (layers.getLength() > 0) {
+					layerName = ((Node) layers.item(0)).getTextContent().trim();
+				}
+			}
 
-            // --- get the prepopulated KVP parameters, for the SOAP parameters
+			XPath xPath = createXPath();
 
-            String style = this.reqEntity.getKvpValue( WMTS_Constants.STYLE_PARAM );
-            String tileMatrixSet = this.reqEntity.getKvpValue( WMTS_Constants.TILE_MATRIX_SET_PARAM );
-            String tileMatrix = this.reqEntity.getKvpValue( WMTS_Constants.TILE_MATRIX_PARAM );
-            String tileRow = this.reqEntity.getKvpValue( WMTS_Constants.TILE_ROW_PARAM );
-            String tileCol = this.reqEntity.getKvpValue( WMTS_Constants.TILE_COL_PARAM );
+			// --- get the prepopulated KVP parameters, for the SOAP parameters
 
-            requestFormat = this.reqEntity.getKvpValue( WMTS_Constants.FORMAT_PARAM );
+			String style = this.reqEntity.getKvpValue(WMTS_Constants.STYLE_PARAM);
+			String tileMatrixSet = this.reqEntity.getKvpValue(WMTS_Constants.TILE_MATRIX_SET_PARAM);
+			String tileMatrix = this.reqEntity.getKvpValue(WMTS_Constants.TILE_MATRIX_PARAM);
+			String tileRow = this.reqEntity.getKvpValue(WMTS_Constants.TILE_ROW_PARAM);
+			String tileCol = this.reqEntity.getKvpValue(WMTS_Constants.TILE_COL_PARAM);
 
-            // if ( getFeatureInfoURI == null )
-            {
-                NodeList resourceURLs = ServiceMetadataUtils.getNodeElements( wmtsCapabilities,
-                                                                              "//wmts:Contents/wmts:Layer[ows:Identifier = '"
-                                                                                                      + layerName
-                                                                                                      + "']/wmts:ResourceURL" );
+			requestFormat = this.reqEntity.getKvpValue(WMTS_Constants.FORMAT_PARAM);
 
-                Assert.assertTrue( ( ( resourceURLs != null ) && ( resourceURLs.getLength() > 0 ) ),
-                                   "WMTS apparently does not support REST or contains no REST endpoints for layer: "
-                                                           + layerName );
+			// if ( getFeatureInfoURI == null )
+			{
+				NodeList resourceURLs = ServiceMetadataUtils.getNodeElements(wmtsCapabilities,
+						"//wmts:Contents/wmts:Layer[ows:Identifier = '" + layerName + "']/wmts:ResourceURL");
 
-                Random random = new Random();
-                int randomIndx = random.nextInt( resourceURLs.getLength() );
+				Assert.assertTrue(((resourceURLs != null) && (resourceURLs.getLength() > 0)),
+						"WMTS apparently does not support REST or contains no REST endpoints for layer: " + layerName);
 
-                Node resourceNode = resourceURLs.item( randomIndx );
+				Random random = new Random();
+				int randomIndx = random.nextInt(resourceURLs.getLength());
 
-                String templateURL = (String) ServiceMetadataUtils.getNodeText( xPath, resourceNode, "@template" );
-                requestFormat = (String) ServiceMetadataUtils.getNodeText( xPath, resourceNode, "@format" );
-                if ( Strings.isNullOrEmpty( templateURL ) || Strings.isNullOrEmpty( requestFormat ) ) {
-                    throw new XPathExpressionException( "Invalid or corrupt Resource URL image format" );
-                }
+				Node resourceNode = resourceURLs.item(randomIndx);
 
-                try {
-                    templateURL = templateURL.replaceAll( "\\{(?i)Style\\}", style );
-                    templateURL = templateURL.replaceAll( "\\{(?i)FeatureInfoMatrixSet\\}", tileMatrixSet );
-                    templateURL = templateURL.replaceAll( "\\{(?i)FeatureInfoMatrix\\}", tileMatrix );
-                    templateURL = templateURL.replaceAll( "\\{(?i)FeatureInfoRow\\}", tileRow );
-                    templateURL = templateURL.replaceAll( "\\{(?i)FeatureInfoCol\\}", tileCol );
-                    templateURL = templateURL.replaceAll( "\\{(?i)I\\}", "0" );
-                    templateURL = templateURL.replaceAll( "\\{(?i)J\\}", "0" );
-                    getFeatureInfoURI = new URI( templateURL );
-                } catch ( URISyntaxException ue ) {
-                    getFeatureInfoURI = null;
-                }
-            }
-            assertUrl( getFeatureInfoURI.toString() );
-            // assertUriIsResolvable(restURIstr);
+				String templateURL = (String) ServiceMetadataUtils.getNodeText(xPath, resourceNode, "@template");
+				requestFormat = (String) ServiceMetadataUtils.getNodeText(xPath, resourceNode, "@format");
+				if (Strings.isNullOrEmpty(templateURL) || Strings.isNullOrEmpty(requestFormat)) {
+					throw new XPathExpressionException("Invalid or corrupt Resource URL image format");
+				}
 
-            /*--
-            assertTrue(WMTS_Constants.GET_FeatureInfo.equals( responseDoc.getDocumentElement().getLocalName() ),
-            	"Invalid REST request for WMTS ServeiceMetadata capabilities document: " + responseDoc.getDocumentElement().getNodeName() );
-            --*/
+				try {
+					templateURL = templateURL.replaceAll("\\{(?i)Style\\}", style);
+					templateURL = templateURL.replaceAll("\\{(?i)FeatureInfoMatrixSet\\}", tileMatrixSet);
+					templateURL = templateURL.replaceAll("\\{(?i)FeatureInfoMatrix\\}", tileMatrix);
+					templateURL = templateURL.replaceAll("\\{(?i)FeatureInfoRow\\}", tileRow);
+					templateURL = templateURL.replaceAll("\\{(?i)FeatureInfoCol\\}", tileCol);
+					templateURL = templateURL.replaceAll("\\{(?i)I\\}", "0");
+					templateURL = templateURL.replaceAll("\\{(?i)J\\}", "0");
+					getFeatureInfoURI = new URI(templateURL);
+				}
+				catch (URISyntaxException ue) {
+					getFeatureInfoURI = null;
+				}
+			}
+			assertUrl(getFeatureInfoURI.toString());
+			// assertUriIsResolvable(restURIstr);
 
-            // --- Example of valid URL
-            {
-                ClientConfig config = new ClientConfig();
-                Client client = ClientBuilder.newClient(config);
-                WebTarget target = client.target(getFeatureInfoURI);
-                Builder reqBuilder = target.request();
-                Response rsp = reqBuilder.buildGet().invoke();
-                this.rspEntity = rsp.readEntity(Document.class);
+			/*--
+			assertTrue(WMTS_Constants.GET_FeatureInfo.equals( responseDoc.getDocumentElement().getLocalName() ),
+				"Invalid REST request for WMTS ServeiceMetadata capabilities document: " + responseDoc.getDocumentElement().getNodeName() );
+			--*/
 
-                Assert.assertTrue( rsp != null, "Error processing REST GetFeatureInfo request" );
+			// --- Example of valid URL
+			{
+				ClientConfig config = new ClientConfig();
+				Client client = ClientBuilder.newClient(config);
+				WebTarget target = client.target(getFeatureInfoURI);
+				Builder reqBuilder = target.request();
+				Response rsp = reqBuilder.buildGet().invoke();
+				this.rspEntity = rsp.readEntity(Document.class);
 
-                // storeResponseImage( rsp, "Requirement10", "simple", requestFormat );
+				Assert.assertTrue(rsp != null, "Error processing REST GetFeatureInfo request");
 
-                ETSAssert.assertContentType( rsp.getHeaders(), requestFormat );
-                ETSAssert.assertStatusCode( rsp.getStatus(), 200 );
-            }
-            // --- Example of invalid URL
-            {
-                String erroneousURL = getFeatureInfoURI.toString();
-                int indx = erroneousURL.lastIndexOf( "/" );
-                erroneousURL = erroneousURL.substring( 0, indx + 1 ) + "X" + erroneousURL.substring( indx + 1 );
+				// storeResponseImage( rsp, "Requirement10", "simple", requestFormat );
 
-                URI invalidURI = null;
-                try {
-                    invalidURI = new URI( erroneousURL );
-                } catch ( URISyntaxException ue ) {
-                    System.out.println( ue.getMessage() );
-                    invalidURI = null;
-                }
+				ETSAssert.assertContentType(rsp.getHeaders(), requestFormat);
+				ETSAssert.assertStatusCode(rsp.getStatus(), 200);
+			}
+			// --- Example of invalid URL
+			{
+				String erroneousURL = getFeatureInfoURI.toString();
+				int indx = erroneousURL.lastIndexOf("/");
+				erroneousURL = erroneousURL.substring(0, indx + 1) + "X" + erroneousURL.substring(indx + 1);
 
-                ClientConfig config = new ClientConfig();
-                Client client = ClientBuilder.newClient(config);
-                WebTarget target = client.target(invalidURI);
-                Builder reqBuilder = target.request();
-                Response rsp = reqBuilder.buildGet().invoke();
-                this.rspEntity = rsp.readEntity(Document.class);
+				URI invalidURI = null;
+				try {
+					invalidURI = new URI(erroneousURL);
+				}
+				catch (URISyntaxException ue) {
+					System.out.println(ue.getMessage());
+					invalidURI = null;
+				}
 
-                Assert.assertTrue( rsp != null, "Error processing invalid REST GetFeatureInfo request" );
-                Assert.assertFalse( rsp.getStatus() == 200,
-                                    "Expected status code from Invalid REST GetFeatureInfo request is not expected to be 200. " );
-                ETSAssert.assertContentType( rsp.getHeaders(), WMTS_Constants.TEXT_XML );
+				ClientConfig config = new ClientConfig();
+				Client client = ClientBuilder.newClient(config);
+				WebTarget target = client.target(invalidURI);
+				Builder reqBuilder = target.request();
+				Response rsp = reqBuilder.buildGet().invoke();
+				this.rspEntity = rsp.readEntity(Document.class);
 
-            }
-        } catch ( XPathExpressionException | XPathFactoryConfigurationException xpe ) {
-            System.out.println( xpe.getMessage() );
-            if ( this._debug ) {
-                xpe.printStackTrace();
-            }
-            assertTrue( false, "Error found when retrieving REST GetFeatureInfo request: " + xpe.getMessage() );
-        }
-    }
+				Assert.assertTrue(rsp != null, "Error processing invalid REST GetFeatureInfo request");
+				Assert.assertFalse(rsp.getStatus() == 200,
+						"Expected status code from Invalid REST GetFeatureInfo request is not expected to be 200. ");
+				ETSAssert.assertContentType(rsp.getHeaders(), WMTS_Constants.TEXT_XML);
 
-    private XPath createXPath()
-                            throws XPathFactoryConfigurationException {
-        XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
-        XPath xpath = factory.newXPath();
-        xpath.setNamespaceContext( NS_BINDINGS );
-        return xpath;
-    }
+			}
+		}
+		catch (XPathExpressionException | XPathFactoryConfigurationException xpe) {
+			System.out.println(xpe.getMessage());
+			if (this._debug) {
+				xpe.printStackTrace();
+			}
+			assertTrue(false, "Error found when retrieving REST GetFeatureInfo request: " + xpe.getMessage());
+		}
+	}
+
+	private XPath createXPath() throws XPathFactoryConfigurationException {
+		XPathFactory factory = XPathFactory.newInstance(XPathConstants.DOM_OBJECT_MODEL);
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext(NS_BINDINGS);
+		return xpath;
+	}
 
 }

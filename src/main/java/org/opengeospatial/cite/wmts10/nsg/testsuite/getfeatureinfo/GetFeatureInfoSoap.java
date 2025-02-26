@@ -33,75 +33,77 @@ import de.latlon.ets.core.util.TestSuiteLogger;
 import jakarta.xml.soap.SOAPMessage;
 
 /**
- *
  * @author Jim Beatty (Jun/Jul-2017 for WMTS; based on original work of:
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  *
  */
 public class GetFeatureInfoSoap extends AbstractBaseGetFeatureInfoFixture {
-    /**
-     * --- NSG Requirement 9: An NSG WMTS server shall implement SOAP encoding using HTTP POST transfer of the
-     * GetFeatureInfo operation request, using SOAP version 1.2 encoding. ---
-     */
 
-    private URI getFeatureInfoURI = null;
+	/**
+	 * --- NSG Requirement 9: An NSG WMTS server shall implement SOAP encoding using HTTP
+	 * POST transfer of the GetFeatureInfo operation request, using SOAP version 1.2
+	 * encoding. ---
+	 */
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "verifyGetFeatureInfoSupported")
-    public void wmtsGetFeatureInfoSoapSupported() {
-        getFeatureInfoURI = getOperationEndpoint_SOAP( wmtsCapabilities, GET_FEATURE_INFO, POST );
-        if ( this.getFeatureInfoURI == null )
-            throw new SkipException(
-                                     "GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
-    }
+	private URI getFeatureInfoURI = null;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9", dependsOnMethods = "wmtsGetFeatureInfoSoapSupported")
-    public void wmtsGetFeatureInfoSoapRequestFormatParameters( ITestContext testContext ) {
-        if ( getFeatureInfoURI == null ) {
-            getFeatureInfoURI = getOperationEndpoint_SOAP( this.wmtsCapabilities, GET_FEATURE_INFO, POST );
-        }
-        String soapURIstr = getFeatureInfoURI.toString();
-        assertUrl( soapURIstr );
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9",
+			dependsOnMethods = "verifyGetFeatureInfoSupported")
+	public void wmtsGetFeatureInfoSoapSupported() {
+		getFeatureInfoURI = getOperationEndpoint_SOAP(wmtsCapabilities, GET_FEATURE_INFO, POST);
+		if (this.getFeatureInfoURI == null)
+			throw new SkipException(
+					"GetFeatureInfo (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP.");
+	}
 
-        try {
-            WmtsSoapContainer soap = createSoapContainer( soapURIstr );
-            SOAPMessage soapResponse = soap.getSoapResponse( true );
-            assertTrue( soapResponse != null, "SOAP response came back null" );
-        } catch ( XPathExpressionException xpe ) {
-            TestSuiteLogger.log( Level.WARNING, "Invalid or corrupt SOAP content or XML format", xpe );
-        }
-    }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 9",
+			dependsOnMethods = "wmtsGetFeatureInfoSoapSupported")
+	public void wmtsGetFeatureInfoSoapRequestFormatParameters(ITestContext testContext) {
+		if (getFeatureInfoURI == null) {
+			getFeatureInfoURI = getOperationEndpoint_SOAP(this.wmtsCapabilities, GET_FEATURE_INFO, POST);
+		}
+		String soapURIstr = getFeatureInfoURI.toString();
+		assertUrl(soapURIstr);
 
-    private WmtsSoapContainer createSoapContainer( String soapURIstr )
-                            throws XPathExpressionException {
-        WmtsSoapContainer soap = new WmtsSoapContainer( GET_FEATURE_INFO, soapURIstr );
+		try {
+			WmtsSoapContainer soap = createSoapContainer(soapURIstr);
+			SOAPMessage soapResponse = soap.getSoapResponse(true);
+			assertTrue(soapResponse != null, "SOAP response came back null");
+		}
+		catch (XPathExpressionException xpe) {
+			TestSuiteLogger.log(Level.WARNING, "Invalid or corrupt SOAP content or XML format", xpe);
+		}
+	}
 
-        soap.addParameter( serviceOWS, LAYER_PARAM, findLayerName() );
-        addParamFromRequest( soap, STYLE_PARAM );
-        addParamFromRequest( soap, FORMAT_PARAM );
-        addParamFromRequest( soap, TILE_MATRIX_SET_PARAM );
-        addParamFromRequest( soap, TILE_MATRIX_PARAM );
-        addParamFromRequest( soap, TILE_ROW_PARAM );
-        addParamFromRequest( soap, I_PARAM );
-        addParamFromRequest( soap, J_PARAM );
-        addParamFromRequest( soap, INFO_FORMAT_PARAM );
-        return soap;
-    }
+	private WmtsSoapContainer createSoapContainer(String soapURIstr) throws XPathExpressionException {
+		WmtsSoapContainer soap = new WmtsSoapContainer(GET_FEATURE_INFO, soapURIstr);
 
-    private String findLayerName()
-                            throws XPathExpressionException {
-        String layerName = this.reqEntity.getKvpValue( LAYER_PARAM );
-        if ( layerName == null ) {
-            NodeList layers = getNodeElements( wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier" );
-            if ( layers.getLength() > 0 ) {
-                layerName = ( layers.item( 0 ) ).getTextContent().trim();
-            }
-        }
-        return layerName;
-    }
+		soap.addParameter(serviceOWS, LAYER_PARAM, findLayerName());
+		addParamFromRequest(soap, STYLE_PARAM);
+		addParamFromRequest(soap, FORMAT_PARAM);
+		addParamFromRequest(soap, TILE_MATRIX_SET_PARAM);
+		addParamFromRequest(soap, TILE_MATRIX_PARAM);
+		addParamFromRequest(soap, TILE_ROW_PARAM);
+		addParamFromRequest(soap, I_PARAM);
+		addParamFromRequest(soap, J_PARAM);
+		addParamFromRequest(soap, INFO_FORMAT_PARAM);
+		return soap;
+	}
 
-    private void addParamFromRequest( WmtsSoapContainer soap, String paramName ) {
-        String style = this.reqEntity.getKvpValue( paramName );
-        soap.addParameter( serviceOWS, paramName, style );
-    }
+	private String findLayerName() throws XPathExpressionException {
+		String layerName = this.reqEntity.getKvpValue(LAYER_PARAM);
+		if (layerName == null) {
+			NodeList layers = getNodeElements(wmtsCapabilities, "//wmts:Contents/wmts:Layer/ows:Identifier");
+			if (layers.getLength() > 0) {
+				layerName = (layers.item(0)).getTextContent().trim();
+			}
+		}
+		return layerName;
+	}
+
+	private void addParamFromRequest(WmtsSoapContainer soap, String paramName) {
+		String style = this.reqEntity.getKvpValue(paramName);
+		soap.addParameter(serviceOWS, paramName, style);
+	}
 
 }

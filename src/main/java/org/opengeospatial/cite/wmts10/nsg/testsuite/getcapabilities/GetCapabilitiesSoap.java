@@ -19,50 +19,52 @@ import org.w3c.dom.Document;
 import jakarta.xml.soap.SOAPMessage;
 
 /**
- *
  * @author Jim Beatty (Jun/Jul-2017 for WMTS; based on original work of:
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  *
  */
 public class GetCapabilitiesSoap extends AbstractBaseGetCapabilitiesFixture {
-    /**
-     * --- NSG Requirement 3: An NSG WMTS server shall generate a ServiceMetadata document in response to a SOAP encoded
-     * GetCapabilities request. ---
-     */
-    private URI soapURI;
 
-    GetCapabilitiesSoap() {
-    }
+	/**
+	 * --- NSG Requirement 3: An NSG WMTS server shall generate a ServiceMetadata document
+	 * in response to a SOAP encoded GetCapabilities request. ---
+	 */
+	private URI soapURI;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 3", dependsOnMethods = "verifyGetCapabilitiesSupported")
-    public void wmtsCapabilitiesSoapSupported() {
-        soapURI = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES,
-                                                                  ProtocolBinding.POST );
-        if ( this.soapURI == null )
-            throw new SkipException(
-                                     "GetCapabilities (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP." );
-    }
+	GetCapabilitiesSoap() {
+	}
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 3", dependsOnMethods = "wmtsCapabilitiesSoapSupported")
-    public void wmtsCapabilitiesSoapReponseTest() {
-        assertTrue( soapURI != null, "There is no SOAP URL to test against" );
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 3",
+			dependsOnMethods = "verifyGetCapabilitiesSupported")
+	public void wmtsCapabilitiesSoapSupported() {
+		soapURI = ServiceMetadataUtils.getOperationEndpoint_SOAP(wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES,
+				ProtocolBinding.POST);
+		if (this.soapURI == null)
+			throw new SkipException(
+					"GetCapabilities (POST) endpoint not found in ServiceMetadata capabilities document or WMTS does not support SOAP.");
+	}
 
-        String soapURIstr = soapURI.toString();
-        assertUrl( soapURIstr );
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 3",
+			dependsOnMethods = "wmtsCapabilitiesSoapSupported")
+	public void wmtsCapabilitiesSoapReponseTest() {
+		assertTrue(soapURI != null, "There is no SOAP URL to test against");
 
-        WmtsSoapContainer soap = new WmtsSoapContainer( WMTS_Constants.GET_CAPABILITIES, soapURIstr );
+		String soapURIstr = soapURI.toString();
+		assertUrl(soapURIstr);
 
-        soap.addParameterWithChild( WmtsNamespaces.serviceOWS, WMTS_Constants.ACCEPT_VERSIONS_PARAM,
-                                    WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION );
-        soap.addParameterWithChild( WmtsNamespaces.serviceOWS, WMTS_Constants.ACCEPT_FORMAT_PARAM,
-                                    WMTS_Constants.OUTPUT_PARAM, WMTS_Constants.SOAP_XML );
+		WmtsSoapContainer soap = new WmtsSoapContainer(WMTS_Constants.GET_CAPABILITIES, soapURIstr);
 
-        SOAPMessage soapResponse = soap.getSoapResponse( true );
-        assertTrue( soapResponse != null, "SOAP reposnse came back null" );
+		soap.addParameterWithChild(WmtsNamespaces.serviceOWS, WMTS_Constants.ACCEPT_VERSIONS_PARAM,
+				WMTS_Constants.VERSION_PARAM, WMTS_Constants.VERSION);
+		soap.addParameterWithChild(WmtsNamespaces.serviceOWS, WMTS_Constants.ACCEPT_FORMAT_PARAM,
+				WMTS_Constants.OUTPUT_PARAM, WMTS_Constants.SOAP_XML);
 
-        Document soapDocument = soap.getResponseDocument();
-        assertXPath( "//wmts:Capabilities/@version = '1.0.0'", soapDocument, NS_BINDINGS );
+		SOAPMessage soapResponse = soap.getSoapResponse(true);
+		assertTrue(soapResponse != null, "SOAP reposnse came back null");
 
-    }
+		Document soapDocument = soap.getResponseDocument();
+		assertXPath("//wmts:Capabilities/@version = '1.0.0'", soapDocument, NS_BINDINGS);
+
+	}
 
 }

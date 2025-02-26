@@ -18,74 +18,77 @@ import de.latlon.ets.core.error.ErrorMessageKey;
 import jakarta.ws.rs.core.Response;
 
 /**
- *
  * @author Jim Beatty (Jun/Jul-2017 for WMTS; based on original work of:
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  *
  */
 public class GetTileCachingInfo extends AbstractBaseGetTileFixture {
-    /**
-     * --- NSG Requirement 19: : An NSG WMTS server shall provide caching information (expiration date) for the data.
-     * ---
-     */
 
-    private URI getTileURI = null;
+	/**
+	 * --- NSG Requirement 19: : An NSG WMTS server shall provide caching information
+	 * (expiration date) for the data. ---
+	 */
 
-    private Response response = null;
+	private URI getTileURI = null;
 
-    private List<Object> cacheControls = null;
+	private Response response = null;
 
-    private List<Object> expires = null;
+	private List<Object> cacheControls = null;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19", dependsOnMethods = "verifyGetTileSupported")
-    public void wmtsGetTileKVPRequestsExists() {
-        getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE,
-                                                                    ProtocolBinding.GET );
-        assertTrue( getTileURI != null,
-                    "GetTile (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document." );
-    }
+	private List<Object> expires = null;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19", dependsOnMethods = "wmtsGetTileKVPRequestsExists")
-    public void wmtsGetTileCachingInformationExists() {
-        if ( getTileURI == null ) {
-            getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP( this.wmtsCapabilities, WMTS_Constants.GET_TILE,
-                                                                        ProtocolBinding.GET );
-        }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19",
+			dependsOnMethods = "verifyGetTileSupported")
+	public void wmtsGetTileKVPRequestsExists() {
+		getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP(this.wmtsCapabilities, WMTS_Constants.GET_TILE,
+				ProtocolBinding.GET);
+		assertTrue(getTileURI != null,
+				"GetTile (GET) endpoint not found or KVP is not supported in ServiceMetadata capabilities document.");
+	}
 
-        this.reqEntity.removeKvp( WMTS_Constants.FORMAT_PARAM );
-        String requestFormat = WMTS_Constants.IMAGE_PNG;
-        this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19",
+			dependsOnMethods = "wmtsGetTileKVPRequestsExists")
+	public void wmtsGetTileCachingInformationExists() {
+		if (getTileURI == null) {
+			getTileURI = ServiceMetadataUtils.getOperationEndpoint_KVP(this.wmtsCapabilities, WMTS_Constants.GET_TILE,
+					ProtocolBinding.GET);
+		}
 
-        response = wmtsClient.submitRequest( this.reqEntity, getTileURI );
+		this.reqEntity.removeKvp(WMTS_Constants.FORMAT_PARAM);
+		String requestFormat = WMTS_Constants.IMAGE_PNG;
+		this.reqEntity.addKvp(WMTS_Constants.FORMAT_PARAM, requestFormat);
 
-        assertTrue( response.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+		response = wmtsClient.submitRequest(this.reqEntity, getTileURI);
 
-        storeResponseImage( response, "Requirement19", "simple", requestFormat );
-        assertStatusCode( response.getStatus(), 200 );
-        assertContentType( response.getHeaders(), requestFormat );
+		assertTrue(response.hasEntity(), ErrorMessage.get(ErrorMessageKey.MISSING_XML_ENTITY));
 
-        cacheControls = response.getHeaders().get( "Cache-control" );
-        expires = response.getHeaders().get( "Expires" );
+		storeResponseImage(response, "Requirement19", "simple", requestFormat);
+		assertStatusCode(response.getStatus(), 200);
+		assertContentType(response.getHeaders(), requestFormat);
 
-        boolean anyCacheControls = ( ( cacheControls != null ) && ( cacheControls.size() > 0 ) );
-        boolean anyExpires = ( ( expires != null ) && ( expires.size() > 0 ) );
-        assertTrue( anyCacheControls || anyExpires, "WMTS does not provide appropriate caching information" );
-    }
+		cacheControls = response.getHeaders().get("Cache-control");
+		expires = response.getHeaders().get("Expires");
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19", dependsOnMethods = "wmtsGetTileCachingInformationExists")
-    public void wmtsGetTileExpirationExists() {
-        boolean hasExpiration = false;
-        if ( ( expires != null ) && ( expires.size() > 0 ) ) {
-            hasExpiration = true;
-        }
+		boolean anyCacheControls = ((cacheControls != null) && (cacheControls.size() > 0));
+		boolean anyExpires = ((expires != null) && (expires.size() > 0));
+		assertTrue(anyCacheControls || anyExpires, "WMTS does not provide appropriate caching information");
+	}
 
-        if ( ( cacheControls != null ) && ( cacheControls.size() > 0 ) ) {
-            String cacheControl = (String)cacheControls.get( 0 );
-            hasExpiration |= ( cacheControl.contains( "max-age" ) || cacheControl.contains( "maxage" ) );
-        }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19",
+			dependsOnMethods = "wmtsGetTileCachingInformationExists")
+	public void wmtsGetTileExpirationExists() {
+		boolean hasExpiration = false;
+		if ((expires != null) && (expires.size() > 0)) {
+			hasExpiration = true;
+		}
 
-        assertTrue( hasExpiration,
-                    "WMTS has cache-control or expiration headers, but no expiration time or date is found." );
-    }
+		if ((cacheControls != null) && (cacheControls.size() > 0)) {
+			String cacheControl = (String) cacheControls.get(0);
+			hasExpiration |= (cacheControl.contains("max-age") || cacheControl.contains("maxage"));
+		}
+
+		assertTrue(hasExpiration,
+				"WMTS has cache-control or expiration headers, but no expiration time or date is found.");
+	}
 
 }
