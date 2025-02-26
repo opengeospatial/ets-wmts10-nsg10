@@ -12,10 +12,9 @@ import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBase
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -72,8 +71,8 @@ public class GetCapabilitiesKvpVersionTest extends AbstractBaseGetCapabilitiesFi
         this.reqEntity.removeKvp( WMTS_Constants.ACCEPT_VERSIONS_PARAM );
         this.reqEntity.addKvp( WMTS_Constants.ACCEPT_VERSIONS_PARAM, version );
 
-        ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getCapabilitiesURI );
-        this.rspEntity = rsp.getEntity( Document.class );
+        Response rsp = wmtsClient.submitRequest( this.reqEntity, getCapabilitiesURI );
+        this.rspEntity = rsp.readEntity( Document.class );
         assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
 
         result = ( rsp.getStatus() == 200 );

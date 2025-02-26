@@ -6,8 +6,6 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URI;
 
-import javax.xml.soap.SOAPMessage;
-
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
@@ -17,6 +15,8 @@ import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBase
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
+
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  *

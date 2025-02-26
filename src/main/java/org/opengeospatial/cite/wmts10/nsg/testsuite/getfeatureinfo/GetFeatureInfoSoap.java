@@ -20,7 +20,6 @@ import static org.testng.Assert.assertTrue;
 import java.net.URI;
 import java.util.logging.Level;
 
-import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
@@ -31,6 +30,7 @@ import org.testng.annotations.Test;
 import org.w3c.dom.NodeList;
 
 import de.latlon.ets.core.util.TestSuiteLogger;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  *

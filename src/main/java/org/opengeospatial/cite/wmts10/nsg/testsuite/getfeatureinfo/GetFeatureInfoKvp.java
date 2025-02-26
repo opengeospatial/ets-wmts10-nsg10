@@ -20,11 +20,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.assertion.ETSAssert;
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -88,8 +87,9 @@ public class GetFeatureInfoKvp extends AbstractBaseGetFeatureInfoFixture {
             // requestFormat = imageFormats.item(i).getTextContent().trim();
             // this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
 
-            ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getFeatureInfoURI );
-            this.rspEntity = rsp.getEntity( Document.class );
+            Response rsp = wmtsClient.submitRequest( this.reqEntity, getFeatureInfoURI );
+            assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+            this.rspEntity = rsp.readEntity( Document.class );
 
             // storeResponseImage( rsp, "Requirement5", "simple", requestFormat );
             /*--
@@ -97,7 +97,6 @@ public class GetFeatureInfoKvp extends AbstractBaseGetFeatureInfoFixture {
              WmtsAssertion.assertStatusCode(  sa, rsp.getStatus(),  200 );
              WmtsAssertion.assertContentType( sa, rsp.getHeaders(), requestFormat );
              --*/
-            assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
             ETSAssert.assertStatusCode( rsp.getStatus(), 200 );
             ETSAssert.assertContentType( rsp.getHeaders(), infoFormat );
             // }

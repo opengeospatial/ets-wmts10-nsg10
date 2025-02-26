@@ -13,14 +13,14 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.logging.Level;
 
-import org.apache.tika.io.FilenameUtils;
-
 import javax.imageio.ImageIO;
-import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.tika.io.FilenameUtils;
 import org.joda.time.DateTime;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
@@ -32,11 +32,9 @@ import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import sun.misc.BASE64Decoder;
-
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.util.TestSuiteLogger;
+import jakarta.ws.rs.core.Response;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a> (original)
@@ -102,7 +100,7 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
      * @param requestFormat
      *            the mime type of the image, never <code>null</code>
      */
-    protected void storeResponseImage( ClientResponse rsp, String testGroup, String testName, String requestFormat ) {
+    protected void storeResponseImage( Response rsp, String testGroup, String testName, String requestFormat ) {
         if ( imageDirectory == null ) {
             TestSuiteLogger.log( Level.WARNING,
                                  "Directory to store GetTile responses is not set. GetTile response is not written!" );
@@ -121,10 +119,10 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
         writeIntoFile( soapResponse, testGroup, testName, requestFormat );
     }
 
-    private void writeIntoFile( ClientResponse rsp, String testGroup, String testName, String requestFormat ) {
+    private void writeIntoFile( Response rsp, String testGroup, String testName, String requestFormat ) {
         try {
             Path testClassDirectory = createDirectory( imageDirectory, testGroup );
-            InputStream imageStream = rsp.getEntityInputStream();
+            InputStream imageStream = rsp.readEntity(InputStream.class);
 
             String fileExtension = detectFileExtension( requestFormat );
             if ( ( fileExtension != null ) && ( !fileExtension.startsWith( "." ) ) ) {
@@ -173,8 +171,8 @@ public abstract class AbstractBaseGetTileFixture extends AbstractBaseGetFixture 
             BufferedImage bufferedImage = null;
             byte[] imageByte;
 
-            BASE64Decoder decoder = new BASE64Decoder();
-            imageByte = decoder.decodeBuffer( imageString );
+            Decoder decoder = Base64.getDecoder();
+            imageByte = decoder.decode( imageString );
             ByteArrayInputStream bis = new ByteArrayInputStream( imageByte );
             bufferedImage = ImageIO.read( bis );
             bis.close();

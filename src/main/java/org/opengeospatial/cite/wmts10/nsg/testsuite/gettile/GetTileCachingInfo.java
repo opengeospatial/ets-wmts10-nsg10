@@ -13,10 +13,9 @@ import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
 import org.opengeospatial.cite.wmts10.ets.testsuite.gettile.AbstractBaseGetTileFixture;
 import org.testng.annotations.Test;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -32,11 +31,11 @@ public class GetTileCachingInfo extends AbstractBaseGetTileFixture {
 
     private URI getTileURI = null;
 
-    private ClientResponse response = null;
+    private Response response = null;
 
-    private List<String> cacheControls = null;
+    private List<Object> cacheControls = null;
 
-    private List<String> expires = null;
+    private List<Object> expires = null;
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 19", dependsOnMethods = "verifyGetTileSupported")
     public void wmtsGetTileKVPRequestsExists() {
@@ -59,9 +58,9 @@ public class GetTileCachingInfo extends AbstractBaseGetTileFixture {
 
         response = wmtsClient.submitRequest( this.reqEntity, getTileURI );
 
-        storeResponseImage( response, "Requirement19", "simple", requestFormat );
-
         assertTrue( response.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+
+        storeResponseImage( response, "Requirement19", "simple", requestFormat );
         assertStatusCode( response.getStatus(), 200 );
         assertContentType( response.getHeaders(), requestFormat );
 
@@ -81,7 +80,7 @@ public class GetTileCachingInfo extends AbstractBaseGetTileFixture {
         }
 
         if ( ( cacheControls != null ) && ( cacheControls.size() > 0 ) ) {
-            String cacheControl = cacheControls.get( 0 );
+            String cacheControl = (String)cacheControls.get( 0 );
             hasExpiration |= ( cacheControl.contains( "max-age" ) || cacheControl.contains( "maxage" ) );
         }
 

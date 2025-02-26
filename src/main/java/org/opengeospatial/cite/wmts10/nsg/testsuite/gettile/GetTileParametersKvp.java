@@ -21,10 +21,9 @@ import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -80,11 +79,11 @@ public class GetTileParametersKvp extends AbstractBaseGetTileFixture {
                 requestFormat = imageFormats.item( i ).getTextContent().trim();
                 this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
 
-                ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getTileURI );
-
-                storeResponseImage( rsp, "Requirement5", "simple", requestFormat );
+                Response rsp = wmtsClient.submitRequest( this.reqEntity, getTileURI );
 
                 sa.assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+
+                storeResponseImage( rsp, "Requirement5", "simple", requestFormat );
                 WmtsAssertion.assertStatusCode( sa, rsp.getStatus(), 200 );
                 WmtsAssertion.assertContentType( sa, rsp.getHeaders(), requestFormat );
             }

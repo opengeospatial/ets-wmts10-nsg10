@@ -15,10 +15,9 @@ import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
+import jakarta.ws.rs.core.Response;
 
 //import org.testng.asserts.SoftAssert;
 
@@ -89,11 +88,11 @@ public class GetTileOfferings extends AbstractBaseGetTileFixture {
         this.reqEntity.removeKvp( WMTS_Constants.FORMAT_PARAM );
         this.reqEntity.addKvp( WMTS_Constants.FORMAT_PARAM, requestFormat );
 
-        ClientResponse rsp = wmtsClient.submitRequest( this.reqEntity, getTileURI );
-
-        storeResponseImage( rsp, "Requirement14", "simple", requestFormat );
+        Response rsp = wmtsClient.submitRequest( this.reqEntity, getTileURI );
 
         assertTrue( rsp.hasEntity(), ErrorMessage.get( ErrorMessageKey.MISSING_XML_ENTITY ) );
+
+        storeResponseImage( rsp, "Requirement14", "simple", requestFormat );
         assertStatusCode( rsp.getStatus(), 200 );
         assertContentType( rsp.getHeaders(), requestFormat );
     }

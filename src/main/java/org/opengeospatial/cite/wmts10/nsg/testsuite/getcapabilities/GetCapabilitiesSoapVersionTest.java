@@ -6,7 +6,6 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URI;
 
-import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
@@ -17,6 +16,8 @@ import org.opengeospatial.cite.wmts10.ets.core.util.WmtsSoapContainer;
 import org.opengeospatial.cite.wmts10.ets.testsuite.getcapabilities.AbstractBaseGetCapabilitiesFixture;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
+
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  *
@@ -40,7 +41,7 @@ public class GetCapabilitiesSoapVersionTest extends AbstractBaseGetCapabilitiesF
         if ( getCapabilitiesURI == null ) {
             throw new SkipException(
                     "GetCapabilities (POST) endpoint not found or SOAP is not supported in ServiceMetadata capabilities document.");
-        }
+        }       
     }
 
     @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 16", dependsOnMethods = "wmtsGetCapabilitiesURLExists")

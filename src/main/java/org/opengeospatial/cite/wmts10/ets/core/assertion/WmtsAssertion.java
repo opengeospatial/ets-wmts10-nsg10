@@ -3,15 +3,13 @@ package org.opengeospatial.cite.wmts10.ets.core.assertion;
 import static de.latlon.ets.core.assertion.ETSAssert.assertQualifiedName;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.namespace.QName;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WmtsNamespaces;
 import org.testng.Assert;
@@ -19,15 +17,15 @@ import org.testng.asserts.SoftAssert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-
 import de.latlon.ets.core.error.ErrorMessage;
 import de.latlon.ets.core.error.ErrorMessageKey;
 import de.latlon.ets.core.util.NamespaceBindings;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation.Builder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 
 /**
  * Provides WMTS 1.0.0 specific test assertion methods
@@ -108,9 +106,9 @@ public final class WmtsAssertion {
      * @param expectedContentType
      *            The expected content type, never <code>null</code>.
      */
-    public static void assertContentType( SoftAssert sa, MultivaluedMap<String, String> headers,
+    public static void assertContentType( SoftAssert sa, MultivaluedMap<String, Object> headers,
                                           String expectedContentType ) {
-        List<String> contentTypes = headers.get( "Content-Type" );
+        List<Object> contentTypes = headers.get( "Content-Type" );
         boolean containsContentType = containsContentType( contentTypes, expectedContentType );
         String msg = String.format( "Expected content type %s, but received %s", expectedContentType,
                                     asString( contentTypes ) );
@@ -129,7 +127,7 @@ public final class WmtsAssertion {
      * @param expectedContentType
      *            The expected content type, never <code>null</code>.
      */
-    public static void assertContentType( MultivaluedMap<String, String> headers, String expectedContentType ) {
+    public static void assertContentType( MultivaluedMap<String, Object> headers, String expectedContentType ) {
         assertContentType( null, headers, expectedContentType );
     }
 
@@ -184,12 +182,13 @@ public final class WmtsAssertion {
      */
     public static void assertUriIsResolvable( SoftAssert sa, String url ) {
         try {
-            ClientConfig config = new DefaultClientConfig();
-            Client client = Client.create( config );
-            WebResource resource = client.resource( new URI( url ) );
-            ClientResponse response = resource.get( ClientResponse.class );
+            ClientConfig config = new ClientConfig();
+            Client client  = ClientBuilder.newClient(config);
+            WebTarget target = client.target(url);
+            Builder reqBuilder = target.request();
+            Response response = reqBuilder.buildGet().invoke();            
             assertStatusCode( sa, response.getStatus(), 200 );
-        } catch ( NullPointerException | URISyntaxException e ) {
+        } catch ( NullPointerException e ) {
             String errorMsg = String.format( "Invalid URI %s: %s", url, e.getMessage() );
             throw new AssertionError( errorMsg );
         }
@@ -236,18 +235,21 @@ public final class WmtsAssertion {
         assertXPath( null, expr, context, nsBindings );
     }
 
-    private static boolean containsContentType( List<String> contentTypes, String expectedContentType ) {
+    private static boolean containsContentType( List<Object> contentTypes, String expectedContentType ) {
         if ( contentTypes != null )
-            for ( String contentType : contentTypes ) {
-                if ( contentType.contains( expectedContentType ) )
+            for ( Object contentType : contentTypes ) {
+                if(!(contentType instanceof String)) {
+                    return false;
+                }
+                if ( ((String)contentType).contains( expectedContentType ) )
                     return true;
             }
         return false;
     }
 
-    private static String asString( List<String> values ) {
+    private static String asString( List<Object> values ) {
         StringBuilder sb = new StringBuilder();
-        for ( String value : values ) {
+        for ( Object value : values ) {
             if ( sb.length() > 0 )
                 sb.append( ", " );
             sb.append( value );

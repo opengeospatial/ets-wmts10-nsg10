@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
@@ -21,14 +22,16 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 import org.testng.util.Strings;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-
 import de.latlon.ets.core.assertion.ETSAssert;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation.Builder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -146,10 +149,14 @@ public class GetTileParametersRest extends AbstractBaseGetTileFixture {
             assertUrl( getTileURI.toString() );
 
             // --- Example of valid URL
-            {
-                Client client = Client.create();
-                WebResource webRes = client.resource( getTileURI );
-                ClientResponse rsp = webRes.get( ClientResponse.class );
+            {             
+
+                ClientConfig config = new ClientConfig();
+                Client client = ClientBuilder.newClient(config);
+                WebTarget target = client.target(getTileURI);
+                Builder reqBuilder = target.request();
+                Response rsp = reqBuilder.buildGet().invoke();
+                this.rspEntity = rsp.readEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing REST GetTile request" );
 
@@ -172,9 +179,13 @@ public class GetTileParametersRest extends AbstractBaseGetTileFixture {
                     invalidURI = null;
                 }
 
-                Client client = Client.create();
-                WebResource webRes = client.resource( invalidURI );
-                ClientResponse rsp = webRes.get( ClientResponse.class );
+
+                ClientConfig config = new ClientConfig();
+                Client client = ClientBuilder.newClient(config);
+                WebTarget target = client.target(invalidURI);
+                Builder reqBuilder = target.request();
+                Response rsp = reqBuilder.buildGet().invoke();
+                this.rspEntity = rsp.readEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing invalid REST GetTile request" );
                 Assert.assertFalse( rsp.getStatus() == 200,

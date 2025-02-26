@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.opengeospatial.cite.wmts10.ets.core.domain.ProtocolBinding;
 import org.opengeospatial.cite.wmts10.ets.core.domain.WMTS_Constants;
 import org.opengeospatial.cite.wmts10.ets.core.util.ServiceMetadataUtils;
@@ -25,11 +26,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-
 import de.latlon.ets.core.assertion.ETSAssert;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation.Builder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -129,10 +131,12 @@ public class GetFeatureInfoRest extends AbstractBaseGetFeatureInfoFixture {
 
             // --- Example of valid URL
             {
-                Client client = Client.create();
-                WebResource webRes = client.resource( getFeatureInfoURI );
-                ClientResponse rsp = webRes.get( ClientResponse.class );
-                this.rspEntity = rsp.getEntity(Document.class);
+                ClientConfig config = new ClientConfig();
+                Client client = ClientBuilder.newClient(config);
+                WebTarget target = client.target(getFeatureInfoURI);
+                Builder reqBuilder = target.request();
+                Response rsp = reqBuilder.buildGet().invoke();
+                this.rspEntity = rsp.readEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing REST GetFeatureInfo request" );
 
@@ -155,10 +159,12 @@ public class GetFeatureInfoRest extends AbstractBaseGetFeatureInfoFixture {
                     invalidURI = null;
                 }
 
-                Client client = Client.create();
-                WebResource webRes = client.resource( invalidURI );
-                ClientResponse rsp = webRes.get( ClientResponse.class );
-                this.rspEntity = rsp.getEntity(Document.class);
+                ClientConfig config = new ClientConfig();
+                Client client = ClientBuilder.newClient(config);
+                WebTarget target = client.target(invalidURI);
+                Builder reqBuilder = target.request();
+                Response rsp = reqBuilder.buildGet().invoke();
+                this.rspEntity = rsp.readEntity(Document.class);
 
                 Assert.assertTrue( rsp != null, "Error processing invalid REST GetFeatureInfo request" );
                 Assert.assertFalse( rsp.getStatus() == 200,

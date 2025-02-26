@@ -1,14 +1,11 @@
 package org.opengeospatial.cite.wmts10.nsg.testsuite.gettile;
 
 import static de.latlon.ets.core.assertion.ETSAssert.assertUrl;
-import static org.testng.Assert.assertTrue;
 
 import java.net.URI;
 import java.util.Iterator;
 import java.util.logging.Level;
 
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -30,6 +27,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.latlon.ets.core.util.TestSuiteLogger;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  *
