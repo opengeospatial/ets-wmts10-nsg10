@@ -61,8 +61,8 @@ public class GetCapabilitiesKvpFormatTest extends AbstractBaseGetCapabilitiesFix
 		this.reqEntity.addKvp(WMTS_Constants.FORMAT_PARAM, requestFormat);
 
 		Response rsp = wmtsClient.submitRequest(this.reqEntity, getCapabilitiesURI);
+                assertTrue(rsp.hasEntity(), ErrorMessage.get(ErrorMessageKey.MISSING_XML_ENTITY));
 		this.rspEntity = rsp.readEntity(Document.class);
-		assertTrue(rsp.hasEntity(), ErrorMessage.get(ErrorMessageKey.MISSING_XML_ENTITY));
 		assertStatusCode(rsp.getStatus(), 200);
 		assertContentType(rsp.getHeaders(), requestFormat);
 
