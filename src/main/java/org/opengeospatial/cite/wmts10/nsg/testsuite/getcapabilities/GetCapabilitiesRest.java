@@ -23,64 +23,65 @@ import org.w3c.dom.Document;
 import de.latlon.ets.core.util.URIUtils;
 
 /**
- *
  * @author Jim Beatty (Jun/Jul-2017 for WMTS; based on original work of:
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz</a>
  *
  */
 public class GetCapabilitiesRest extends AbstractBaseGetCapabilitiesFixture {
-    /**
-     * --- NSG Requirement 4: An NSG WMTS server shall generate a ServiceMetadata document in response to a
-     * GetResourceRepresentation request in REST architecture. ---
-     */
 
-    private URI restURI;
+	/**
+	 * --- NSG Requirement 4: An NSG WMTS server shall generate a ServiceMetadata document
+	 * in response to a GetResourceRepresentation request in REST architecture. ---
+	 */
 
-    private boolean _debug = false;
+	private URI restURI;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 4", dependsOnMethods = "verifyGetCapabilitiesSupported")
-    public void wmtsCapabilitiesRESTCapable()
-                            throws XPathExpressionException, XPathFactoryConfigurationException, URISyntaxException {
-        restURI = ServiceMetadataUtils.getOperationEndpoint_REST( wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES,
-                                                                  ProtocolBinding.GET );
-        if ( restURI == null ) {
-            String restURIstr = (String) createXPath().evaluate( "//wmts:ServiceMetadataURL/@xlink:href",
-                                                                 wmtsCapabilities, XPathConstants.STRING );
-            if ( !Strings.isNullOrEmpty( restURIstr ) ) {
-                restURI = new URI( restURIstr );
-            }
-        }
-        assertTrue( this.restURI != null, "This WMTS does not support REST" );
-    }
+	private boolean _debug = false;
 
-    @Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 4", dependsOnMethods = "wmtsCapabilitiesRESTCapable")
-    public void wmtsCapabilitiesRESTReponseTest() {
-        assertTrue( restURI != null, "There is no REST URL to test against" );
-        String restURIstr = restURI.toString();
-        assertUrl( restURIstr );
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 4",
+			dependsOnMethods = "verifyGetCapabilitiesSupported")
+	public void wmtsCapabilitiesRESTCapable()
+			throws XPathExpressionException, XPathFactoryConfigurationException, URISyntaxException {
+		restURI = ServiceMetadataUtils.getOperationEndpoint_REST(wmtsCapabilities, WMTS_Constants.GET_CAPABILITIES,
+				ProtocolBinding.GET);
+		if (restURI == null) {
+			String restURIstr = (String) createXPath().evaluate("//wmts:ServiceMetadataURL/@xlink:href",
+					wmtsCapabilities, XPathConstants.STRING);
+			if (!Strings.isNullOrEmpty(restURIstr)) {
+				restURI = new URI(restURIstr);
+			}
+		}
+		assertTrue(this.restURI != null, "This WMTS does not support REST");
+	}
 
-        try {
-            Document responseDoc = URIUtils.resolveURIAsDocument( restURI );
-            assertTrue( WMTS_Constants.WMTS_CAPABILITIES.equals( responseDoc.getDocumentElement().getLocalName() ),
-                        "Invalid REST request for WMTS ServeiceMetadata capabilities document: "
-                                                + responseDoc.getDocumentElement().getNodeName() );
-        } catch ( Exception e ) {
-            System.out.println( e.getMessage() );
-            if ( this._debug ) {
-                e.printStackTrace();
-            }
-            assertTrue( false,
-                        "Error found when retrieving REST  WMTS ServeiceMetadata capabilities document: "
-                                                + e.getMessage() );
-        }
-    }
+	@Test(description = "NSG Web Map Tile Service (WMTS) 1.0.0, Requirement 4",
+			dependsOnMethods = "wmtsCapabilitiesRESTCapable")
+	public void wmtsCapabilitiesRESTReponseTest() {
+		assertTrue(restURI != null, "There is no REST URL to test against");
+		String restURIstr = restURI.toString();
+		assertUrl(restURIstr);
 
-    private XPath createXPath()
-                            throws XPathFactoryConfigurationException {
-        XPathFactory factory = XPathFactory.newInstance( XPathConstants.DOM_OBJECT_MODEL );
-        XPath xpath = factory.newXPath();
-        xpath.setNamespaceContext( NS_BINDINGS );
-        return xpath;
-    }
+		try {
+			Document responseDoc = URIUtils.resolveURIAsDocument(restURI);
+			assertTrue(WMTS_Constants.WMTS_CAPABILITIES.equals(responseDoc.getDocumentElement().getLocalName()),
+					"Invalid REST request for WMTS ServeiceMetadata capabilities document: "
+							+ responseDoc.getDocumentElement().getNodeName());
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (this._debug) {
+				e.printStackTrace();
+			}
+			assertTrue(false,
+					"Error found when retrieving REST  WMTS ServeiceMetadata capabilities document: " + e.getMessage());
+		}
+	}
+
+	private XPath createXPath() throws XPathFactoryConfigurationException {
+		XPathFactory factory = XPathFactory.newInstance(XPathConstants.DOM_OBJECT_MODEL);
+		XPath xpath = factory.newXPath();
+		xpath.setNamespaceContext(NS_BINDINGS);
+		return xpath;
+	}
 
 }

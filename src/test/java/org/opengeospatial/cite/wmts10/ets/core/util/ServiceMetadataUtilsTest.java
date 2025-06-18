@@ -29,83 +29,72 @@ import org.xml.sax.SAXException;
  */
 public class ServiceMetadataUtilsTest {
 
-    @Test
-    public void testGetOperationBindings()
-                            throws Exception {
-        Set<ProtocolBinding> globalBindings = ServiceMetadataUtils.getOperationBindings( wmtsCapabilities(), "GetTile" );
+	@Test
+	public void testGetOperationBindings() throws Exception {
+		Set<ProtocolBinding> globalBindings = ServiceMetadataUtils.getOperationBindings(wmtsCapabilities(), "GetTile");
 
-        assertThat( globalBindings.size(), is( 1 ) );
-        assertThat( globalBindings, hasItems( ProtocolBinding.GET ) );
-    }
+		assertThat(globalBindings.size(), is(1));
+		assertThat(globalBindings, hasItems(ProtocolBinding.GET));
+	}
 
-    @Test
-    public void testGetOperationEndpoint()
-                            throws Exception {
-        URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_KVP( wmtsCapabilities(), "GetTile",
-                                                                         ProtocolBinding.GET );
+	@Test
+	public void testGetOperationEndpoint() throws Exception {
+		URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_KVP(wmtsCapabilities(), "GetTile",
+				ProtocolBinding.GET);
 
-        assertThat( endpointUri, is( new URI( "http://cite.deegree.org/deegree-webservices-3.4-RC3/services/wmts100" ) ) );
-    }
+		assertThat(endpointUri, is(new URI("http://cite.deegree.org/deegree-webservices-3.4-RC3/services/wmts100")));
+	}
 
-    @Test
-    public void testGetOperationEndpointUnsupportedProtocol()
-                            throws Exception {
-        URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_REST( wmtsCapabilities(), "GetTile",
-                                                                          ProtocolBinding.POST );
+	@Test
+	public void testGetOperationEndpointUnsupportedProtocol() throws Exception {
+		URI endpointUri = ServiceMetadataUtils.getOperationEndpoint_REST(wmtsCapabilities(), "GetTile",
+				ProtocolBinding.POST);
 
-        assertThat( endpointUri, is( nullValue() ) );
-    }
+		assertThat(endpointUri, is(nullValue()));
+	}
 
-    @Test
-    public void testGetOperationEndpoint_Soap()
-                            throws Exception {
-        URI soapEndpoint = ServiceMetadataUtils.getOperationEndpoint_SOAP( wmtsCapabilities(),
-                                                                             "GetFeatureInfo",
-                                                                             ProtocolBinding.POST );
+	@Test
+	public void testGetOperationEndpoint_Soap() throws Exception {
+		URI soapEndpoint = ServiceMetadataUtils.getOperationEndpoint_SOAP(wmtsCapabilities(), "GetFeatureInfo",
+				ProtocolBinding.POST);
 
-        assertThat( soapEndpoint, is( new URI( "http://ips.terrapixel.com/terrapixel/cubeserv.cgi" ) ) );
-    }
+		assertThat(soapEndpoint, is(new URI("http://ips.terrapixel.com/terrapixel/cubeserv.cgi")));
+	}
 
-    @Test
-    public void testParseLayerInfo()
-                            throws Exception {
-        List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo( wmtsCapabilities() );
+	@Test
+	public void testParseLayerInfo() throws Exception {
+		List<LayerInfo> layerInfos = ServiceMetadataUtils.parseLayerInfo(wmtsCapabilities());
 
-        assertThat( layerInfos.size(), is( 1 ) );
-    }
+		assertThat(layerInfos.size(), is(1));
+	}
 
-    @Test
-    public void testParseAllLayerNodes()
-                            throws Exception {
-        NodeList allLayerNodes = parseLayers( wmtsCapabilities() );
+	@Test
+	public void testParseAllLayerNodes() throws Exception {
+		NodeList allLayerNodes = parseLayers(wmtsCapabilities());
 
-        assertThat( allLayerNodes.getLength(), is( 1 ) );
-    }
+		assertThat(allLayerNodes.getLength(), is(1));
+	}
 
-    @Test(expected = Exception.class)
-    public void testParseAllLayerNodesWithNullShouldThrowException()
-                            throws Exception {
-        parseLayers( null );
-    }
+	@Test(expected = Exception.class)
+	public void testParseAllLayerNodesWithNullShouldThrowException() throws Exception {
+		parseLayers(null);
+	}
 
-    @Test(expected = Exception.class)
-    public void testParseRequestableLayerNodesWithNullShouldThrowException()
-                            throws Exception {
-        parseLayers( null );
-    }
+	@Test(expected = Exception.class)
+	public void testParseRequestableLayerNodesWithNullShouldThrowException() throws Exception {
+		parseLayers(null);
+	}
 
-    private Document wmtsCapabilities()
-                            throws SAXException, IOException, ParserConfigurationException {
-        return capabilities( "../NSGWMTSImplementation.xml" );
-    }
+	private Document wmtsCapabilities() throws SAXException, IOException, ParserConfigurationException {
+		return capabilities("../NSGWMTSImplementation.xml");
+	}
 
-    private Document capabilities( String resource )
-                            throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware( true );
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream( resource );
-        return builder.parse( new InputSource( wmtsCapabilities ) );
-    }
+	private Document capabilities(String resource) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		InputStream wmtsCapabilities = ServiceMetadataUtilsTest.class.getResourceAsStream(resource);
+		return builder.parse(new InputSource(wmtsCapabilities));
+	}
 
 }

@@ -16,23 +16,26 @@ import org.w3c.dom.Node;
  * @author Jim Beatty (modified/fixed May/Jun/Jul-2017 for WMS and/or WMTS)
  */
 public abstract class AbstractBaseGetCapabilitiesFixture extends AbstractBaseGetFixture {
-    /**
-     * Builds a (WmtsKvpRequest} representing a GetCapabilities request for a complete service metadata document.
-     */
-    @BeforeClass
-    public void buildGetCapabilitiesRequest() {
-        this.reqEntity = WmtsKvpRequestBuilder.buildGetCapabilitiesRequest( wmtsCapabilities, layerInfo );
-    }
 
-    @Test
-    public void verifyGetCapabilitiesSupported() {
-        Node getCapabilitiesEntry = null;
-        try {
-            getCapabilitiesEntry = (Node) ServiceMetadataUtils.getNode( wmtsCapabilities,
-                                                                        "//ows:OperationsMetadata/ows:Operation[@name = 'GetCapabilities']" );
-        } catch ( XPathExpressionException e ) {
-        }
-        assertNotNull( getCapabilitiesEntry, "GetCapabilities is not supported by this WMTS" );
-    }
+	/**
+	 * Builds a (WmtsKvpRequest} representing a GetCapabilities request for a complete
+	 * service metadata document.
+	 */
+	@BeforeClass
+	public void buildGetCapabilitiesRequest() {
+		this.reqEntity = WmtsKvpRequestBuilder.buildGetCapabilitiesRequest(wmtsCapabilities, layerInfo);
+	}
+
+	@Test
+	public void verifyGetCapabilitiesSupported() {
+		Node getCapabilitiesEntry = null;
+		try {
+			getCapabilitiesEntry = (Node) ServiceMetadataUtils.getNode(wmtsCapabilities,
+					"//ows:OperationsMetadata/ows:Operation[@name = 'GetCapabilities']");
+		}
+		catch (XPathExpressionException e) {
+		}
+		assertNotNull(getCapabilitiesEntry, "GetCapabilities is not supported by this WMTS");
+	}
 
 }
