@@ -1,5 +1,11 @@
 # Release Notes
 
+## 0.5 (2025-06-18)
+
+Attention: Java 17 and Tomcat 10.1 are required.
+
+* [#60](https://github.com/opengeospatial/ets-wmts10-nsg10/issues/60): Migrate test suite to TEAM Engine 6 (Java 17)
+
 ## 0.4 (2022-08-19)
 
 * [#58](https://github.com/opengeospatial/ets-wmts10-nsg10/pull/58): Update groupId of artifact ets-dgiwg-core
